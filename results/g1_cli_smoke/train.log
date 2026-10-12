@@ -1,0 +1,5 @@
+Model=stfednet | Client=lv_39 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.336930 | ValMAE=0.6628 | ValRMSE=0.8455 | ValWAPE=57.0647 | ValMAPE=78.5438 | Best=57.0647 | Time=0.31s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_cli_smoke

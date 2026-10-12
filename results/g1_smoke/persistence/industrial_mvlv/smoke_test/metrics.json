@@ -1,0 +1,31 @@
+{
+  "model_name": "persistence",
+  "client_id": "industrial_mvlv",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\persistence\\industrial_mvlv\\best.pt",
+  "epoch": 1,
+  "best_validation_wape": 9.830320521720825,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 0.810100325735079,
+    "rmse_kw": 2.4445373018117187,
+    "wape_percent": 2.3709690590455623,
+    "mape_percent": 10.571426562549975,
+    "mape_valid_fraction": 0.8444444444444444,
+    "mape_valid_count": 152,
+    "effective_count": 180,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 180,
+    "mape_count": 152,
+    "absolute_error": 145.8180586323142,
+    "squared_error": 1075.6372715908053,
+    "absolute_true": 6150.14599519968,
+    "mape_sum": 16.068568375075962
+  }
+}

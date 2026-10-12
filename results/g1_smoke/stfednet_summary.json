@@ -1,0 +1,70 @@
+{
+  "model_name": "stfednet",
+  "seed": 42,
+  "client_count": 5,
+  "complete_five_clients": true,
+  "smoke": true,
+  "overall": {
+    "mae_kw": 4.2527176632011745,
+    "rmse_kw": 19.809522166348998,
+    "wape_percent": 41.77169863945584,
+    "mape_percent": 72.99443145447196,
+    "mape_valid_fraction": 0.8970588235294118,
+    "mape_valid_count": 610,
+    "effective_count": 680,
+    "mape_threshold_kw": 0.1
+  },
+  "client_equal_wape_percent": 36.04824482441629,
+  "clients": {
+    "lv_39": {
+      "mae_kw": 0.4238067391727652,
+      "rmse_kw": 0.617413526822443,
+      "wape_percent": 29.13655076371941,
+      "mape_percent": 49.89558884025843,
+      "mape_valid_fraction": 1.0,
+      "mape_valid_count": 112,
+      "effective_count": 112,
+      "mape_threshold_kw": 0.1
+    },
+    "lv_50": {
+      "mae_kw": 0.5939081344043925,
+      "rmse_kw": 0.9168293936817211,
+      "wape_percent": 31.415597569281733,
+      "mape_percent": 65.80185957436959,
+      "mape_valid_fraction": 0.9166666666666666,
+      "mape_valid_count": 77,
+      "effective_count": 84,
+      "mape_threshold_kw": 0.1
+    },
+    "lv_56": {
+      "mae_kw": 0.5019057081504301,
+      "rmse_kw": 0.6671859971823277,
+      "wape_percent": 26.64911040897833,
+      "mape_percent": 46.61377071929956,
+      "mape_valid_fraction": 1.0,
+      "mape_valid_count": 176,
+      "effective_count": 176,
+      "mape_threshold_kw": 0.1
+    },
+    "lv_80": {
+      "mae_kw": 0.46749340484529966,
+      "rmse_kw": 0.9562924080215911,
+      "wape_percent": 50.01141265126735,
+      "mape_percent": 64.73551903266993,
+      "mape_valid_fraction": 0.7265625,
+      "mape_valid_count": 93,
+      "effective_count": 128,
+      "mape_threshold_kw": 0.1
+    },
+    "industrial_mvlv": {
+      "mae_kw": 14.701771180248922,
+      "rmse_kw": 38.4805125497034,
+      "wape_percent": 43.02855272883463,
+      "mape_percent": 129.2574153503781,
+      "mape_valid_fraction": 0.8444444444444444,
+      "mape_valid_count": 152,
+      "effective_count": 180,
+      "mape_threshold_kw": 0.1
+    }
+  }
+}

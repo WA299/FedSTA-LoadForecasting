@@ -1,0 +1,31 @@
+{
+  "model_name": "gat_gru",
+  "client_id": "lv_80",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\gat_gru\\lv_80\\best.pt",
+  "epoch": 2,
+  "best_validation_wape": 111.96469678029162,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 0.5324384566993103,
+    "rmse_kw": 0.9328879598794859,
+    "wape_percent": 56.95909095916495,
+    "mape_percent": 95.39691561151318,
+    "mape_valid_fraction": 0.7265625,
+    "mape_valid_count": 93,
+    "effective_count": 128,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 128,
+    "mape_count": 93,
+    "absolute_error": 68.15212245751172,
+    "squared_error": 111.39583304807799,
+    "absolute_true": 119.65100093744695,
+    "mape_sum": 88.71913151870726
+  }
+}

@@ -1,0 +1,9 @@
+Model=gcn_gru | Client=industrial_mvlv | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.266432 | ValMAE=23.4704 | ValRMSE=59.2885 | ValWAPE=34.9705 | ValMAPE=40.2419 | Best=34.9705 | Time=0.04s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\gcn_gru\industrial_mvlv
+Model=gcn_gru | Client=industrial_mvlv | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.247920 | ValMAE=24.1162 | ValRMSE=61.2266 | ValWAPE=35.9327 | ValMAPE=40.4933 | Best=34.9705 | Time=0.03s
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_smoke\gcn_gru\industrial_mvlv

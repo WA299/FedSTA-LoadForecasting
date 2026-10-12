@@ -1,0 +1,31 @@
+{
+  "model_name": "gru_attention",
+  "client_id": "lv_39",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\gru_attention\\lv_39\\best.pt",
+  "epoch": 1,
+  "best_validation_wape": 68.58800839497098,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 0.4787938557565212,
+    "rmse_kw": 0.6747257384964831,
+    "wape_percent": 32.91689393811158,
+    "mape_percent": 55.60678072531003,
+    "mape_valid_fraction": 1.0,
+    "mape_valid_count": 112,
+    "effective_count": 112,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 112,
+    "mape_count": 112,
+    "absolute_error": 53.62491184473038,
+    "squared_error": 50.98854008523794,
+    "absolute_true": 162.90999978780746,
+    "mape_sum": 62.27959441234723
+  }
+}

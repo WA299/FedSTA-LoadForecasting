@@ -1,0 +1,31 @@
+{
+  "model_name": "gru",
+  "client_id": "industrial_mvlv",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\gru\\industrial_mvlv\\best.pt",
+  "epoch": 1,
+  "best_validation_wape": 32.85932950860692,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 17.153545351574817,
+    "rmse_kw": 44.899289017127025,
+    "wape_percent": 50.20430678708171,
+    "mape_percent": 164.650164665159,
+    "mape_valid_fraction": 0.8444444444444444,
+    "mape_valid_count": 152,
+    "effective_count": 180,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 180,
+    "mape_count": 152,
+    "absolute_error": 3087.6381632834673,
+    "squared_error": 362870.3077638306,
+    "absolute_true": 6150.14599519968,
+    "mape_sum": 250.2682502910417
+  }
+}

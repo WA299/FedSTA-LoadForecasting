@@ -1,0 +1,10 @@
+Model=gru | Client=lv_39 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.315264 | ValMAE=0.8009 | ValRMSE=0.9918 | ValWAPE=68.9571 | ValMAPE=98.6889 | Best=68.9571 | Time=0.33s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\gru\lv_39
+Model=gru | Client=lv_39 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.301541 | ValMAE=0.7975 | ValRMSE=0.9871 | ValWAPE=68.6639 | ValMAPE=98.3982 | Best=68.6639 | Time=0.01s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_smoke\gru\lv_39

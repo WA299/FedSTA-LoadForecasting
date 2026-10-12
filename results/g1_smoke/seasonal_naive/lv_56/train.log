@@ -1,0 +1,6 @@
+Model=seasonal_naive | Client=lv_56 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+[Baseline] Parameter-free forecast; one validation pass, no optimizer updates
+Epoch 01/1 | TrainLoss=0.156201 | ValMAE=0.7873 | ValRMSE=1.1169 | ValWAPE=52.4759 | ValMAPE=66.5995 | Best=52.4759 | Time=0.01s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\seasonal_naive\lv_56

@@ -1,0 +1,10 @@
+Model=gat_gru | Client=lv_50 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.315290 | ValMAE=1.1390 | ValRMSE=1.5681 | ValWAPE=79.9481 | ValMAPE=190.6730 | Best=79.9481 | Time=0.02s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\gat_gru\lv_50
+Model=gat_gru | Client=lv_50 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.275712 | ValMAE=1.1240 | ValRMSE=1.5508 | ValWAPE=78.8914 | ValMAPE=187.7494 | Best=78.8914 | Time=0.02s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_smoke\gat_gru\lv_50

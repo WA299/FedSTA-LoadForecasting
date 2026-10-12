@@ -11,4 +11,12 @@ results/*.pkl
 results/*.npy
 results/*.npz
 *.egg-info/
+.idea/
+.pytest_tmp/
+results/**/*.pt
+results/**/*.pth
+results/**/*.npz
+results/**/*.npy
+results/**/*.pkl
+results/**/*.tmp
 

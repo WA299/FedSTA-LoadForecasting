@@ -1,0 +1,2 @@
+[Smoke Test] MAE=0.3701 kW | RMSE=0.7827 kW | WAPE=39.592648924168564% | MAPE=43.112198446786884% | MAPE valid=72.66%
+[Results] E:\Dachuang_FedSTA\results\g1_smoke\seasonal_naive\lv_80\smoke_test

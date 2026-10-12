@@ -1,0 +1,6 @@
+Model=persistence | Client=industrial_mvlv | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+[Baseline] Parameter-free forecast; one validation pass, no optimizer updates
+Epoch 01/1 | TrainLoss=0.019656 | ValMAE=6.5976 | ValRMSE=30.9477 | ValWAPE=9.8303 | ValMAPE=18.9794 | Best=9.8303 | Time=0.03s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\persistence\industrial_mvlv

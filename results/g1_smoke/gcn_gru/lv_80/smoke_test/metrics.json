@@ -1,0 +1,31 @@
+{
+  "model_name": "gcn_gru",
+  "client_id": "lv_80",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\gcn_gru\\lv_80\\best.pt",
+  "epoch": 2,
+  "best_validation_wape": 112.16536654640929,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 0.5480873087508371,
+    "rmse_kw": 1.0346400252799872,
+    "wape_percent": 58.63317061324375,
+    "mape_percent": 91.99028399543732,
+    "mape_valid_fraction": 0.7265625,
+    "mape_valid_count": 93,
+    "effective_count": 128,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 128,
+    "mape_count": 93,
+    "absolute_error": 70.15517552010715,
+    "squared_error": 137.02143768465567,
+    "absolute_true": 119.65100093744695,
+    "mape_sum": 85.55096411575671
+  }
+}

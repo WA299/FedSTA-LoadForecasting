@@ -1,0 +1,9 @@
+Model=stfednet | Client=industrial_mvlv | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.220091 | ValMAE=27.6237 | ValRMSE=70.3730 | ValWAPE=41.1588 | ValMAPE=45.7182 | Best=41.1588 | Time=0.04s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\stfednet\industrial_mvlv
+Model=stfednet | Client=industrial_mvlv | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.199661 | ValMAE=28.3230 | ValRMSE=72.4851 | ValWAPE=42.2008 | ValMAPE=46.9252 | Best=41.1588 | Time=0.04s
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_smoke\stfednet\industrial_mvlv

@@ -288,11 +288,6 @@ class GridData:
         return {node_id: index for index, node_id in enumerate(self.node_ids)}
 
     @property
-    def node_index(self) -> Dict[str, int]:
-        """Map the source bus identifier to its row in every node tensor."""
-        return {node_id: index for index, node_id in enumerate(self.node_ids)}
-
-    @property
     def raw_branch_count(self) -> int:
         return int(self.metadata.get("raw_branch_count", self.num_edges // 2))
 

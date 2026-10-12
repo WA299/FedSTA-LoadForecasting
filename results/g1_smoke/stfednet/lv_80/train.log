@@ -1,0 +1,10 @@
+Model=stfednet | Client=lv_80 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.192301 | ValMAE=0.6271 | ValRMSE=1.1736 | ValWAPE=96.5363 | ValMAPE=212.1615 | Best=96.5363 | Time=0.17s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\stfednet\lv_80
+Model=stfednet | Client=lv_80 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.166331 | ValMAE=0.6048 | ValRMSE=1.1032 | ValWAPE=93.0967 | ValMAPE=207.6178 | Best=93.0967 | Time=0.04s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_smoke\stfednet\lv_80

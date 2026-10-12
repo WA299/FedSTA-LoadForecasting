@@ -1,0 +1,10 @@
+Model=gat_gru | Client=industrial_mvlv | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.331293 | ValMAE=19.0304 | ValRMSE=48.0390 | ValWAPE=28.3549 | ValMAPE=36.1522 | Best=28.3549 | Time=0.03s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\gat_gru\industrial_mvlv
+Model=gat_gru | Client=industrial_mvlv | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.300941 | ValMAE=18.1985 | ValRMSE=46.5813 | ValWAPE=27.1155 | ValMAPE=34.2961 | Best=27.1155 | Time=0.04s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_smoke\gat_gru\industrial_mvlv

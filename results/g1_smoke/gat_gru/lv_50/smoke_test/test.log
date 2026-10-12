@@ -1,0 +1,2 @@
+[Smoke Test] MAE=0.7626 kW | RMSE=1.2324 kW | WAPE=40.33882488886557% | MAPE=87.8881780154071% | MAPE valid=91.67%
+[Results] E:\Dachuang_FedSTA\results\g1_smoke\gat_gru\lv_50\smoke_test

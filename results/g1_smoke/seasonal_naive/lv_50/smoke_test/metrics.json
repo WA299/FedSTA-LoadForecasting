@@ -1,0 +1,31 @@
+{
+  "model_name": "seasonal_naive",
+  "client_id": "lv_50",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\seasonal_naive\\lv_50\\best.pt",
+  "epoch": 1,
+  "best_validation_wape": 38.66439408371344,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 0.34833331246461186,
+    "rmse_kw": 0.5967594412618172,
+    "wape_percent": 18.42557548961259,
+    "mape_percent": 28.096317719339165,
+    "mape_valid_fraction": 0.9166666666666666,
+    "mape_valid_count": 77,
+    "effective_count": 84,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 84,
+    "mape_count": 77,
+    "absolute_error": 29.259998247027397,
+    "squared_error": 29.914233781749765,
+    "absolute_true": 158.80100061744452,
+    "mape_sum": 21.634164643891157
+  }
+}

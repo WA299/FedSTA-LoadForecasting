@@ -1,0 +1,31 @@
+{
+  "model_name": "seasonal_naive",
+  "client_id": "industrial_mvlv",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\seasonal_naive\\industrial_mvlv\\best.pt",
+  "epoch": 1,
+  "best_validation_wape": 54.06320969193169,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 3.8494170758459303,
+    "rmse_kw": 11.821334998348803,
+    "wape_percent": 11.266319111661524,
+    "mape_percent": 28.1179848077713,
+    "mape_valid_fraction": 0.8444444444444444,
+    "mape_valid_count": 152,
+    "effective_count": 180,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 180,
+    "mape_count": 152,
+    "absolute_error": 692.8950736522675,
+    "squared_error": 25153.91300577354,
+    "absolute_true": 6150.14599519968,
+    "mape_sum": 42.73933690781238
+  }
+}

@@ -1,5 +1,11 @@
-# Install the matching CPU/CUDA PyTorch wheel for the local training hardware.
-numpy>=1.24
-pyyaml>=6.0
-pytest>=7.0
-torch>=2.3
+# Install CUDA torch first via the cu126 index (see docs/G1_RUN_GUIDE.md).
+# The following tested versions support the project's Python 3.13 environment.
+torch==2.10.0
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+tqdm==4.70.1
+PyYAML==6.0.3
+pytest==9.1.1

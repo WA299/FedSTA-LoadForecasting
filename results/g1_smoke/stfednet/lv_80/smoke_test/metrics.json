@@ -1,0 +1,31 @@
+{
+  "model_name": "stfednet",
+  "client_id": "lv_80",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\stfednet\\lv_80\\best.pt",
+  "epoch": 2,
+  "best_validation_wape": 93.0966899882158,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 0.46749340484529966,
+    "rmse_kw": 0.9562924080215911,
+    "wape_percent": 50.01141265126735,
+    "mape_percent": 64.73551903266993,
+    "mape_valid_fraction": 0.7265625,
+    "mape_valid_count": 93,
+    "effective_count": 128,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 128,
+    "mape_count": 93,
+    "absolute_error": 59.83915582019836,
+    "squared_error": 117.05538171388585,
+    "absolute_true": 119.65100093744695,
+    "mape_sum": 60.20403270038303
+  }
+}

@@ -1,0 +1,6 @@
+Model=persistence | Client=lv_80 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+[Baseline] Parameter-free forecast; one validation pass, no optimizer updates
+Epoch 01/1 | TrainLoss=0.077562 | ValMAE=0.2313 | ValRMSE=0.4838 | ValWAPE=35.6047 | ValMAPE=71.3459 | Best=35.6047 | Time=0.01s
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_smoke\persistence\lv_80

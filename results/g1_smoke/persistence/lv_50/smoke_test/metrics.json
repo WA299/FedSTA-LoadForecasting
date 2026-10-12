@@ -1,0 +1,31 @@
+{
+  "model_name": "persistence",
+  "client_id": "lv_50",
+  "seed": 42,
+  "checkpoint": "E:\\Dachuang_FedSTA\\results\\g1_smoke\\persistence\\lv_50\\best.pt",
+  "epoch": 1,
+  "best_validation_wape": 24.17193011604457,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "mape_threshold_kw": 0.1,
+  "unit": "kW",
+  "smoke": true,
+  "metrics": {
+    "mae_kw": 0.3153928716977437,
+    "rmse_kw": 0.5491163632387016,
+    "wape_percent": 16.683145017727412,
+    "mape_percent": 27.18525527165018,
+    "mape_valid_fraction": 0.9166666666666666,
+    "mape_valid_count": 77,
+    "effective_count": 84,
+    "mape_threshold_kw": 0.1
+  },
+  "statistics": {
+    "count": 84,
+    "mape_count": 77,
+    "absolute_error": 26.493001222610474,
+    "squared_error": 25.328417551625805,
+    "absolute_true": 158.80100061744452,
+    "mape_sum": 20.93264655917064
+  }
+}

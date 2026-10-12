@@ -1,0 +1,11 @@
+{
+  "automated_tests_passed": 47,
+  "g0_tests_included": 6,
+  "pytest_duration_seconds": 18.04,
+  "cuda_smoke_combinations_passed": 35,
+  "neural_resume_checks_passed": 25,
+  "checkpoint_reload_checks_passed": 35,
+  "formal_training_run": false,
+  "incorrect_venv_removed": true,
+  "evidence": "results/g1_smoke/summary.json"
+}

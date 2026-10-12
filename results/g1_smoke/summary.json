@@ -1,0 +1,987 @@
+{
+  "device": "cuda",
+  "smoke_only": true,
+  "cases": 35,
+  "results": [
+    {
+      "model": "persistence",
+      "client": "lv_39",
+      "nodes": 39,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.42746428586542606,
+        "rmse_kw": 0.6925468762591165,
+        "wape_percent": 36.80334546814426,
+        "mape_percent": 39.75960393422973,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.33631250634789467,
+        "rmse_kw": 0.5303308453602007,
+        "wape_percent": 23.121355816110732,
+        "mape_percent": 26.45065817849249,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 112,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "seasonal_naive",
+      "client": "lv_39",
+      "nodes": 39,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.544357143342495,
+        "rmse_kw": 0.8022358640968102,
+        "wape_percent": 46.86745692432678,
+        "mape_percent": 63.00481348763988,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.45855357125401497,
+        "rmse_kw": 0.626106020068917,
+        "wape_percent": 31.525382141884588,
+        "mape_percent": 41.6551750305156,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 112,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "gru",
+      "client": "lv_39",
+      "nodes": 39,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.7975184427840369,
+        "rmse_kw": 0.9870511780941129,
+        "wape_percent": 68.66385739705449,
+        "mape_percent": 98.39822519650942,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.49267670458980967,
+        "rmse_kw": 0.6790246659832079,
+        "wape_percent": 33.871334470524296,
+        "mape_percent": 58.53951818718665,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 112,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gru_attention",
+      "client": "lv_39",
+      "nodes": 39,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.7966374701687268,
+        "rmse_kw": 0.996104453278372,
+        "wape_percent": 68.58800839497098,
+        "mape_percent": 96.65247532097085,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.4787938557565212,
+        "rmse_kw": 0.6747257384964831,
+        "wape_percent": 32.91689393811158,
+        "mape_percent": 55.60678072531003,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 112,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gcn_gru",
+      "client": "lv_39",
+      "nodes": 39,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.8000293512429509,
+        "rmse_kw": 0.9913408902153056,
+        "wape_percent": 68.88003880567254,
+        "mape_percent": 98.5285276092288,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.4914388225546905,
+        "rmse_kw": 0.6782913891508372,
+        "wape_percent": 33.78623055540924,
+        "mape_percent": 58.491230521387195,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 112,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gat_gru",
+      "client": "lv_39",
+      "nodes": 39,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.8746134665395532,
+        "rmse_kw": 1.073368104923243,
+        "wape_percent": 75.301499153265,
+        "mape_percent": 109.3831280227015,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.555812024644443,
+        "rmse_kw": 0.7330925079496988,
+        "wape_percent": 38.211863508231744,
+        "mape_percent": 66.08535898915788,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 112,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "stfednet",
+      "client": "lv_39",
+      "nodes": 39,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.6584711394139698,
+        "rmse_kw": 0.8377970697410029,
+        "wape_percent": 56.69231705659785,
+        "mape_percent": 78.37534991654225,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.4238067391727652,
+        "rmse_kw": 0.617413526822443,
+        "wape_percent": 29.13655076371941,
+        "mape_percent": 49.89558884025843,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 112,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "persistence",
+      "client": "lv_50",
+      "nodes": 50,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.34438094430203947,
+        "rmse_kw": 0.5652034836505377,
+        "wape_percent": 24.17193011604457,
+        "mape_percent": 50.76788560934774,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.3153928716977437,
+        "rmse_kw": 0.5491163632387016,
+        "wape_percent": 16.683145017727412,
+        "mape_percent": 27.18525527165018,
+        "mape_valid_fraction": 0.9166666666666666,
+        "mape_valid_count": 77,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "seasonal_naive",
+      "client": "lv_50",
+      "nodes": 50,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.5508571504836991,
+        "rmse_kw": 1.061111784032121,
+        "wape_percent": 38.66439408371344,
+        "mape_percent": 61.81494621775738,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.34833331246461186,
+        "rmse_kw": 0.5967594412618172,
+        "wape_percent": 18.42557548961259,
+        "mape_percent": 28.096317719339165,
+        "mape_valid_fraction": 0.9166666666666666,
+        "mape_valid_count": 77,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "gru",
+      "client": "lv_50",
+      "nodes": 50,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 1.0105066559321823,
+        "rmse_kw": 1.3917832535457704,
+        "wape_percent": 70.92696815294131,
+        "mape_percent": 172.75974459560928,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.6909789100644135,
+        "rmse_kw": 1.1264287440767036,
+        "wape_percent": 36.55029138338736,
+        "mape_percent": 79.3027982530671,
+        "mape_valid_fraction": 0.9166666666666666,
+        "mape_valid_count": 77,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gru_attention",
+      "client": "lv_50",
+      "nodes": 50,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 1.0071180618944622,
+        "rmse_kw": 1.3827530589542503,
+        "wape_percent": 70.68912439408462,
+        "mape_percent": 174.10722511221758,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.6857750587874935,
+        "rmse_kw": 1.1251512236333532,
+        "wape_percent": 36.27502642563415,
+        "mape_percent": 76.00790057023566,
+        "mape_valid_fraction": 0.9166666666666666,
+        "mape_valid_count": 77,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gcn_gru",
+      "client": "lv_50",
+      "nodes": 50,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 1.0149841932136388,
+        "rmse_kw": 1.3954958477996433,
+        "wape_percent": 71.24124430570203,
+        "mape_percent": 172.9474035861964,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.6852522621906939,
+        "rmse_kw": 1.117654933209037,
+        "wape_percent": 36.2473723718433,
+        "mape_percent": 78.76605464744888,
+        "mape_valid_fraction": 0.9166666666666666,
+        "mape_valid_count": 77,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gat_gru",
+      "client": "lv_50",
+      "nodes": 50,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 1.1239763486775614,
+        "rmse_kw": 1.5508022714807554,
+        "wape_percent": 78.89135041250324,
+        "mape_percent": 187.7494170599842,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.7626006852480627,
+        "rmse_kw": 1.2323786201508775,
+        "wape_percent": 40.33882488886557,
+        "mape_percent": 87.8881780154071,
+        "mape_valid_fraction": 0.9166666666666666,
+        "mape_valid_count": 77,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "stfednet",
+      "client": "lv_50",
+      "nodes": 50,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.772918026894331,
+        "rmse_kw": 1.0553730390159195,
+        "wape_percent": 54.25073843555921,
+        "mape_percent": 135.37496048324428,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5939081344043925,
+        "rmse_kw": 0.9168293936817211,
+        "wape_percent": 31.415597569281733,
+        "mape_percent": 65.80185957436959,
+        "mape_valid_fraction": 0.9166666666666666,
+        "mape_valid_count": 77,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "persistence",
+      "client": "lv_56",
+      "nodes": 56,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.5345852327617732,
+        "rmse_kw": 0.7593760716314286,
+        "wape_percent": 35.63064774110237,
+        "mape_percent": 48.95686777335581,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.40951705249873077,
+        "rmse_kw": 0.6087209837907311,
+        "wape_percent": 21.743656167239983,
+        "mape_percent": 24.407694825388987,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 176,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "seasonal_naive",
+      "client": "lv_56",
+      "nodes": 56,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.7873238690874793,
+        "rmse_kw": 1.1168740079634651,
+        "wape_percent": 52.475934085741855,
+        "mape_percent": 66.59945255790275,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5724204595793377,
+        "rmse_kw": 0.7678180712481614,
+        "wape_percent": 30.393151103824152,
+        "mape_percent": 36.8180413869691,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 176,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "gru",
+      "client": "lv_56",
+      "nodes": 56,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.9627635553479195,
+        "rmse_kw": 1.1084348206405135,
+        "wape_percent": 64.16916704068377,
+        "mape_percent": 113.86089302337962,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5963033681566065,
+        "rmse_kw": 0.763210403718199,
+        "wape_percent": 31.661234445431443,
+        "mape_percent": 55.50520959340688,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 176,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gru_attention",
+      "client": "lv_56",
+      "nodes": 56,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.9608015641570091,
+        "rmse_kw": 1.1097055181558362,
+        "wape_percent": 64.0383983386878,
+        "mape_percent": 112.84682192591714,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5783007486977361,
+        "rmse_kw": 0.7533866972818838,
+        "wape_percent": 30.70537005532877,
+        "mape_percent": 53.90352818641902,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 176,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gcn_gru",
+      "client": "lv_56",
+      "nodes": 56,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.9592046608979051,
+        "rmse_kw": 1.105170498865091,
+        "wape_percent": 63.93196311748312,
+        "mape_percent": 113.39491768369608,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5932966646823016,
+        "rmse_kw": 0.7632947230200932,
+        "wape_percent": 31.50159096747802,
+        "mape_percent": 55.58941949461656,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 176,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gat_gru",
+      "client": "lv_56",
+      "nodes": 56,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 1.0400915829972788,
+        "rmse_kw": 1.192555339587314,
+        "wape_percent": 69.32315848084082,
+        "mape_percent": 124.131793273765,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.6577422686598517,
+        "rmse_kw": 0.8252661460482258,
+        "wape_percent": 34.923385117020324,
+        "mape_percent": 61.13060346184288,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 176,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "stfednet",
+      "client": "lv_56",
+      "nodes": 56,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.7743953957476399,
+        "rmse_kw": 0.9058806213598254,
+        "wape_percent": 51.61423823039201,
+        "mape_percent": 88.1456116510735,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5019057081504301,
+        "rmse_kw": 0.6671859971823277,
+        "wape_percent": 26.64911040897833,
+        "mape_percent": 46.61377071929956,
+        "mape_valid_fraction": 1.0,
+        "mape_valid_count": 176,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "persistence",
+      "client": "lv_80",
+      "nodes": 80,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.23129686866741395,
+        "rmse_kw": 0.4837629426684516,
+        "wape_percent": 35.60467456250309,
+        "mape_percent": 71.34588105329382,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.18157813548168633,
+        "rmse_kw": 0.40857892401092905,
+        "wape_percent": 19.424828174907347,
+        "mape_percent": 26.24447286075048,
+        "mape_valid_fraction": 0.7265625,
+        "mape_valid_count": 93,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "seasonal_naive",
+      "client": "lv_80",
+      "nodes": 80,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 0.3270000018092105,
+        "rmse_kw": 0.884435494546655,
+        "wape_percent": 50.33673267361071,
+        "mape_percent": 103.39995223049569,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.3701015682454454,
+        "rmse_kw": 0.7826519867230943,
+        "wape_percent": 39.592648924168564,
+        "mape_percent": 43.112198446786884,
+        "mape_valid_fraction": 0.7265625,
+        "mape_valid_count": 93,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "gru",
+      "client": "lv_80",
+      "nodes": 80,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.7283813720132457,
+        "rmse_kw": 1.2311815182574077,
+        "wape_percent": 112.12335842389537,
+        "mape_percent": 268.178765254671,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5603885717355297,
+        "rmse_kw": 1.0703919634121846,
+        "wape_percent": 59.949132577376275,
+        "mape_percent": 91.69647015664253,
+        "mape_valid_fraction": 0.7265625,
+        "mape_valid_count": 93,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gru_attention",
+      "client": "lv_80",
+      "nodes": 80,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.7595039340849326,
+        "rmse_kw": 1.3753155215265354,
+        "wape_percent": 116.91420881671709,
+        "mape_percent": 268.8779056801934,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.6163549734628759,
+        "rmse_kw": 1.244900508824266,
+        "wape_percent": 65.93629471139425,
+        "mape_percent": 91.59926283463412,
+        "mape_valid_fraction": 0.7265625,
+        "mape_valid_count": 93,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gcn_gru",
+      "client": "lv_80",
+      "nodes": 80,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.7286542672809446,
+        "rmse_kw": 1.2065244353183238,
+        "wape_percent": 112.16536654640929,
+        "mape_percent": 271.35727910997144,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5480873087508371,
+        "rmse_kw": 1.0346400252799872,
+        "wape_percent": 58.63317061324375,
+        "mape_percent": 91.99028399543732,
+        "mape_valid_fraction": 0.7265625,
+        "mape_valid_count": 93,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gat_gru",
+      "client": "lv_80",
+      "nodes": 80,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.7273506663041189,
+        "rmse_kw": 1.127247729706969,
+        "wape_percent": 111.96469678029162,
+        "mape_percent": 282.7421198678796,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.5324384566993103,
+        "rmse_kw": 0.9328879598794859,
+        "wape_percent": 56.95909095916495,
+        "mape_percent": 95.39691561151318,
+        "mape_valid_fraction": 0.7265625,
+        "mape_valid_count": 93,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "stfednet",
+      "client": "lv_80",
+      "nodes": 80,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 0.6047793763646041,
+        "rmse_kw": 1.1031548933438886,
+        "wape_percent": 93.0966899882158,
+        "mape_percent": 207.61781187574894,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.46749340484529966,
+        "rmse_kw": 0.9562924080215911,
+        "wape_percent": 50.01141265126735,
+        "mape_percent": 64.73551903266993,
+        "mape_valid_fraction": 0.7265625,
+        "mape_valid_count": 93,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "persistence",
+      "client": "industrial_mvlv",
+      "nodes": 76,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 6.5976174761023785,
+        "rmse_kw": 30.94770621935476,
+        "wape_percent": 9.830320521720825,
+        "mape_percent": 18.979360795717195,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 0.810100325735079,
+        "rmse_kw": 2.4445373018117187,
+        "wape_percent": 2.3709690590455623,
+        "mape_percent": 10.571426562549975,
+        "mape_valid_fraction": 0.8444444444444444,
+        "mape_valid_count": 152,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "seasonal_naive",
+      "client": "industrial_mvlv",
+      "nodes": 76,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 36.284511404236156,
+        "rmse_kw": 96.25637780247975,
+        "wape_percent": 54.06320969193169,
+        "mape_percent": 65.52478490144601,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 3.8494170758459303,
+        "rmse_kw": 11.821334998348803,
+        "wape_percent": 11.266319111661524,
+        "mape_percent": 28.1179848077713,
+        "mape_valid_fraction": 0.8444444444444444,
+        "mape_valid_count": 152,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": false
+    },
+    {
+      "model": "gru",
+      "client": "industrial_mvlv",
+      "nodes": 76,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 22.053531839574376,
+        "rmse_kw": 55.658425446305436,
+        "wape_percent": 32.85932950860692,
+        "mape_percent": 38.9519626762759,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 17.153545351574817,
+        "rmse_kw": 44.899289017127025,
+        "wape_percent": 50.20430678708171,
+        "mape_percent": 164.650164665159,
+        "mape_valid_fraction": 0.8444444444444444,
+        "mape_valid_count": 152,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gru_attention",
+      "client": "industrial_mvlv",
+      "nodes": 76,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 24.767567794811395,
+        "rmse_kw": 62.06193300561067,
+        "wape_percent": 36.9031898027348,
+        "mape_percent": 41.803816950784366,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 17.847464998645915,
+        "rmse_kw": 47.225241117155704,
+        "wape_percent": 52.23524290746469,
+        "mape_percent": 159.5472813018834,
+        "mape_valid_fraction": 0.8444444444444444,
+        "mape_valid_count": 152,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gcn_gru",
+      "client": "industrial_mvlv",
+      "nodes": 76,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 23.470444815730055,
+        "rmse_kw": 59.28852813753398,
+        "wape_percent": 34.97050202769395,
+        "mape_percent": 40.24190906558653,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 16.25229111181365,
+        "rmse_kw": 42.38447257434508,
+        "wape_percent": 47.566552117783935,
+        "mape_percent": 150.69498764159397,
+        "mape_valid_fraction": 0.8444444444444444,
+        "mape_valid_count": 152,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "gat_gru",
+      "client": "industrial_mvlv",
+      "nodes": 76,
+      "best_epoch": 2,
+      "validation": {
+        "mae_kw": 18.1985461945749,
+        "rmse_kw": 46.581302682775274,
+        "wape_percent": 27.115476574689186,
+        "mape_percent": 34.296073446606506,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 17.08068212063776,
+        "rmse_kw": 45.266045248014386,
+        "wape_percent": 49.991053612622,
+        "mape_percent": 172.85165455848542,
+        "mape_valid_fraction": 0.8444444444444444,
+        "mape_valid_count": 152,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    },
+    {
+      "model": "stfednet",
+      "client": "industrial_mvlv",
+      "nodes": 76,
+      "best_epoch": 1,
+      "validation": {
+        "mae_kw": 27.623697247480354,
+        "rmse_kw": 70.3729981829855,
+        "wape_percent": 41.158766618602215,
+        "mape_percent": 45.71822742499752,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "smoke_test": {
+        "mae_kw": 14.701771180248922,
+        "rmse_kw": 38.4805125497034,
+        "wape_percent": 43.02855272883463,
+        "mape_percent": 129.2574153503781,
+        "mape_valid_fraction": 0.8444444444444444,
+        "mape_valid_count": 152,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true
+    }
+  ]
+}
