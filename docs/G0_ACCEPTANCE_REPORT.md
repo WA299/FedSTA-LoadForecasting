@@ -31,7 +31,7 @@ The machine-readable inventory is `results/g0_inventory.json`.
 `tests/test_data_pipeline.py` covers: loading all five grids, legal edge endpoints, date range, finite values, duplicate-column aggregation, industrial duplicate-row handling, reproducible splits, target disjointness, train-only scaler fit, load masks, and window shapes. On the local Python 3.13 environment:
 
 ```text
-4 passed
+6 passed
 ```
 
 The bundled Codex runtime Python did not include pytest; the system Python 3.13.7 did. The fast smoke command also completed and wrote `results/g0_inventory.json`.

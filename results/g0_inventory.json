@@ -29,6 +29,11 @@
         39
       ],
       "isolated_nodes": [],
+      "branch_quality": {
+        "self_loops": "0",
+        "parallel_branch_pairs": 0,
+        "invalid_endpoints": 0
+      },
       "q_load_quality": {
         "columns": 29,
         "samples": 8760,
@@ -75,6 +80,11 @@
         50
       ],
       "isolated_nodes": [],
+      "branch_quality": {
+        "self_loops": "0",
+        "parallel_branch_pairs": 0,
+        "invalid_endpoints": 0
+      },
       "q_load_quality": {
         "columns": 21,
         "samples": 8760,
@@ -119,6 +129,11 @@
         56
       ],
       "isolated_nodes": [],
+      "branch_quality": {
+        "self_loops": "0",
+        "parallel_branch_pairs": 0,
+        "invalid_endpoints": 0
+      },
       "q_load_quality": {
         "columns": 53,
         "samples": 8760,
@@ -169,6 +184,11 @@
         80
       ],
       "isolated_nodes": [],
+      "branch_quality": {
+        "self_loops": "0",
+        "parallel_branch_pairs": 0,
+        "invalid_endpoints": 0
+      },
       "q_load_quality": {
         "columns": 32,
         "samples": 8760,
@@ -214,6 +234,11 @@
         18
       ],
       "isolated_nodes": [],
+      "branch_quality": {
+        "self_loops": "0",
+        "parallel_branch_pairs": 0,
+        "invalid_endpoints": 0
+      },
       "q_load_quality": null,
       "timestamps": [
         "2021-01-01T00",
