@@ -1,0 +1,426 @@
+{
+  "config": {
+    "root": "Datasets",
+    "start": "2021-01-01 00:00:00",
+    "end": "2021-12-31 23:00:00",
+    "input_hours": 48,
+    "horizon_hours": 24,
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "unit": "kW"
+  },
+  "source_files": {
+    "count": 76,
+    "total_bytes": 77422984,
+    "largest_bytes": 10530088,
+    "license_notice_found": false
+  },
+  "clients": [
+    {
+      "client_id": "lv_39",
+      "name": "39_bus_semi_urban_reference_grid",
+      "nodes": 39,
+      "branches": 38,
+      "raw_branch_rows": 38,
+      "directed_edge_index_columns": 76,
+      "load_nodes": 28,
+      "component_sizes": [
+        39
+      ],
+      "isolated_nodes": [],
+      "q_load_quality": {
+        "columns": 29,
+        "samples": 8760,
+        "timestamps_match_p": true,
+        "all_finite": true
+      },
+      "timestamps": [
+        "2021-01-01T00",
+        "2021-12-31T23"
+      ],
+      "samples": 8760,
+      "train_windows": 6061,
+      "val_windows": 1291,
+      "test_windows": 1291,
+      "split_boundaries": [
+        "2021-09-13T12",
+        "2021-11-07T06"
+      ],
+      "metadata": {
+        "format": "matpower_csv",
+        "source_unit": "MW (assumed from MATPOWER-style p_load)",
+        "unit": "kW",
+        "conversion": "p_load * 1000",
+        "base_mva_file": "Datasets\\norway_4_lv_grids\\39_bus_semi_urban_reference_grid\\mpc_base_mva.csv",
+        "raw_branch_count": 38,
+        "disabled_branch_count": 0,
+        "duplicate_load_columns": {
+          "30": 2
+        },
+        "missing_values_before_fill": 0,
+        "source_time_start": "2021-01-01T00",
+        "source_time_end": "2021-12-31T23"
+      }
+    },
+    {
+      "client_id": "lv_50",
+      "name": "50_bus_rural_reference_grid",
+      "nodes": 50,
+      "branches": 49,
+      "raw_branch_rows": 49,
+      "directed_edge_index_columns": 98,
+      "load_nodes": 21,
+      "component_sizes": [
+        50
+      ],
+      "isolated_nodes": [],
+      "q_load_quality": {
+        "columns": 21,
+        "samples": 8760,
+        "timestamps_match_p": true,
+        "all_finite": true
+      },
+      "timestamps": [
+        "2021-01-01T00",
+        "2021-12-31T23"
+      ],
+      "samples": 8760,
+      "train_windows": 6061,
+      "val_windows": 1291,
+      "test_windows": 1291,
+      "split_boundaries": [
+        "2021-09-13T12",
+        "2021-11-07T06"
+      ],
+      "metadata": {
+        "format": "matpower_csv",
+        "source_unit": "MW (assumed from MATPOWER-style p_load)",
+        "unit": "kW",
+        "conversion": "p_load * 1000",
+        "base_mva_file": "Datasets\\norway_4_lv_grids\\50_bus_rural_reference_grid\\mpc_base_mva.csv",
+        "raw_branch_count": 49,
+        "disabled_branch_count": 0,
+        "duplicate_load_columns": {},
+        "missing_values_before_fill": 0,
+        "source_time_start": "2021-01-01T00",
+        "source_time_end": "2021-12-31T23"
+      }
+    },
+    {
+      "client_id": "lv_56",
+      "name": "56_bus_semi_urban_reference_grid",
+      "nodes": 56,
+      "branches": 55,
+      "raw_branch_rows": 55,
+      "directed_edge_index_columns": 110,
+      "load_nodes": 44,
+      "component_sizes": [
+        56
+      ],
+      "isolated_nodes": [],
+      "q_load_quality": {
+        "columns": 53,
+        "samples": 8760,
+        "timestamps_match_p": true,
+        "all_finite": true
+      },
+      "timestamps": [
+        "2021-01-01T00",
+        "2021-12-31T23"
+      ],
+      "samples": 8760,
+      "train_windows": 6061,
+      "val_windows": 1291,
+      "test_windows": 1291,
+      "split_boundaries": [
+        "2021-09-13T12",
+        "2021-11-07T06"
+      ],
+      "metadata": {
+        "format": "matpower_csv",
+        "source_unit": "MW (assumed from MATPOWER-style p_load)",
+        "unit": "kW",
+        "conversion": "p_load * 1000",
+        "base_mva_file": "Datasets\\norway_4_lv_grids\\56_bus_semi_urban_reference_grid\\mpc_base_mva.csv",
+        "raw_branch_count": 55,
+        "disabled_branch_count": 0,
+        "duplicate_load_columns": {
+          "54": 6,
+          "35": 2,
+          "34": 2,
+          "3": 2,
+          "52": 2
+        },
+        "missing_values_before_fill": 0,
+        "source_time_start": "2021-01-01T00",
+        "source_time_end": "2021-12-31T23"
+      }
+    },
+    {
+      "client_id": "lv_80",
+      "name": "80_bus_rural_reference_grid",
+      "nodes": 80,
+      "branches": 79,
+      "raw_branch_rows": 79,
+      "directed_edge_index_columns": 158,
+      "load_nodes": 32,
+      "component_sizes": [
+        80
+      ],
+      "isolated_nodes": [],
+      "q_load_quality": {
+        "columns": 32,
+        "samples": 8760,
+        "timestamps_match_p": true,
+        "all_finite": true
+      },
+      "timestamps": [
+        "2021-01-01T00",
+        "2021-12-31T23"
+      ],
+      "samples": 8760,
+      "train_windows": 6061,
+      "val_windows": 1291,
+      "test_windows": 1291,
+      "split_boundaries": [
+        "2021-09-13T12",
+        "2021-11-07T06"
+      ],
+      "metadata": {
+        "format": "matpower_csv",
+        "source_unit": "MW (assumed from MATPOWER-style p_load)",
+        "unit": "kW",
+        "conversion": "p_load * 1000",
+        "base_mva_file": "Datasets\\norway_4_lv_grids\\80_bus_rural_reference_grid\\mpc_base_mva.csv",
+        "raw_branch_count": 79,
+        "disabled_branch_count": 0,
+        "duplicate_load_columns": {},
+        "missing_values_before_fill": 0,
+        "source_time_start": "2021-01-01T00",
+        "source_time_end": "2021-12-31T23"
+      }
+    },
+    {
+      "client_id": "industrial_mvlv",
+      "name": "norway_industrial_mvlv",
+      "nodes": 76,
+      "branches": 74,
+      "raw_branch_rows": 75,
+      "directed_edge_index_columns": 148,
+      "load_nodes": 45,
+      "component_sizes": [
+        58,
+        18
+      ],
+      "isolated_nodes": [],
+      "q_load_quality": null,
+      "timestamps": [
+        "2021-01-01T00",
+        "2021-12-31T23"
+      ],
+      "samples": 8760,
+      "train_windows": 6061,
+      "val_windows": 1291,
+      "test_windows": 1291,
+      "split_boundaries": [
+        "2021-09-13T12",
+        "2021-11-07T06"
+      ],
+      "metadata": {
+        "format": "industrial_semicolon_txt",
+        "source_unit": "kWh per hourly interval",
+        "unit": "kW",
+        "conversion": "numerically unchanged because interval is one hour",
+        "raw_branch_count": 75,
+        "disabled_branch_count": 1,
+        "load_file_count": 45,
+        "duplicate_load_files": {},
+        "duplicate_timestamp_rows_removed": 45,
+        "conflicting_duplicate_rows": 0,
+        "missing_values_before_fill": 0,
+        "source_time_start": "2019-03-01T00",
+        "source_time_end": "2022-03-17T00",
+        "source_start_variants": {
+          "r1v0.415b41.txt": "2020-05-08T01",
+          "r1v0.415b9.txt": "2019-10-01T01",
+          "r2v0.415b3.txt": "2020-09-07T01",
+          "r2v0.415b4.txt": "2020-09-07T01"
+        }
+      }
+    }
+  ],
+  "exact_duplicate_active_curve_groups": [
+    [
+      [
+        "lv_39",
+        "36"
+      ],
+      [
+        "lv_56",
+        "56"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "29"
+      ],
+      [
+        "lv_56",
+        "5"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "37"
+      ],
+      [
+        "lv_56",
+        "47"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "27"
+      ],
+      [
+        "lv_56",
+        "11"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "15"
+      ],
+      [
+        "lv_56",
+        "23"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "17"
+      ],
+      [
+        "lv_56",
+        "24"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "2"
+      ],
+      [
+        "lv_56",
+        "6"
+      ],
+      [
+        "lv_56",
+        "9"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "6"
+      ],
+      [
+        "lv_56",
+        "48"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "7"
+      ],
+      [
+        "lv_56",
+        "21"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "23"
+      ],
+      [
+        "lv_56",
+        "27"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "9"
+      ],
+      [
+        "lv_56",
+        "28"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "33"
+      ],
+      [
+        "lv_56",
+        "4"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "11"
+      ],
+      [
+        "lv_56",
+        "17"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "20"
+      ],
+      [
+        "lv_56",
+        "36"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "39"
+      ],
+      [
+        "lv_56",
+        "49"
+      ]
+    ],
+    [
+      [
+        "lv_39",
+        "31"
+      ],
+      [
+        "lv_56",
+        "55"
+      ]
+    ]
+  ],
+  "interface": {
+    "X": "[num_windows, 48, num_nodes, 1]",
+    "Y": "[num_windows, 24, num_nodes]",
+    "edge_index": "[2, 2 * active_physical_branches] (bidirectional)",
+    "load_mask": "[num_nodes]",
+    "unit": "kW"
+  }
+}

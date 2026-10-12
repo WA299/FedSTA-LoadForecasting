@@ -1,0 +1,13 @@
+project:
+  name: "FedSTA-LoadForecasting"
+  title: "基于时空注意力机制与联邦学习的配电网负荷预测"
+data:
+  root: "Datasets"
+  start: "2021-01-01 00:00:00"
+  end: "2021-12-31 23:00:00"
+  input_hours: 48
+  horizon_hours: 24
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  unit: "kW"
