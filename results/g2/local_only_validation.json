@@ -1,0 +1,379 @@
+{
+  "protocol": {
+    "seed": 42,
+    "clients": [
+      "lv_39",
+      "lv_50",
+      "lv_56",
+      "lv_80",
+      "industrial_mvlv"
+    ],
+    "split": "validation",
+    "test_evaluated": false
+  },
+  "selection": "latest formal completed run per method/model/seed; Best within run uses validation only",
+  "runs": [
+    {
+      "algorithm": "local_only",
+      "model_name": "stfednet_gated",
+      "checkpoint_by_client": {
+        "lv_39": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_39\\seed42_20261013_233247_156300\\best.pt",
+        "lv_50": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_50\\seed42_20261013_233359_492500\\best.pt",
+        "lv_56": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_56\\seed42_20261013_233533_456000\\best.pt",
+        "lv_80": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_80\\seed42_20261013_233733_839300\\best.pt",
+        "industrial_mvlv": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\industrial_mvlv\\seed42_20261013_234052_983300\\best.pt"
+      },
+      "client_equal_wape_percent": 22.069066044754525,
+      "overall": {
+        "mae_kw": 1.5583557976595281,
+        "rmse_kw": 10.528911865005018,
+        "wape_percent": 11.048138655629431,
+        "mape_percent": 33.33234712453985,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4079525783555965,
+          "rmse_kw": 0.6060181225646422,
+          "wape_percent": 28.192717647250987,
+          "mape_percent": 33.77721254579288,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.34418719614878696,
+          "rmse_kw": 0.636865721249526,
+          "wape_percent": 18.745508148515416,
+          "mape_percent": 35.43967855751247,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.45629717293939637,
+          "rmse_kw": 0.6474682213483856,
+          "wape_percent": 25.201185954503984,
+          "mape_percent": 32.275825330539796,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.2137206506196566,
+          "rmse_kw": 0.6257010632359268,
+          "wape_percent": 28.302674358122783,
+          "mape_percent": 44.65363591339429,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 4.874527685775025,
+          "rmse_kw": 20.437483623056657,
+          "wape_percent": 9.903244115379456,
+          "mape_percent": 27.20016410850345,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "smoke": false,
+      "test_evaluated": false,
+      "training_budget_by_client": {
+        "lv_39": {
+          "configured_epochs": 30,
+          "best_epoch": 18,
+          "completed_epochs": 26
+        },
+        "lv_50": {
+          "configured_epochs": 30,
+          "best_epoch": 19,
+          "completed_epochs": 27
+        },
+        "lv_56": {
+          "configured_epochs": 30,
+          "best_epoch": 22,
+          "completed_epochs": 30
+        },
+        "lv_80": {
+          "configured_epochs": 30,
+          "best_epoch": 26,
+          "completed_epochs": 30
+        },
+        "industrial_mvlv": {
+          "configured_epochs": 30,
+          "best_epoch": 28,
+          "completed_epochs": 30
+        }
+      },
+      "pooled_statistics_source": "algebraic reconstruction from stored G1 validation metrics",
+      "note": "Five independent local models; no single shared global model.",
+      "rank_by_client_equal_wape": 2
+    },
+    {
+      "algorithm": "local_only",
+      "model_name": "gru_attention",
+      "checkpoint_by_client": {
+        "lv_39": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_39\\seed42_20261013_001714_496800\\best.pt",
+        "lv_50": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_50\\seed42_20261013_010050_317300\\best.pt",
+        "lv_56": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_56\\seed42_20261013_010431_454800\\best.pt",
+        "lv_80": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_80\\seed42_20261013_010808_651000\\best.pt",
+        "industrial_mvlv": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\industrial_mvlv\\seed42_20261013_011339_276700\\best.pt"
+      },
+      "client_equal_wape_percent": 21.88967156472573,
+      "overall": {
+        "mae_kw": 1.424471471121637,
+        "rmse_kw": 9.557469906488217,
+        "wape_percent": 10.098950668118663,
+        "mape_percent": 32.714075572674425,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4061053201408782,
+          "rmse_kw": 0.602843561337506,
+          "wape_percent": 28.06505763961225,
+          "mape_percent": 33.89042451560154,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.34532913758218364,
+          "rmse_kw": 0.6369095054330615,
+          "wape_percent": 18.807701840449305,
+          "mape_percent": 34.79785003520491,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.45801463284106675,
+          "rmse_kw": 0.64908110935035,
+          "wape_percent": 25.29604086248552,
+          "mape_percent": 32.51311089216608,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.21450981360823757,
+          "rmse_kw": 0.6205403368410839,
+          "wape_percent": 28.40718191514421,
+          "mape_percent": 44.80858863247892,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 4.367118474600829,
+          "rmse_kw": 18.54671881589993,
+          "wape_percent": 8.872375565937372,
+          "mape_percent": 24.736689190563013,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "smoke": false,
+      "test_evaluated": false,
+      "training_budget_by_client": {
+        "lv_39": {
+          "configured_epochs": 30,
+          "best_epoch": 29,
+          "completed_epochs": 30
+        },
+        "lv_50": {
+          "configured_epochs": 30,
+          "best_epoch": 19,
+          "completed_epochs": 27
+        },
+        "lv_56": {
+          "configured_epochs": 30,
+          "best_epoch": 20,
+          "completed_epochs": 28
+        },
+        "lv_80": {
+          "configured_epochs": 30,
+          "best_epoch": 25,
+          "completed_epochs": 30
+        },
+        "industrial_mvlv": {
+          "configured_epochs": 30,
+          "best_epoch": 28,
+          "completed_epochs": 30
+        }
+      },
+      "pooled_statistics_source": "algebraic reconstruction from stored G1 validation metrics",
+      "note": "Five independent local models; no single shared global model.",
+      "rank_by_client_equal_wape": 1
+    }
+  ],
+  "client_metrics": {
+    "lv_39": {
+      "local_only/stfednet_gated": {
+        "mae_kw": 0.4079525783555965,
+        "rmse_kw": 0.6060181225646422,
+        "wape_percent": 28.192717647250987,
+        "mape_percent": 33.77721254579288,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "local_only/gru_attention": {
+        "mae_kw": 0.4061053201408782,
+        "rmse_kw": 0.602843561337506,
+        "wape_percent": 28.06505763961225,
+        "mape_percent": 33.89042451560154,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      }
+    },
+    "lv_50": {
+      "local_only/stfednet_gated": {
+        "mae_kw": 0.34418719614878696,
+        "rmse_kw": 0.636865721249526,
+        "wape_percent": 18.745508148515416,
+        "mape_percent": 35.43967855751247,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "local_only/gru_attention": {
+        "mae_kw": 0.34532913758218364,
+        "rmse_kw": 0.6369095054330615,
+        "wape_percent": 18.807701840449305,
+        "mape_percent": 34.79785003520491,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      }
+    },
+    "lv_56": {
+      "local_only/stfednet_gated": {
+        "mae_kw": 0.45629717293939637,
+        "rmse_kw": 0.6474682213483856,
+        "wape_percent": 25.201185954503984,
+        "mape_percent": 32.275825330539796,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "local_only/gru_attention": {
+        "mae_kw": 0.45801463284106675,
+        "rmse_kw": 0.64908110935035,
+        "wape_percent": 25.29604086248552,
+        "mape_percent": 32.51311089216608,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      }
+    },
+    "lv_80": {
+      "local_only/stfednet_gated": {
+        "mae_kw": 0.2137206506196566,
+        "rmse_kw": 0.6257010632359268,
+        "wape_percent": 28.302674358122783,
+        "mape_percent": 44.65363591339429,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "local_only/gru_attention": {
+        "mae_kw": 0.21450981360823757,
+        "rmse_kw": 0.6205403368410839,
+        "wape_percent": 28.40718191514421,
+        "mape_percent": 44.80858863247892,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      }
+    },
+    "industrial_mvlv": {
+      "local_only/stfednet_gated": {
+        "mae_kw": 4.874527685775025,
+        "rmse_kw": 20.437483623056657,
+        "wape_percent": 9.903244115379456,
+        "mape_percent": 27.20016410850345,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "local_only/gru_attention": {
+        "mae_kw": 4.367118474600829,
+        "rmse_kw": 18.54671881589993,
+        "wape_percent": 8.872375565937372,
+        "mape_percent": 24.736689190563013,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      }
+    }
+  },
+  "wins_by_client": {
+    "lv_39": {
+      "best_wape_percent": 28.06505763961225,
+      "winning_methods": [
+        "local_only/gru_attention"
+      ],
+      "win_count": 1
+    },
+    "lv_50": {
+      "best_wape_percent": 18.745508148515416,
+      "winning_methods": [
+        "local_only/stfednet_gated"
+      ],
+      "win_count": 1
+    },
+    "lv_56": {
+      "best_wape_percent": 25.201185954503984,
+      "winning_methods": [
+        "local_only/stfednet_gated"
+      ],
+      "win_count": 1
+    },
+    "lv_80": {
+      "best_wape_percent": 28.302674358122783,
+      "winning_methods": [
+        "local_only/stfednet_gated"
+      ],
+      "win_count": 1
+    },
+    "industrial_mvlv": {
+      "best_wape_percent": 8.872375565937372,
+      "winning_methods": [
+        "local_only/gru_attention"
+      ],
+      "win_count": 1
+    }
+  },
+  "training_budget_note": "Local-only uses the recorded G1 per-client epoch budget; federated and centralized use their recorded communication-round schedules."
+}

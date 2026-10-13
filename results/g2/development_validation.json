@@ -1,0 +1,62 @@
+{
+  "phase": "G2",
+  "python": "3.13.7",
+  "torch": "2.10.0+cu126",
+  "cuda_runtime": "12.6",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "automated_tests": {
+    "command": "E:\\Dachuang_FedSTA\\.venv\\Scripts\\python.exe -m pytest -q",
+    "passed": 99,
+    "g2_added": 16,
+    "existing_g0_g1_g11_g12_passed": 83,
+    "seconds": 22.36
+  },
+  "cuda_smoke": {
+    "combinations": 6,
+    "exact_resume_combinations": 6,
+    "strict_best_checkpoint_loads": 6,
+    "actual_clients": 5,
+    "rounds": 2,
+    "batch_size": 2,
+    "train_batches_per_client_per_round": 2,
+    "validation_batches_per_client_per_round": 1,
+    "smoke": true,
+    "test_split_accessed": false,
+    "graphs": {
+      "lv_39": {
+        "num_nodes": 39,
+        "train_windows": 6084,
+        "validation_windows": 1314
+      },
+      "lv_50": {
+        "num_nodes": 50,
+        "train_windows": 6084,
+        "validation_windows": 1314
+      },
+      "lv_56": {
+        "num_nodes": 56,
+        "train_windows": 6084,
+        "validation_windows": 1314
+      },
+      "lv_80": {
+        "num_nodes": 80,
+        "train_windows": 6084,
+        "validation_windows": 1314
+      },
+      "industrial_mvlv": {
+        "num_nodes": 76,
+        "train_windows": 6084,
+        "validation_windows": 1314
+      }
+    }
+  },
+  "legacy_formal_best_checkpoints_strict_loaded": 10,
+  "forecasting_model_source_modified": false,
+  "g0_data_interface_modified": false,
+  "formal_g2_training_run": false,
+  "formal_test_evaluation_run": false,
+  "smoke_summary": "results/g2_smoke/summary.json",
+  "smoke_terminal_log": "results/g2_smoke/smoke.log",
+  "local_only_validation_summary": "results/g2/local_only_validation.json",
+  "next_step": "Run user-owned formal G2 validation experiments; no FedPer, FedAtt, or G3 DP-SGD was implemented."
+}

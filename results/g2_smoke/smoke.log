@@ -1,0 +1,113 @@
+Algorithm=fedavg | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/2 | Algorithm=fedavg | Model=stfednet_gated | TrainLoss=0.331536 | AvgValWAPE=81.7624% | OverallValWAPE=32.7368% | Best=81.7624% | ClientWAPEs={"industrial_mvlv": 30.153740765410145, "lv_39": 80.58376455794829, "lv_50": 88.5176528051375, "lv_56": 71.02149133181383, "lv_80": 138.5353124842196} | Time=0.40s
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedavg | Model=stfednet_gated | TrainLoss=0.324530 | AvgValWAPE=81.4478% | OverallValWAPE=32.6355% | Best=81.4478% | ClientWAPEs={"industrial_mvlv": 30.062648926650702, "lv_39": 80.43298992624702, "lv_50": 88.20363698861502, "lv_56": 70.77397592173621, "lv_80": 137.7659389622175} | Time=0.09s
+[Run] Global checkpoints and validation logs: results\g2_smoke\fedavg\stfednet_gated\seed42_20261014_013541_788200
+
+Algorithm=fedprox | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42 | mu=0.01
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/2 | Algorithm=fedprox | Model=stfednet_gated | TrainLoss=0.331547 | AvgValWAPE=81.7629% | OverallValWAPE=32.7367% | Best=81.7629% | ClientWAPEs={"industrial_mvlv": 30.1536253564558, "lv_39": 80.58409803707349, "lv_50": 88.51835250670962, "lv_56": 71.02195950428961, "lv_80": 138.5364590961315} | Time=0.13s
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedprox | Model=stfednet_gated | TrainLoss=0.324545 | AvgValWAPE=81.4484% | OverallValWAPE=32.6355% | Best=81.4484% | ClientWAPEs={"industrial_mvlv": 30.0626293498979, "lv_39": 80.43321712569548, "lv_50": 88.20436010124986, "lv_56": 70.77443202463662, "lv_80": 137.76751582889784} | Time=0.11s
+[Run] Global checkpoints and validation logs: results\g2_smoke\fedprox\stfednet_gated\seed42_20261014_013542_631700
+
+Algorithm=fedavg | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/2 | Algorithm=fedavg | Model=gru_attention | TrainLoss=0.360609 | AvgValWAPE=74.7550% | OverallValWAPE=36.5567% | Best=74.7550% | ClientWAPEs={"industrial_mvlv": 34.62454644653497, "lv_39": 71.74554469386936, "lv_50": 76.61334524395903, "lv_56": 62.48577674277206, "lv_80": 128.3059513724994} | Time=0.06s
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedavg | Model=gru_attention | TrainLoss=0.351713 | AvgValWAPE=74.2966% | OverallValWAPE=36.4719% | Best=74.2966% | ClientWAPEs={"industrial_mvlv": 34.55820278556777, "lv_39": 71.46513804406841, "lv_50": 76.08212455807697, "lv_56": 62.147104004444714, "lv_80": 127.23057071931959} | Time=0.06s
+[Run] Global checkpoints and validation logs: results\g2_smoke\fedavg\gru_attention\seed42_20261014_013543_415800
+
+Algorithm=fedprox | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42 | mu=0.01
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/2 | Algorithm=fedprox | Model=gru_attention | TrainLoss=0.360620 | AvgValWAPE=74.7548% | OverallValWAPE=36.5571% | Best=74.7548% | ClientWAPEs={"industrial_mvlv": 34.624971503866504, "lv_39": 71.74453628783446, "lv_50": 76.61296399303603, "lv_56": 62.48497779133248, "lv_80": 128.306364355851} | Time=0.06s
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedprox | Model=gru_attention | TrainLoss=0.351735 | AvgValWAPE=74.2971% | OverallValWAPE=36.4721% | Best=74.2971% | ClientWAPEs={"industrial_mvlv": 34.55834322218359, "lv_39": 71.46475221270488, "lv_50": 76.08280188238959, "lv_56": 62.147034853945286, "lv_80": 127.23276543440964} | Time=0.07s
+[Run] Global checkpoints and validation logs: results\g2_smoke\fedprox\gru_attention\seed42_20261014_013543_290600
+
+Algorithm=Centralized | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/2 | Algorithm=Centralized | Model=stfednet_gated | TrainLoss=0.323065 | AvgValWAPE=81.9539% | OverallValWAPE=31.5992% | Best=81.9539% | ClientWAPEs={"industrial_mvlv": 28.925372714658057, "lv_39": 81.75926290761485, "lv_50": 89.66985686311041, "lv_56": 71.81996479805801, "lv_80": 137.5950111681182} | Time=0.07s
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=Centralized | Model=stfednet_gated | TrainLoss=0.290126 | AvgValWAPE=79.5228% | OverallValWAPE=31.4419% | Best=79.5228% | ClientWAPEs={"industrial_mvlv": 28.890626171055363, "lv_39": 80.0032076077435, "lv_50": 86.80669820877272, "lv_56": 69.56391214899489, "lv_80": 132.34976804097354} | Time=0.07s
+[Run] Centralized checkpoints and validation logs: results\g2_smoke\centralized\stfednet_gated\seed42_20261014_013544_392700
+
+Algorithm=Centralized | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/2 | Algorithm=Centralized | Model=gru_attention | TrainLoss=0.347104 | AvgValWAPE=74.7583% | OverallValWAPE=35.4052% | Best=74.7583% | ClientWAPEs={"industrial_mvlv": 33.39100563801341, "lv_39": 72.76440876015397, "lv_50": 77.52948841151529, "lv_56": 63.156068051747, "lv_80": 126.95076788538036} | Time=0.05s
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=Centralized | Model=gru_attention | TrainLoss=0.304746 | AvgValWAPE=71.8627% | OverallValWAPE=35.4324% | Best=71.8627% | ClientWAPEs={"industrial_mvlv": 33.57527274036178, "lv_39": 70.44751208505555, "lv_50": 73.87156380262446, "lv_56": 60.636481851130625, "lv_80": 120.7828668985614} | Time=0.04s
+[Run] Centralized checkpoints and validation logs: results\g2_smoke\centralized\gru_attention\seed42_20261014_013544_804100
+
+Algorithm=fedavg | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=1 | LocalEpochs=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/1 | Algorithm=fedavg | Model=stfednet_gated | TrainLoss=0.331536 | AvgValWAPE=81.7624% | OverallValWAPE=32.7368% | Best=81.7624% | ClientWAPEs={"industrial_mvlv": 30.153740765410145, "lv_39": 80.58376455794829, "lv_50": 88.5176528051375, "lv_56": 71.02149133181383, "lv_80": 138.5353124842196} | Time=0.09s
+[Run] Global checkpoints and validation logs: results\g2_smoke\recovery\fedavg\stfednet_gated\seed42_20261014_013542_492500
+Algorithm=fedavg | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedavg | Model=stfednet_gated | TrainLoss=0.324530 | AvgValWAPE=81.4478% | OverallValWAPE=32.6355% | Best=81.4478% | ClientWAPEs={"industrial_mvlv": 30.062648926650702, "lv_39": 80.43298992624702, "lv_50": 88.20363698861502, "lv_56": 70.77397592173621, "lv_80": 137.7659389622175} | Time=0.09s
+[Run] Global checkpoints and validation logs: E:\Dachuang_FedSTA\results\g2_smoke\recovery\fedavg\stfednet_gated\seed42_20261014_013542_492500
+
+Algorithm=fedprox | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=1 | LocalEpochs=1 | Seed=42 | mu=0.01
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/1 | Algorithm=fedprox | Model=stfednet_gated | TrainLoss=0.331547 | AvgValWAPE=81.7629% | OverallValWAPE=32.7367% | Best=81.7629% | ClientWAPEs={"industrial_mvlv": 30.1536253564558, "lv_39": 80.58409803707349, "lv_50": 88.51835250670962, "lv_56": 71.02195950428961, "lv_80": 138.5364590961315} | Time=0.11s
+[Run] Global checkpoints and validation logs: results\g2_smoke\recovery\fedprox\stfednet_gated\seed42_20261014_013543_101400
+Algorithm=fedprox | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42 | mu=0.01
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedprox | Model=stfednet_gated | TrainLoss=0.324545 | AvgValWAPE=81.4484% | OverallValWAPE=32.6355% | Best=81.4484% | ClientWAPEs={"industrial_mvlv": 30.0626293498979, "lv_39": 80.43321712569548, "lv_50": 88.20436010124986, "lv_56": 70.77443202463662, "lv_80": 137.76751582889784} | Time=0.11s
+[Run] Global checkpoints and validation logs: E:\Dachuang_FedSTA\results\g2_smoke\recovery\fedprox\stfednet_gated\seed42_20261014_013543_101400
+
+Algorithm=fedavg | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=1 | LocalEpochs=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/1 | Algorithm=fedavg | Model=gru_attention | TrainLoss=0.360609 | AvgValWAPE=74.7550% | OverallValWAPE=36.5567% | Best=74.7550% | ClientWAPEs={"industrial_mvlv": 34.62454644653497, "lv_39": 71.74554469386936, "lv_50": 76.61334524395903, "lv_56": 62.48577674277206, "lv_80": 128.3059513724994} | Time=0.05s
+[Run] Global checkpoints and validation logs: results\g2_smoke\recovery\fedavg\gru_attention\seed42_20261014_013543_955600
+Algorithm=fedavg | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedavg | Model=gru_attention | TrainLoss=0.351713 | AvgValWAPE=74.2966% | OverallValWAPE=36.4719% | Best=74.2966% | ClientWAPEs={"industrial_mvlv": 34.55820278556777, "lv_39": 71.46513804406841, "lv_50": 76.08212455807697, "lv_56": 62.147104004444714, "lv_80": 127.23057071931959} | Time=0.05s
+[Run] Global checkpoints and validation logs: E:\Dachuang_FedSTA\results\g2_smoke\recovery\fedavg\gru_attention\seed42_20261014_013543_955600
+
+Algorithm=fedprox | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=1 | LocalEpochs=1 | Seed=42 | mu=0.01
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/1 | Algorithm=fedprox | Model=gru_attention | TrainLoss=0.360620 | AvgValWAPE=74.7548% | OverallValWAPE=36.5571% | Best=74.7548% | ClientWAPEs={"industrial_mvlv": 34.624971503866504, "lv_39": 71.74453628783446, "lv_50": 76.61296399303603, "lv_56": 62.48497779133248, "lv_80": 128.306364355851} | Time=0.07s
+[Run] Global checkpoints and validation logs: results\g2_smoke\recovery\fedprox\gru_attention\seed42_20261014_013543_242700
+Algorithm=fedprox | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | LocalEpochs=1 | Seed=42 | mu=0.01
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=fedprox | Model=gru_attention | TrainLoss=0.351735 | AvgValWAPE=74.2971% | OverallValWAPE=36.4721% | Best=74.2971% | ClientWAPEs={"industrial_mvlv": 34.55834322218359, "lv_39": 71.46475221270488, "lv_50": 76.08280188238959, "lv_56": 62.147034853945286, "lv_80": 127.23276543440964} | Time=0.06s
+[Run] Global checkpoints and validation logs: E:\Dachuang_FedSTA\results\g2_smoke\recovery\fedprox\gru_attention\seed42_20261014_013543_242700
+
+Algorithm=Centralized | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/1 | Algorithm=Centralized | Model=stfednet_gated | TrainLoss=0.323065 | AvgValWAPE=81.9539% | OverallValWAPE=31.5992% | Best=81.9539% | ClientWAPEs={"industrial_mvlv": 28.925372714658057, "lv_39": 81.75926290761485, "lv_50": 89.66985686311041, "lv_56": 71.81996479805801, "lv_80": 137.5950111681182} | Time=0.08s
+[Run] Centralized checkpoints and validation logs: results\g2_smoke\recovery\centralized\stfednet_gated\seed42_20261014_013544_052200
+Algorithm=Centralized | Model=stfednet_gated | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=Centralized | Model=stfednet_gated | TrainLoss=0.290126 | AvgValWAPE=79.5228% | OverallValWAPE=31.4419% | Best=79.5228% | ClientWAPEs={"industrial_mvlv": 28.890626171055363, "lv_39": 80.0032076077435, "lv_50": 86.80669820877272, "lv_56": 69.56391214899489, "lv_80": 132.34976804097354} | Time=0.08s
+[Run] Centralized checkpoints and validation logs: E:\Dachuang_FedSTA\results\g2_smoke\recovery\centralized\stfednet_gated\seed42_20261014_013544_052200
+
+Algorithm=Centralized | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=1 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 01/1 | Algorithm=Centralized | Model=gru_attention | TrainLoss=0.347104 | AvgValWAPE=74.7583% | OverallValWAPE=35.4052% | Best=74.7583% | ClientWAPEs={"industrial_mvlv": 33.39100563801341, "lv_39": 72.76440876015397, "lv_50": 77.52948841151529, "lv_56": 63.156068051747, "lv_80": 126.95076788538036} | Time=0.05s
+[Run] Centralized checkpoints and validation logs: results\g2_smoke\recovery\centralized\gru_attention\seed42_20261014_013544_324900
+Algorithm=Centralized | Model=gru_attention | Clients=5/5 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Rounds=2 | Seed=42
+[Smoke] Limited batches; smoke=true, validation only, test split not accessed
+[Checkpoint] New best global model saved
+Round 02/2 | Algorithm=Centralized | Model=gru_attention | TrainLoss=0.304746 | AvgValWAPE=71.8627% | OverallValWAPE=35.4324% | Best=71.8627% | ClientWAPEs={"industrial_mvlv": 33.57527274036178, "lv_39": 70.44751208505555, "lv_50": 73.87156380262446, "lv_56": 60.636481851130625, "lv_80": 120.7828668985614} | Time=0.05s
+[Run] Centralized checkpoints and validation logs: E:\Dachuang_FedSTA\results\g2_smoke\recovery\centralized\gru_attention\seed42_20261014_013544_324900

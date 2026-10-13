@@ -1,0 +1,994 @@
+{
+  "smoke": true,
+  "device": "cuda",
+  "torch": "2.10.0+cu126",
+  "test_split_accessed": false,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "batch_size": 2,
+  "rounds": 2,
+  "max_train_batches": 2,
+  "max_val_batches": 1,
+  "clients": [
+    "lv_39",
+    "lv_50",
+    "lv_56",
+    "lv_80",
+    "industrial_mvlv"
+  ],
+  "client_graphs": {
+    "lv_39": {
+      "num_nodes": 39,
+      "train_windows": 6084,
+      "validation_windows": 1314
+    },
+    "lv_50": {
+      "num_nodes": 50,
+      "train_windows": 6084,
+      "validation_windows": 1314
+    },
+    "lv_56": {
+      "num_nodes": 56,
+      "train_windows": 6084,
+      "validation_windows": 1314
+    },
+    "lv_80": {
+      "num_nodes": 80,
+      "train_windows": 6084,
+      "validation_windows": 1314
+    },
+    "industrial_mvlv": {
+      "num_nodes": 76,
+      "train_windows": 6084,
+      "validation_windows": 1314
+    }
+  },
+  "resume_recovery_passed": true,
+  "records": [
+    {
+      "model_name": "stfednet_gated",
+      "algorithm": "fedavg",
+      "run_dir": "results\\g2_smoke\\fedavg\\stfednet_gated\\seed42_20261014_013541_788200",
+      "best_round": 2,
+      "latest_round": 2,
+      "smoke": true,
+      "test_split_accessed": false,
+      "checkpoint_reload_passed": true,
+      "parameter_update_passed": true,
+      "exact_resume_passed": true,
+      "best_validation": {
+        "round": 2,
+        "clients": {
+          "lv_39": {
+            "mae_kw": 0.9239308812788555,
+            "rmse_kw": 1.1183716307302694,
+            "wape_percent": 80.43298992624702,
+            "mape_percent": 105.65049640152859,
+            "mape_valid_fraction": 0.9642857142857143,
+            "mape_valid_count": 54,
+            "effective_count": 56,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_50": {
+            "mae_kw": 1.1956843143949907,
+            "rmse_kw": 1.6490533005529366,
+            "wape_percent": 88.20363698861502,
+            "mape_percent": 211.60608882417114,
+            "mape_valid_fraction": 0.7619047619047619,
+            "mape_valid_count": 32,
+            "effective_count": 42,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_56": {
+            "mae_kw": 1.0564785206859761,
+            "rmse_kw": 1.19027526120029,
+            "wape_percent": 70.77397592173621,
+            "mape_percent": 123.88532727124381,
+            "mape_valid_fraction": 0.9659090909090909,
+            "mape_valid_count": 85,
+            "effective_count": 88,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_80": {
+            "mae_kw": 0.8356149876490235,
+            "rmse_kw": 1.3660570863888586,
+            "wape_percent": 137.7659389622175,
+            "mape_percent": 299.05638309747314,
+            "mape_valid_fraction": 0.640625,
+            "mape_valid_count": 41,
+            "effective_count": 64,
+            "mape_threshold_kw": 0.1
+          },
+          "industrial_mvlv": {
+            "mae_kw": 19.90182101296054,
+            "rmse_kw": 48.90367080973859,
+            "wape_percent": 30.062648926650702,
+            "mape_percent": 37.269021089929296,
+            "mape_valid_fraction": 0.9444444444444444,
+            "mape_valid_count": 85,
+            "effective_count": 90,
+            "mape_threshold_kw": 0.1
+          }
+        },
+        "client_equal_wape_percent": 81.44783814509329,
+        "overall": {
+          "mae_kw": 5.998741855154581,
+          "rmse_kw": 25.18575539361745,
+          "wape_percent": 32.63552106638427,
+          "mape_percent": 129.4139830496705,
+          "mape_valid_fraction": 0.8735294117647059,
+          "mape_valid_count": 297,
+          "effective_count": 340,
+          "mape_threshold_kw": 0.1
+        },
+        "statistics": {
+          "lv_39": {
+            "count": 56,
+            "mape_count": 54,
+            "absolute_error": 51.740129351615906,
+            "squared_error": 70.04228584764778,
+            "absolute_true": 64.32699990272522,
+            "mape_sum": 57.051268056825435,
+            "gate_statistics": {
+              "gate_mean": 0.047499028088238374,
+              "gate_std": 2.4020092302569437e-05,
+              "gate_count": 3744,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_50": {
+            "count": 42,
+            "mape_count": 32,
+            "absolute_error": 50.218741204589605,
+            "squared_error": 114.21382509871042,
+            "absolute_true": 56.93500055000186,
+            "mape_sum": 67.71394842373476,
+            "gate_statistics": {
+              "gate_mean": 0.04750031432059283,
+              "gate_std": 2.076807016165923e-05,
+              "gate_count": 4800,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_56": {
+            "count": 88,
+            "mape_count": 85,
+            "absolute_error": 92.9701098203659,
+            "squared_error": 124.67445737343685,
+            "absolute_true": 131.36199939250946,
+            "mape_sum": 105.30252818055723,
+            "gate_statistics": {
+              "gate_mean": 0.04749410306907348,
+              "gate_std": 2.308748729582294e-05,
+              "gate_count": 5376,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_80": {
+            "count": 64,
+            "mape_count": 41,
+            "absolute_error": 53.479359209537506,
+            "squared_error": 119.4311656494859,
+            "absolute_true": 38.81899953819811,
+            "mape_sum": 122.61311706996399,
+            "gate_statistics": {
+              "gate_mean": 0.04750413282260221,
+              "gate_std": 2.012427674302836e-05,
+              "gate_count": 7680,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "industrial_mvlv": {
+            "count": 90,
+            "mape_count": 85,
+            "absolute_error": 1791.1638911664486,
+            "squared_error": 215241.21168005504,
+            "absolute_true": 5958.104009851813,
+            "mape_sum": 31.678667926439903,
+            "gate_statistics": {
+              "gate_mean": 0.04750217123849628,
+              "gate_std": 2.6633414298349754e-05,
+              "gate_count": 7296,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          }
+        },
+        "smoke": true,
+        "test_evaluated": false
+      },
+      "latest_train_loss": 0.3245300754904747,
+      "round_sample_counts": {
+        "lv_39": 4,
+        "lv_50": 4,
+        "lv_56": 4,
+        "lv_80": 4,
+        "industrial_mvlv": 4
+      }
+    },
+    {
+      "model_name": "stfednet_gated",
+      "algorithm": "fedprox",
+      "run_dir": "results\\g2_smoke\\fedprox\\stfednet_gated\\seed42_20261014_013542_631700",
+      "best_round": 2,
+      "latest_round": 2,
+      "smoke": true,
+      "test_split_accessed": false,
+      "checkpoint_reload_passed": true,
+      "parameter_update_passed": true,
+      "exact_resume_passed": true,
+      "best_validation": {
+        "round": 2,
+        "clients": {
+          "lv_39": {
+            "mae_kw": 0.9239334911108017,
+            "rmse_kw": 1.1183770207207848,
+            "wape_percent": 80.43321712569548,
+            "mape_percent": 105.6505180795474,
+            "mape_valid_fraction": 0.9642857142857143,
+            "mape_valid_count": 54,
+            "effective_count": 56,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_50": {
+            "mae_kw": 1.1956941168755293,
+            "rmse_kw": 1.6490670553890323,
+            "wape_percent": 88.20436010124986,
+            "mape_percent": 211.60765967317184,
+            "mape_valid_fraction": 0.7619047619047619,
+            "mape_valid_count": 32,
+            "effective_count": 42,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_56": {
+            "mae_kw": 1.0564853291619907,
+            "rmse_kw": 1.1902833158266397,
+            "wape_percent": 70.77443202463662,
+            "mape_percent": 123.88597739400555,
+            "mape_valid_fraction": 0.9659090909090909,
+            "mape_valid_count": 85,
+            "effective_count": 88,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_80": {
+            "mae_kw": 0.8356245520844823,
+            "rmse_kw": 1.3660824474490287,
+            "wape_percent": 137.76751582889784,
+            "mape_percent": 299.0588656495291,
+            "mape_valid_fraction": 0.640625,
+            "mape_valid_count": 41,
+            "effective_count": 64,
+            "mape_threshold_kw": 0.1
+          },
+          "industrial_mvlv": {
+            "mae_kw": 19.901808052923943,
+            "rmse_kw": 48.90364644428668,
+            "wape_percent": 30.0626293498979,
+            "mape_percent": 37.26905268546535,
+            "mape_valid_fraction": 0.9444444444444444,
+            "mape_valid_count": 85,
+            "effective_count": 90,
+            "mape_threshold_kw": 0.1
+          }
+        },
+        "client_equal_wape_percent": 81.44843088607554,
+        "overall": {
+          "mae_kw": 5.9987436278641,
+          "rmse_kw": 25.185743378281323,
+          "wape_percent": 32.63553071062306,
+          "mape_percent": 129.41469405462215,
+          "mape_valid_fraction": 0.8735294117647059,
+          "mape_valid_count": 297,
+          "effective_count": 340,
+          "mape_threshold_kw": 0.1
+        },
+        "statistics": {
+          "lv_39": {
+            "count": 56,
+            "mape_count": 54,
+            "absolute_error": 51.740275502204895,
+            "squared_error": 70.04296098667274,
+            "absolute_true": 64.32699990272522,
+            "mape_sum": 57.05127976295559,
+            "gate_statistics": {
+              "gate_mean": 0.04750209619414507,
+              "gate_std": 2.5055761382301106e-05,
+              "gate_count": 3744,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_50": {
+            "count": 42,
+            "mape_count": 32,
+            "absolute_error": 50.21915290877223,
+            "squared_error": 114.21573043311706,
+            "absolute_true": 56.93500055000186,
+            "mape_sum": 67.71445109541499,
+            "gate_statistics": {
+              "gate_mean": 0.04750323220000913,
+              "gate_std": 2.13963234127522e-05,
+              "gate_count": 4800,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_56": {
+            "count": 88,
+            "mape_count": 85,
+            "absolute_error": 92.97070896625519,
+            "squared_error": 124.67614473030287,
+            "absolute_true": 131.36199939250946,
+            "mape_sum": 105.30308078490472,
+            "gate_statistics": {
+              "gate_mean": 0.04749697154883983,
+              "gate_std": 2.391596919673137e-05,
+              "gate_count": 5376,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_80": {
+            "count": 64,
+            "mape_count": 41,
+            "absolute_error": 53.479971333406866,
+            "squared_error": 119.43560020661303,
+            "absolute_true": 38.81899953819811,
+            "mape_sum": 122.61413491630692,
+            "gate_statistics": {
+              "gate_mean": 0.04750719021443122,
+              "gate_std": 2.1043700797987124e-05,
+              "gate_count": 7680,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "industrial_mvlv": {
+            "count": 90,
+            "mape_count": 85,
+            "absolute_error": 1791.162724763155,
+            "squared_error": 215240.9971993014,
+            "absolute_true": 5958.104009851813,
+            "mape_sum": 31.678694782645543,
+            "gate_statistics": {
+              "gate_mean": 0.04750526106708046,
+              "gate_std": 2.7975430544383188e-05,
+              "gate_count": 7296,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          }
+        },
+        "smoke": true,
+        "test_evaluated": false
+      },
+      "latest_train_loss": 0.32454512268304825,
+      "round_sample_counts": {
+        "lv_39": 4,
+        "lv_50": 4,
+        "lv_56": 4,
+        "lv_80": 4,
+        "industrial_mvlv": 4
+      },
+      "fedprox_update_distinct_from_fedavg": true
+    },
+    {
+      "model_name": "gru_attention",
+      "algorithm": "fedavg",
+      "run_dir": "results\\g2_smoke\\fedavg\\gru_attention\\seed42_20261014_013543_415800",
+      "best_round": 2,
+      "latest_round": 2,
+      "smoke": true,
+      "test_split_accessed": false,
+      "checkpoint_reload_passed": true,
+      "parameter_update_passed": true,
+      "exact_resume_passed": true,
+      "best_validation": {
+        "round": 2,
+        "clients": {
+          "lv_39": {
+            "mae_kw": 0.8209174871444702,
+            "rmse_kw": 1.018403195729379,
+            "wape_percent": 71.46513804406841,
+            "mape_percent": 91.80777067154311,
+            "mape_valid_fraction": 0.9642857142857143,
+            "mape_valid_count": 54,
+            "effective_count": 56,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_50": {
+            "mae_kw": 1.0313656675141483,
+            "rmse_kw": 1.430914630383701,
+            "wape_percent": 76.08212455807697,
+            "mape_percent": 187.6260878458509,
+            "mape_valid_fraction": 0.7619047619047619,
+            "mape_valid_count": 32,
+            "effective_count": 42,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_56": {
+            "mae_kw": 0.9277008907361464,
+            "rmse_kw": 1.0568961424675634,
+            "wape_percent": 62.147104004444714,
+            "mape_percent": 108.46257132091198,
+            "mape_valid_fraction": 0.9659090909090909,
+            "mape_valid_count": 85,
+            "effective_count": 88,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_80": {
+            "mae_kw": 0.7717130415621796,
+            "rmse_kw": 1.3773901176339773,
+            "wape_percent": 127.23057071931959,
+            "mape_percent": 259.99368337129624,
+            "mape_valid_fraction": 0.640625,
+            "mape_valid_count": 41,
+            "effective_count": 64,
+            "mape_threshold_kw": 0.1
+          },
+          "industrial_mvlv": {
+            "mae_kw": 22.87792962110705,
+            "rmse_kw": 56.94535776566598,
+            "wape_percent": 34.55820278556777,
+            "mape_percent": 41.075245738286085,
+            "mape_valid_fraction": 0.9444444444444444,
+            "mape_valid_count": 85,
+            "effective_count": 90,
+            "mape_threshold_kw": 0.1
+          }
+        },
+        "client_equal_wape_percent": 74.2966280222955,
+        "overall": {
+          "mae_kw": 6.703910930176704,
+          "rmse_kw": 29.316399487930465,
+          "wape_percent": 36.47191889095013,
+          "mape_percent": 115.5963296147661,
+          "mape_valid_fraction": 0.8735294117647059,
+          "mape_valid_count": 297,
+          "effective_count": 340,
+          "mape_threshold_kw": 0.1
+        },
+        "statistics": {
+          "lv_39": {
+            "count": 56,
+            "mape_count": 54,
+            "absolute_error": 45.97137928009033,
+            "squared_error": 58.08012386802149,
+            "absolute_true": 64.32699990272522,
+            "mape_sum": 49.57619616263327
+          },
+          "lv_50": {
+            "count": 42,
+            "mape_count": 32,
+            "absolute_error": 43.317358035594225,
+            "squared_error": 85.99570053673719,
+            "absolute_true": 56.93500055000186,
+            "mape_sum": 60.040348110672284
+          },
+          "lv_56": {
+            "count": 88,
+            "mape_count": 85,
+            "absolute_error": 81.63767838478088,
+            "squared_error": 98.29859212472779,
+            "absolute_true": 131.36199939250946,
+            "mape_sum": 92.19318562277519
+          },
+          "lv_80": {
+            "count": 64,
+            "mape_count": 41,
+            "absolute_error": 49.38963465997949,
+            "squared_error": 121.4210263139675,
+            "absolute_true": 38.81899953819811,
+            "mape_sum": 106.59741018223147
+          },
+          "industrial_mvlv": {
+            "count": 90,
+            "mape_count": 85,
+            "absolute_error": 2059.0136658996344,
+            "squared_error": 291849.6393953726,
+            "absolute_true": 5958.104009851813,
+            "mape_sum": 34.91395887754317
+          }
+        },
+        "smoke": true,
+        "test_evaluated": false
+      },
+      "latest_train_loss": 0.35171289294958114,
+      "round_sample_counts": {
+        "lv_39": 4,
+        "lv_50": 4,
+        "lv_56": 4,
+        "lv_80": 4,
+        "industrial_mvlv": 4
+      }
+    },
+    {
+      "model_name": "gru_attention",
+      "algorithm": "fedprox",
+      "run_dir": "results\\g2_smoke\\fedprox\\gru_attention\\seed42_20261014_013543_290600",
+      "best_round": 2,
+      "latest_round": 2,
+      "smoke": true,
+      "test_split_accessed": false,
+      "checkpoint_reload_passed": true,
+      "parameter_update_passed": true,
+      "exact_resume_passed": true,
+      "best_validation": {
+        "round": 2,
+        "clients": {
+          "lv_39": {
+            "mae_kw": 0.8209130551133837,
+            "rmse_kw": 1.018406370921101,
+            "wape_percent": 71.46475221270488,
+            "mape_percent": 91.80641230736279,
+            "mape_valid_fraction": 0.9642857142857143,
+            "mape_valid_count": 54,
+            "effective_count": 56,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_50": {
+            "mae_kw": 1.0313748492903652,
+            "rmse_kw": 1.4309310371958337,
+            "wape_percent": 76.08280188238959,
+            "mape_percent": 187.6276004027436,
+            "mape_valid_fraction": 0.7619047619047619,
+            "mape_valid_count": 32,
+            "effective_count": 42,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_56": {
+            "mae_kw": 0.9276998584920709,
+            "rmse_kw": 1.0568992812140992,
+            "wape_percent": 62.147034853945286,
+            "mape_percent": 108.46267821693415,
+            "mape_valid_fraction": 0.9659090909090909,
+            "mape_valid_count": 85,
+            "effective_count": 88,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_80": {
+            "mae_kw": 0.7717263535378152,
+            "rmse_kw": 1.3774398746293595,
+            "wape_percent": 127.23276543440964,
+            "mape_percent": 259.99545939776567,
+            "mape_valid_fraction": 0.640625,
+            "mape_valid_count": 41,
+            "effective_count": 64,
+            "mape_threshold_kw": 0.1
+          },
+          "industrial_mvlv": {
+            "mae_kw": 22.878022591769696,
+            "rmse_kw": 56.94540538576512,
+            "wape_percent": 34.55834322218359,
+            "mape_percent": 41.07579865984785,
+            "mape_valid_fraction": 0.9444444444444444,
+            "mape_valid_count": 85,
+            "effective_count": 90,
+            "mape_threshold_kw": 0.1
+          }
+        },
+        "client_equal_wape_percent": 74.2971395211266,
+        "overall": {
+          "mae_kw": 6.703938182910411,
+          "rmse_kw": 29.316424559448926,
+          "wape_percent": 36.47206715656757,
+          "mape_percent": 115.5966796206069,
+          "mape_valid_fraction": 0.8735294117647059,
+          "mape_valid_count": 297,
+          "effective_count": 340,
+          "mape_threshold_kw": 0.1
+        },
+        "statistics": {
+          "lv_39": {
+            "count": 56,
+            "mape_count": 54,
+            "absolute_error": 45.97113108634949,
+            "squared_error": 58.080486034630496,
+            "absolute_true": 64.32699990272522,
+            "mape_sum": 49.575462645975904
+          },
+          "lv_50": {
+            "count": 42,
+            "mape_count": 32,
+            "absolute_error": 43.31774367019534,
+            "squared_error": 85.99767259483447,
+            "absolute_true": 56.93500055000186,
+            "mape_sum": 60.04083212887795
+          },
+          "lv_56": {
+            "count": 88,
+            "mape_count": 85,
+            "absolute_error": 81.63758754730225,
+            "squared_error": 98.2991759755174,
+            "absolute_true": 131.36199939250946,
+            "mape_sum": 92.19327648439403
+          },
+          "lv_80": {
+            "count": 64,
+            "mape_count": 41,
+            "absolute_error": 49.39048662642017,
+            "squared_error": 121.4297989260125,
+            "absolute_true": 38.81899953819811,
+            "mape_sum": 106.59813835308393
+          },
+          "industrial_mvlv": {
+            "count": 90,
+            "mape_count": 85,
+            "absolute_error": 2059.0220332592726,
+            "squared_error": 291850.12750942144,
+            "absolute_true": 5958.104009851813,
+            "mape_sum": 34.91442886087067
+          }
+        },
+        "smoke": true,
+        "test_evaluated": false
+      },
+      "latest_train_loss": 0.3517352983355522,
+      "round_sample_counts": {
+        "lv_39": 4,
+        "lv_50": 4,
+        "lv_56": 4,
+        "lv_80": 4,
+        "industrial_mvlv": 4
+      },
+      "fedprox_update_distinct_from_fedavg": true
+    },
+    {
+      "model_name": "stfednet_gated",
+      "algorithm": "centralized",
+      "run_dir": "results\\g2_smoke\\centralized\\stfednet_gated\\seed42_20261014_013544_392700",
+      "latest_round": 2,
+      "smoke": true,
+      "test_split_accessed": false,
+      "checkpoint_reload_passed": true,
+      "parameter_update_passed": true,
+      "exact_resume_passed": true,
+      "best_validation": {
+        "round": 2,
+        "clients": {
+          "lv_39": {
+            "mae_kw": 0.9189939871430397,
+            "rmse_kw": 1.1044431790899119,
+            "wape_percent": 80.0032076077435,
+            "mape_percent": 106.32330472279784,
+            "mape_valid_fraction": 0.9642857142857143,
+            "mape_valid_count": 54,
+            "effective_count": 56,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_50": {
+            "mae_kw": 1.1767474786334096,
+            "rmse_kw": 1.6239933416143828,
+            "wape_percent": 86.80669820877272,
+            "mape_percent": 207.60028901112807,
+            "mape_valid_fraction": 0.7619047619047619,
+            "mape_valid_count": 32,
+            "effective_count": 42,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_56": {
+            "mae_kw": 1.0384152938019147,
+            "rmse_kw": 1.1725075956053592,
+            "wape_percent": 69.56391214899489,
+            "mape_percent": 122.36880623222329,
+            "mape_valid_fraction": 0.9659090909090909,
+            "mape_valid_count": 85,
+            "effective_count": 88,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_80": {
+            "mae_kw": 0.8027633725723717,
+            "rmse_kw": 1.2578322892169407,
+            "wape_percent": 132.34976804097354,
+            "mape_percent": 295.2195465266958,
+            "mape_valid_fraction": 0.640625,
+            "mape_valid_count": 41,
+            "effective_count": 64,
+            "mape_threshold_kw": 0.1
+          },
+          "industrial_mvlv": {
+            "mae_kw": 19.12592840409941,
+            "rmse_kw": 47.25738123906863,
+            "wape_percent": 28.890626171055363,
+            "mape_percent": 36.67166540278672,
+            "mape_valid_fraction": 0.9444444444444444,
+            "mape_valid_count": 85,
+            "effective_count": 90,
+            "mape_threshold_kw": 0.1
+          }
+        },
+        "client_equal_wape_percent": 79.52284243550801,
+        "overall": {
+          "mae_kw": 5.779347104266943,
+          "rmse_kw": 24.337983019793207,
+          "wape_percent": 31.441927111629383,
+          "mape_percent": 127.97006464632177,
+          "mape_valid_fraction": 0.8735294117647059,
+          "mape_valid_count": 297,
+          "effective_count": 340,
+          "mape_threshold_kw": 0.1
+        },
+        "statistics": {
+          "lv_39": {
+            "count": 56,
+            "mape_count": 54,
+            "absolute_error": 51.46366328001022,
+            "squared_error": 68.30850520694095,
+            "absolute_true": 64.32699990272522,
+            "mape_sum": 57.41458455031084,
+            "gate_statistics": {
+              "gate_mean": 0.04780350768098878,
+              "gate_std": 0.0003901343995749127,
+              "gate_count": 3744,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_50": {
+            "count": 42,
+            "mape_count": 32,
+            "absolute_error": 49.4233941026032,
+            "squared_error": 110.7688836915297,
+            "absolute_true": 56.93500055000186,
+            "mape_sum": 66.43209248356098,
+            "gate_statistics": {
+              "gate_mean": 0.04782123098382726,
+              "gate_std": 0.00032788611346838307,
+              "gate_count": 4800,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_56": {
+            "count": 88,
+            "mape_count": 85,
+            "absolute_error": 91.38054585456848,
+            "squared_error": 120.98011743419893,
+            "absolute_true": 131.36199939250946,
+            "mape_sum": 104.01348529738979,
+            "gate_statistics": {
+              "gate_mean": 0.047724982308517655,
+              "gate_std": 0.00036891125381354546,
+              "gate_count": 5376,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "lv_80": {
+            "count": 64,
+            "mape_count": 41,
+            "absolute_error": 51.37685584463179,
+            "squared_error": 101.25709233899067,
+            "absolute_true": 38.81899953819811,
+            "mape_sum": 121.04001407594528,
+            "gate_statistics": {
+              "gate_mean": 0.047883548875688575,
+              "gate_std": 0.00032790453378087644,
+              "gate_count": 7680,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          },
+          "industrial_mvlv": {
+            "count": 90,
+            "mape_count": 85,
+            "absolute_error": 1721.333556368947,
+            "squared_error": 200993.4073417208,
+            "absolute_true": 5958.104009851813,
+            "mape_sum": 31.170915592368715,
+            "gate_statistics": {
+              "gate_mean": 0.0478561647065809,
+              "gate_std": 0.0004333500902458981,
+              "gate_count": 7296,
+              "validation_windows": 2,
+              "total_validation_windows": 1314,
+              "complete_validation": false,
+              "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+              "std_definition": "population (ddof=0)",
+              "node_scope": "all nodes including non-load intermediate buses",
+              "overlap_handling": "each window occurrence is counted"
+            }
+          }
+        },
+        "smoke": true,
+        "test_evaluated": false
+      },
+      "latest_train_loss": 0.2901258483529091
+    },
+    {
+      "model_name": "gru_attention",
+      "algorithm": "centralized",
+      "run_dir": "results\\g2_smoke\\centralized\\gru_attention\\seed42_20261014_013544_804100",
+      "latest_round": 2,
+      "smoke": true,
+      "test_split_accessed": false,
+      "checkpoint_reload_passed": true,
+      "parameter_update_passed": true,
+      "exact_resume_passed": true,
+      "best_validation": {
+        "round": 2,
+        "clients": {
+          "lv_39": {
+            "mae_kw": 0.8092280541147504,
+            "rmse_kw": 0.9963567150936027,
+            "wape_percent": 70.44751208505555,
+            "mape_percent": 91.67789198748467,
+            "mape_valid_fraction": 0.9642857142857143,
+            "mape_valid_count": 54,
+            "effective_count": 56,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_50": {
+            "mae_kw": 1.0013994108885527,
+            "rmse_kw": 1.3925194721878644,
+            "wape_percent": 73.87156380262446,
+            "mape_percent": 182.10283422844685,
+            "mape_valid_fraction": 0.7619047619047619,
+            "mape_valid_count": 32,
+            "effective_count": 42,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_56": {
+            "mae_kw": 0.9051510786468332,
+            "rmse_kw": 1.029913304521407,
+            "wape_percent": 60.636481851130625,
+            "mape_percent": 106.10056681702959,
+            "mape_valid_fraction": 0.9659090909090909,
+            "mape_valid_count": 85,
+            "effective_count": 88,
+            "mape_threshold_kw": 0.1
+          },
+          "lv_80": {
+            "mae_kw": 0.7326046959933592,
+            "rmse_kw": 1.2560871213096898,
+            "wape_percent": 120.7828668985614,
+            "mape_percent": 253.640680617591,
+            "mape_valid_fraction": 0.640625,
+            "mape_valid_count": 41,
+            "effective_count": 64,
+            "mape_threshold_kw": 0.1
+          },
+          "industrial_mvlv": {
+            "mae_kw": 22.22721857180198,
+            "rmse_kw": 55.47520948511853,
+            "wape_percent": 33.57527274036178,
+            "mape_percent": 40.476360901303444,
+            "mape_valid_fraction": 0.9444444444444444,
+            "mape_valid_count": 85,
+            "effective_count": 90,
+            "mape_threshold_kw": 0.1
+          }
+        },
+        "client_equal_wape_percent": 71.86273947554676,
+        "overall": {
+          "mae_kw": 6.512838862395352,
+          "rmse_kw": 28.558827480385105,
+          "wape_percent": 35.43241150025992,
+          "mape_percent": 113.25321085526605,
+          "mape_valid_fraction": 0.8735294117647059,
+          "mape_valid_count": 297,
+          "effective_count": 340,
+          "mape_threshold_kw": 0.1
+        },
+        "statistics": {
+          "lv_39": {
+            "count": 56,
+            "mape_count": 54,
+            "absolute_error": 45.316771030426025,
+            "squared_error": 55.59269540787841,
+            "absolute_true": 64.32699990272522,
+            "mape_sum": 49.506061673241724
+          },
+          "lv_50": {
+            "count": 42,
+            "mape_count": 32,
+            "absolute_error": 42.05877525731921,
+            "squared_error": 81.44264017773948,
+            "absolute_true": 56.93500055000186,
+            "mape_sum": 58.272906953102996
+          },
+          "lv_56": {
+            "count": 88,
+            "mape_count": 85,
+            "absolute_error": 79.65329492092133,
+            "squared_error": 93.343484505058,
+            "absolute_true": 131.36199939250946,
+            "mape_sum": 90.18548179447515
+          },
+          "lv_80": {
+            "count": 64,
+            "mape_count": 41,
+            "absolute_error": 46.88670054357499,
+            "squared_error": 100.97631080448407,
+            "absolute_true": 38.81899953819811,
+            "mape_sum": 103.99267905321231
+          },
+          "industrial_mvlv": {
+            "count": 90,
+            "mape_count": 85,
+            "absolute_error": 2000.4496714621782,
+            "squared_error": 276974.8980676007,
+            "absolute_true": 5958.104009851813,
+            "mape_sum": 34.40490676610793
+          }
+        },
+        "smoke": true,
+        "test_evaluated": false
+      },
+      "latest_train_loss": 0.3047461673617363
+    }
+  ]
+}

@@ -1,1 +1,1 @@
-"""Placeholder package for federated learning."""
+"""Single-machine federated and centralized load forecasting utilities."""
