@@ -46,6 +46,14 @@ def main():
             latest = load_checkpoint(run / "latest_global.pt")
             assert best["smoke"] and latest["smoke"] and latest["round"] == 2
             assert best["current_validation"]["test_evaluated"] is False
+            diagnostic = latest["current_diagnostics"]
+            assert len(diagnostic["clients"]) == 5
+            assert diagnostic["summary"]["mean_total_loss"] == latest["train_loss"]
+            assert 0 <= diagnostic["summary"]["clip_fraction"] <= 1
+            if algorithm == "fedavg":
+                assert diagnostic["summary"]["mean_prox_loss"] == 0
+            else:
+                assert diagnostic["summary"]["mean_prox_loss"] > 0
             federated_states[algorithm] = latest["model_state_dict"]
             assert any(not torch.equal(latest["model_state_dict"][name], initial_state[name])
                        for name in initial_state), "Global model parameters did not update"
@@ -63,6 +71,7 @@ def main():
             assert all(torch.equal(recovered["model_state_dict"][name], latest["model_state_dict"][name])
                        for name in latest["model_state_dict"])
             assert recovered["current_validation"] == latest["current_validation"]
+            assert recovered["current_diagnostics"] == latest["current_diagnostics"]
             recovery_logs.append(recovery_run / "train.log")
             records.append({"model_name": model_name, "algorithm": algorithm,
                             "run_dir": str(run), "best_round": best["best_round"],
@@ -72,6 +81,8 @@ def main():
                             "best_validation": best["current_validation"],
                             "latest_train_loss": latest["train_loss"],
                             "round_sample_counts": latest["round_sample_counts"]})
+            records[-1]["diagnostics"] = diagnostic
+            records[-1]["diagnostics_resume_passed"] = True
         assert any(not torch.equal(federated_states["fedavg"][name],
                                    federated_states["fedprox"][name])
                    for name in federated_states["fedavg"]), "FedProx proximal update was not exercised"

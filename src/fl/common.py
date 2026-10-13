@@ -27,13 +27,16 @@ def restore_round_outputs(checkpoint, run_dir):
         path = run_dir / "rounds.csv"
         temporary = path.with_suffix(".csv.tmp")
         with temporary.open("w", newline="", encoding="utf-8") as handle:
-            writer = csv.DictWriter(handle, fieldnames=list(history[0]))
+            fields = list(dict.fromkeys(key for row in history for key in row))
+            writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
             writer.writerows(history)
         os.replace(temporary, path)
     validation = checkpoint["best_validation"]
     best = dict(checkpoint, kind="best_global", round=checkpoint["best_round"],
                 model_state_dict=checkpoint["best_model_state_dict"], current_validation=validation)
+    if "best_diagnostics" in checkpoint:
+        best["current_diagnostics"] = checkpoint["best_diagnostics"]
     best.pop("optimizer_state_dict", None)
     atomic_save(best, run_dir / "best_global.pt")
     write_json(run_dir / "best_clients_validation.json", {

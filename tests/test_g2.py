@@ -106,6 +106,8 @@ def test_zero_mu_local_update_matches_fedavg_exactly(tmp_path):
                          torch.device("cpu"), algorithm="fedprox", mu=0.0,
                          max_train_batches=1)
     assert avg["mean_loss"] == prox["mean_loss"]
+    assert avg["diagnostics"] == prox["diagnostics"]
+    assert prox["diagnostics"]["prox_loss"] == 0
     assert all(torch.equal(avg["state_dict"][key], prox["state_dict"][key])
                for key in avg["state_dict"])
 
@@ -124,7 +126,7 @@ def test_variable_node_clients_share_same_model_parameters_and_updates_are_model
         receiver.load_state_dict(state, strict=True)
         update = client_update(state, client, config(tmp_path), "gru_attention", 1, index,
                                torch.device("cpu"), max_train_batches=1)
-        assert set(update) == {"state_dict", "sample_count", "processed_windows", "mean_loss"}
+        assert set(update) == {"state_dict", "sample_count", "processed_windows", "mean_loss", "diagnostics"}
         assert set(update["state_dict"]) == set(state)
         assert update["sample_count"] == 2
         assert update["processed_windows"] == 2

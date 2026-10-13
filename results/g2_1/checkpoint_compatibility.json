@@ -1,0 +1,79 @@
+{
+  "formal_checkpoint_count": 8,
+  "records": [
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedavg\\gru_attention\\seed42_20261014_020959_569300\\best_global.pt",
+      "kind": "best_global",
+      "sha256": "63f8b8f80cc1438c6aa2b0fd73daabb5d347543c2887ef3a62363aa16d27551c",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 20
+    },
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedavg\\gru_attention\\seed42_20261014_020959_569300\\latest_global.pt",
+      "kind": "latest_global",
+      "sha256": "699ae9972fdbb94768e5ada4e3583d870f9d243a51b3113eb6d284115ab6d459",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 20
+    },
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedavg\\stfednet_gated\\seed42_20261014_015312_840900\\best_global.pt",
+      "kind": "best_global",
+      "sha256": "1e04766f801dae343153f76c7b15f344f45cab45b2466d72e3b83a888f0708bd",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 18
+    },
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedavg\\stfednet_gated\\seed42_20261014_015312_840900\\latest_global.pt",
+      "kind": "latest_global",
+      "sha256": "f027a295824c8e7d9558498e4114e44f6675cba44703e65685e8afdee36e40be",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 20
+    },
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedprox\\gru_attention\\seed42_20261014_021406_491200\\best_global.pt",
+      "kind": "best_global",
+      "sha256": "21e88a1b6e431b13f879f7e54f95600ac3fe7464ff41a649ec88a094a8332426",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 19
+    },
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedprox\\gru_attention\\seed42_20261014_021406_491200\\latest_global.pt",
+      "kind": "latest_global",
+      "sha256": "ebbf3671b7ec2f5c651df3d5652f0e49da2ae44a58a5470421141a49d0171e35",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 20
+    },
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedprox\\stfednet_gated\\seed42_20261014_020055_882900\\best_global.pt",
+      "kind": "best_global",
+      "sha256": "d4aefd614c9afc80e88e235f2ffee6f6d0f036b7925d05a3be88c6c191dd232b",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 19
+    },
+    {
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedprox\\stfednet_gated\\seed42_20261014_020055_882900\\latest_global.pt",
+      "kind": "latest_global",
+      "sha256": "3d02ff3cfdd55e904a8260e28ac2b63c7ca5dcbf6410ed0f793ff9ac20a08a95",
+      "strict_load_passed": true,
+      "config_compatible": true,
+      "diagnostics_recorded": false,
+      "round": 20
+    }
+  ],
+  "original_runs_modified": false,
+  "old_schema_resume_test": "test_g21.py: FedAvg/FedProx synthetic complete-round recovery equals continuous training"
+}

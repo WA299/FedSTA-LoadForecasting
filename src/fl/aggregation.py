@@ -52,11 +52,13 @@ def proximal_penalty(model, global_state):
     return torch.stack(terms).sum()
 
 
-def fedprox_objective(huber_loss, model, global_state, mu):
+def fedprox_objective(huber_loss, model, global_state, mu, *, return_prox=False):
     """Huber plus ``mu/2 * ||w-w_start||^2`` over trainable parameters."""
     mu = float(mu)
     if mu < 0:
         raise ValueError("FedProx mu must be non-negative")
     if mu == 0:
-        return huber_loss
-    return huber_loss + (mu / 2.0) * proximal_penalty(model, global_state)
+        return (huber_loss, huber_loss.new_zeros(())) if return_prox else huber_loss
+    prox = (mu / 2.0) * proximal_penalty(model, global_state)
+    total = huber_loss + prox
+    return (total, prox) if return_prox else total

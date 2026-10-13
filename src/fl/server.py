@@ -9,6 +9,7 @@ import torch
 
 from src.fl.aggregation import fedavg_aggregate
 from src.fl.client import client_update
+from src.fl.diagnostics import DIAGNOSTIC_FIELDS, summarize_diagnostics
 from src.fl.common import (MODEL_NAMES, evaluate_clients, prepare_clients, signature_map,
                            validate_config, restore_round_outputs)
 from src.models.forecasting import build_model
@@ -29,16 +30,28 @@ def _config_compatible(saved, current):
             raise ValueError("Resume configuration mismatch: " + key)
 
 
-def _round_csv(run_dir, record):
+def _round_csv(run_dir, history):
     path = Path(run_dir) / "rounds.csv"
     fields = ["round", "algorithm", "model_name", "train_loss", "client_equal_wape_percent",
               "overall_wape_percent", "client_wapes_json", "client_metrics_json", "seconds", "is_best", "smoke"]
-    exists = path.exists()
-    with path.open("a", newline="", encoding="utf-8") as handle:
+    fields += list(DIAGNOSTIC_FIELDS) + ["client_diagnostics_json"]
+    with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
-        if not exists:
-            writer.writeheader()
-        writer.writerow({key: record.get(key) for key in fields})
+        writer.writeheader()
+        writer.writerows({key: record.get(key) for key in fields} for record in history)
+
+
+def _diagnostics_json(run_dir, history):
+    write_json(Path(run_dir) / "round_diagnostics.json", {
+        "loss_average": "processed-window weighted, including repeated local epochs",
+        "gradient_average": "arithmetic mean over executed batches, before clipping",
+        "clip_fraction": "fraction of batches where the existing clip coefficient is < 1",
+        "missing": "null means not recorded; historical values are never reconstructed",
+        "rounds": [{"round": row["round"], "smoke": row.get("smoke", False),
+                    "test_evaluated": False,
+                    "summary": {key: row.get(key) for key in DIAGNOSTIC_FIELDS},
+                    "clients": json.loads(row["client_diagnostics_json"])
+                    if row.get("client_diagnostics_json") else None} for row in history]})
 
 
 def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=None,
@@ -73,6 +86,7 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
     state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
     generator = torch.Generator().manual_seed(config["seed"])
     best_wape, best_round, best_state, best_validation = float("inf"), 0, None, None
+    best_diagnostics = None
     start_round = 1
     round_history = []
     if resume:
@@ -89,11 +103,14 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
         best_wape = latest["best_validation_wape"]
         best_round = latest["best_round"]
         best_validation = latest["best_validation"]
+        best_diagnostics = latest.get("best_diagnostics")
         start_round = int(latest["round"]) + 1
         restore_random_state(latest["rng_state"], generator)
         run_dir = Path(resume).resolve().parent
         round_history = list(latest.get("round_history", []))
         restore_round_outputs(latest, run_dir)
+        _round_csv(run_dir, round_history)
+        _diagnostics_json(run_dir, round_history)
     else:
         run_dir = Path(run_dir) if run_dir else _new_run_dir(config, algorithm, model_name)
         if (run_dir / "latest_global.pt").exists():
@@ -123,7 +140,7 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
     for round_index in range(start_round, int(config["rounds"]) + 1):
         begin = time.perf_counter()
         round_start = {key: value.detach().cpu().clone() for key, value in state.items()}
-        updates, counts, losses = [], [], []
+        updates, counts, losses, client_diagnostics = [], [], [], {}
         for client_index, client_id in enumerate(prepared_clients):
             update = client_update(round_start, prepared_clients[client_id], config, model_name,
                                    round_index, client_index, device, algorithm, config["mu"],
@@ -131,6 +148,7 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
             updates.append(update["state_dict"])
             counts.append(update["sample_count"])
             losses.append((update["mean_loss"], update["processed_windows"]))
+            client_diagnostics[client_id] = update["diagnostics"]
         state = fedavg_aggregate(updates, counts)
         model.load_state_dict(state, strict=True)
         validation = evaluate_clients(model, prepared_clients, config, device, max_val_batches)
@@ -144,6 +162,7 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
             best_validation = validation
         total = sum(count for _, count in losses)
         mean_loss = sum(loss * count for loss, count in losses) / total
+        diagnostics = summarize_diagnostics(client_diagnostics)
         elapsed = time.perf_counter() - begin
         client_wapes = {cid: validation["clients"][cid]["wape_percent"] for cid in prepared_clients}
         record = {"round": round_index, "algorithm": algorithm, "model_name": model_name,
@@ -151,13 +170,15 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
                   "overall_wape_percent": validation["overall"]["wape_percent"],
                   "client_wapes_json": json.dumps(client_wapes, sort_keys=True),
                   "client_metrics_json": json.dumps(validation["clients"], sort_keys=True),
-                  "seconds": elapsed, "is_best": improved, "smoke": smoke}
-        _round_csv(run_dir, record)
+                  "seconds": elapsed, "is_best": improved, "smoke": smoke,
+                  **diagnostics, "client_diagnostics_json": json.dumps(client_diagnostics, sort_keys=True)}
         round_history.append(record)
+        _round_csv(run_dir, round_history)
         current_validation = {"round": round_index, **validation, "smoke": smoke,
                               "test_evaluated": False}
         if improved:
             best_validation = current_validation
+            best_diagnostics = {"round": round_index, "summary": diagnostics, "clients": client_diagnostics}
         payload = {"format_version": 1, "kind": "latest_global", "model_name": model_name,
                    "algorithm": algorithm, "model_state_dict": state,
                    "best_model_state_dict": best_state, "round": round_index,
@@ -170,8 +191,12 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
                    "test_evaluated": False,
                    "optimizer_policy": "AdamW is reinitialized independently for each client at each round",
                    "round_sample_counts": dict(zip(prepared_clients, counts))}
+        payload["current_diagnostics"] = {"round": round_index, "summary": diagnostics,
+                                          "clients": client_diagnostics}
+        payload["best_diagnostics"] = best_diagnostics
         payload["round_history"] = round_history
         atomic_save(payload, run_dir / "latest_global.pt")
+        _diagnostics_json(run_dir, round_history)
         if improved:
             best_payload = dict(payload, kind="best_global", model_state_dict=best_state,
                                 round=best_round, current_validation=best_validation)
@@ -189,6 +214,11 @@ def run_federated(config, model_name="stfednet_gated", algorithm="fedavg", mu=No
             " | AvgValWAPE=" + format(equal_wape, ".4f") + "% | OverallValWAPE=" +
             format(validation["overall"]["wape_percent"], ".4f") + "% | Best=" +
             format(best_wape, ".4f") + "% | ClientWAPEs=" + json.dumps(client_wapes, sort_keys=True) +
+            " | Huber=" + format(diagnostics["mean_huber_loss"], ".6f") +
+            " | Prox=" + format(diagnostics["mean_prox_loss"], ".6g") +
+            " | Total=" + format(diagnostics["mean_total_loss"], ".6f") +
+            " | GradNorm=" + format(diagnostics["mean_grad_norm_before_clip"], ".6f") +
+            " | ClipFraction=" + format(diagnostics["clip_fraction"], ".4f") +
             " | Time=" + format(elapsed, ".2f") + "s")
     log("[Run] Global checkpoints and validation logs: " + str(run_dir))
     return run_dir
