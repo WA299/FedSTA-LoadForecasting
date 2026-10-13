@@ -8,7 +8,7 @@ import torch
 
 from src.data.loader import GridData, prepare_client
 from src.fl.aggregation import fedavg_aggregate, fedprox_objective, proximal_penalty
-from src.fl.centralized import run_centralized
+from src.fl.centralized import iter_round_robin_batches, run_centralized
 from scripts.compare_g2 import check_protocol, find_best
 from src.fl.client import client_update
 from src.fl.common import CLIENT_IDS, pooled_and_equal_metrics
@@ -197,6 +197,53 @@ def test_centralized_uses_one_optimizer_sequential_variable_size_graphs(tmp_path
     assert latest["round"] == 1 and latest["optimizer_state_dict"] is not None
     assert latest["current_validation"]["test_evaluated"] is False
     assert tuple(latest["client_ids"]) == CLIENT_IDS
+
+
+def test_centralized_batches_are_round_robin_interleaved_without_cross_graph_batches():
+    from torch.utils.data import DataLoader, TensorDataset
+
+    lengths, node_counts = (3, 2, 1), (2, 3, 4)
+    loaders = []
+    for client_index, (length, nodes) in enumerate(zip(lengths, node_counts)):
+        indices = torch.arange(length, dtype=torch.float32)
+        x = torch.zeros(length, 48, nodes, 1)
+        x[:, 0, 0, 0] = indices
+        y = torch.zeros(length, 1, nodes)
+        loaders.append(DataLoader(TensorDataset(x, y), batch_size=1, shuffle=False))
+
+    scheduled = list(iter_round_robin_batches(loaders, local_epochs=2))
+    client_order = [client_index for client_index, _ in scheduled]
+    one_epoch_order = [0, 1, 2, 0, 1, 0]
+    assert client_order == one_epoch_order * 2
+
+    observed = {index: [] for index in range(len(loaders))}
+    for client_index, (x, y) in scheduled:
+        assert x.shape == (1, 48, node_counts[client_index], 1)
+        assert y.shape == (1, 1, node_counts[client_index])
+        observed[client_index].append(int(x[0, 0, 0, 0].item()))
+    for client_index, length in enumerate(lengths):
+        assert observed[client_index] == list(range(length)) * 2
+
+
+def test_centralized_resume_is_exact_with_multiple_interleaved_local_epochs(tmp_path):
+    prepared = synthetic_clients()
+    settings = config(tmp_path, rounds=2)
+    settings["local_epochs"] = 2
+    settings["dropout"] = 0.1
+    full_dir = run_centralized(settings, "gru_attention", run_dir=tmp_path / "central_full_multi_epoch",
+                               prepared_clients=prepared, max_train_batches=1, max_val_batches=1)
+    full = load_checkpoint(full_dir / "latest_global.pt")
+    first_dir = run_centralized(config(tmp_path, rounds=1) | {"local_epochs": 2, "dropout": 0.1},
+                                "gru_attention", run_dir=tmp_path / "central_resume_multi_epoch",
+                                prepared_clients=prepared, max_train_batches=1, max_val_batches=1)
+    resumed_dir = run_centralized(settings, "gru_attention",
+                                  resume=first_dir / "latest_global.pt", prepared_clients=prepared,
+                                  max_train_batches=1, max_val_batches=1)
+    resumed = load_checkpoint(resumed_dir / "latest_global.pt")
+    assert resumed["round"] == 2
+    for name, value in full["model_state_dict"].items():
+        assert torch.equal(value, resumed["model_state_dict"][name])
+    assert resumed["training_schedule"] == "deterministic cross-client round-robin batch interleaving"
 
 
 def test_centralized_resume_restores_latest_completed_round(tmp_path):

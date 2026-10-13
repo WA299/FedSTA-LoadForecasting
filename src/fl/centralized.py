@@ -34,9 +34,37 @@ def _write_round(run_dir, record):
         writer.writerow({key: record.get(key) for key in fields})
 
 
+def iter_round_robin_batches(loaders, local_epochs):
+    """Yield one batch at a time while interleaving independent client loaders.
+
+    The active clients are visited in their configured order.  A client is
+    removed from the active queue as soon as its current local-epoch loader is
+    exhausted, so uneven loader lengths produce a deterministic schedule such
+    as ``A, B, C, A, B, A``.  Each loader is iterated once per local epoch and
+    batches are never combined across clients.
+    """
+    if int(local_epochs) <= 0:
+        raise ValueError("local_epochs must be positive")
+    if not loaders:
+        raise ValueError("at least one client DataLoader is required")
+    for _ in range(int(local_epochs)):
+        iterators = [iter(loader) for loader in loaders]
+        active = list(range(len(iterators)))
+        while active:
+            remaining = []
+            for client_index in active:
+                try:
+                    batch = next(iterators[client_index])
+                except StopIteration:
+                    continue
+                yield client_index, batch
+                remaining.append(client_index)
+            active = remaining
+
+
 def run_centralized(config, model_name="stfednet_gated", run_dir=None, resume=None,
                     prepared_clients=None, max_train_batches=None, max_val_batches=None):
-    """One model/optimizer trains sequential client batches in a fixed schedule."""
+    """One model/optimizer trains deterministic interleaved client batches."""
     if model_name not in {"stfednet_gated", "gru_attention"}:
         raise ValueError("G2 centralized supports stfednet_gated and gru_attention")
     config = dict(config)
@@ -89,7 +117,7 @@ def run_centralized(config, model_name="stfednet_gated", run_dir=None, resume=No
     run_dir.mkdir(parents=True, exist_ok=True)
     write_json(run_dir / "config.json", {**config, "algorithm": "centralized", "model_name": model_name,
                                           "data_signatures": signatures, "client_ids": list(prepared_clients),
-                                          "centralized_schedule": "fixed client order, one shuffled train pass per client per round",
+                                          "centralized_schedule": "deterministic cross-client round-robin batch interleaving",
                                           "smoke": bool(max_train_batches or max_val_batches)})
 
     def log(message):
@@ -109,32 +137,41 @@ def run_centralized(config, model_name="stfednet_gated", run_dir=None, resume=No
 
     for round_index in range(start_round, int(config["rounds"]) + 1):
         begin = time.perf_counter()
+        # Reset the per-round random stream so a continuous run and a resume
+        # from the previous completed checkpoint consume identical randomness.
+        round_seed = client_seed(config["seed"], round_index, 0)
+        seed_everything(round_seed, config["cpu_threads"])
         model.train()
         total_loss, observations = 0.0, 0
-        for client_index, (client_id, prepared) in enumerate(prepared_clients.items()):
+        client_entries = list(prepared_clients.items())
+        loaders, edge_tensors, masks = [], [], []
+        for client_index, (client_id, prepared) in enumerate(client_entries):
             local_seed = client_seed(config["seed"], round_index, client_index)
-            seed_everything(local_seed, config["cpu_threads"])
             dataset = prepared.train
             if max_train_batches:
                 dataset = Subset(dataset, range(min(len(dataset), int(max_train_batches) * config["batch_size"])))
-            batches = DataLoader(dataset, batch_size=config["batch_size"], shuffle=True,
-                                 generator=torch.Generator().manual_seed(local_seed),
-                                 num_workers=config.get("num_workers", 0))
-            edges = torch.as_tensor(prepared.grid.edge_index, dtype=torch.long, device=device)
-            mask = torch.as_tensor(prepared.grid.load_mask, dtype=torch.bool, device=device)
-            for _ in range(int(config["local_epochs"])):
-                for x, y in batches:
-                    x, y = x.to(device), y.to(device)
-                    optimizer.zero_grad(set_to_none=True)
-                    loss = masked_huber(model(x, edges), y, mask, config["huber_delta"])
-                    if not torch.isfinite(loss):
-                        raise ValueError("Nonfinite centralized loss on " + client_id)
-                    loss.backward()
-                    torch.nn.utils.clip_grad_norm_(model.parameters(), config["gradient_clip"])
-                    optimizer.step()
-                    count = int(x.shape[0])
-                    total_loss += float(loss.detach()) * count
-                    observations += count
+            loader = DataLoader(dataset, batch_size=config["batch_size"], shuffle=True,
+                                generator=torch.Generator().manual_seed(local_seed),
+                                num_workers=config.get("num_workers", 0))
+            if len(loader) == 0:
+                raise ValueError("Centralized client " + client_id + " has no train windows")
+            loaders.append(loader)
+            edge_tensors.append(torch.as_tensor(prepared.grid.edge_index, dtype=torch.long, device=device))
+            masks.append(torch.as_tensor(prepared.grid.load_mask, dtype=torch.bool, device=device))
+        for client_index, (x, y) in iter_round_robin_batches(loaders, config["local_epochs"]):
+            client_id, _ = client_entries[client_index]
+            x, y = x.to(device), y.to(device)
+            optimizer.zero_grad(set_to_none=True)
+            loss = masked_huber(model(x, edge_tensors[client_index]), y,
+                                masks[client_index], config["huber_delta"])
+            if not torch.isfinite(loss):
+                raise ValueError("Nonfinite centralized loss on " + client_id)
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), config["gradient_clip"])
+            optimizer.step()
+            count = int(x.shape[0])
+            total_loss += float(loss.detach()) * count
+            observations += count
         if observations <= 0:
             raise ValueError("Centralized round processed no windows")
         validation = evaluate_clients(model, prepared_clients, config, device, max_val_batches)
@@ -169,7 +206,7 @@ def run_centralized(config, model_name="stfednet_gated", run_dir=None, resume=No
                    "data_signatures": signatures, "config": config, "seed": config["seed"],
                    "mu": None, "rng_state": None, "smoke": smoke,
                    "test_evaluated": False,
-                   "training_schedule": "fixed client order, one shuffled train pass per client per round"}
+                   "training_schedule": "deterministic cross-client round-robin batch interleaving"}
         payload["round_history"] = round_history
         generator = torch.Generator().manual_seed(config["seed"])
         payload["rng_state"] = random_state(generator)
