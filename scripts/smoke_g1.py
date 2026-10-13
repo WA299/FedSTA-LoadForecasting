@@ -23,7 +23,7 @@ def main():
     results = []
     clients = ("lv_39", "lv_50", "lv_56", "lv_80", "industrial_mvlv")
     for client in clients:
-        print(f"[Data] Loading {client} once for all seven methods", flush=True)
+        print(f"[Data] Loading {client} once for all {len(MODEL_NAMES)} methods", flush=True)
         prepared = prepare_data(config, client)
         for name in MODEL_NAMES:
             directory = root / name / client

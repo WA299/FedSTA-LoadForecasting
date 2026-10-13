@@ -26,15 +26,16 @@ def config():
                 epochs=2, max_train_batches=2, max_val_batches=2)
 
 
-def test_checkpoint_resume_matches_uninterrupted_run(tmp_path, prepared):
+@pytest.mark.parametrize("model_name", ["stfednet", "stfednet_residual"])
+def test_checkpoint_resume_matches_uninterrupted_run(tmp_path, prepared, model_name):
     settings = config()
-    continuous = train(settings, "stfednet", "synthetic", tmp_path / "continuous", prepared=prepared)
-    interrupted = train(dict(settings, epochs=1), "stfednet", "synthetic", tmp_path / "interrupted", prepared=prepared)
+    continuous = train(settings, model_name, "synthetic", tmp_path / "continuous", prepared=prepared)
+    interrupted = train(dict(settings, epochs=1), model_name, "synthetic", tmp_path / "interrupted", prepared=prepared)
     latest = load_checkpoint(interrupted / "latest.pt")
     required = {"model_state_dict", "optimizer_state_dict", "epoch", "best_validation_wape",
                 "model_name", "client_id", "config", "seed", "scaler", "rng_state", "stale_epochs"}
     assert required <= latest.keys()
-    train(settings, "stfednet", "synthetic", resume=interrupted / "latest.pt", prepared=prepared)
+    train(settings, model_name, "synthetic", resume=interrupted / "latest.pt", prepared=prepared)
     full, resumed = load_checkpoint(continuous / "latest.pt"), load_checkpoint(interrupted / "latest.pt")
     assert full["epoch"] == resumed["epoch"] == 2
     for key in full["model_state_dict"]:
@@ -49,9 +50,16 @@ def test_checkpoint_resume_matches_uninterrupted_run(tmp_path, prepared):
     assert saved["timestamps"].shape == (4, 1)
     assert "[Checkpoint] New best model saved" in (interrupted / "train.log").read_text()
     assert len((interrupted / "epochs.csv").read_text().splitlines()) == 3
+    if model_name == "stfednet_residual":
+        import csv
+        rows = list(csv.DictReader((interrupted / "epochs.csv").open(encoding="utf-8")))
+        assert "SpaceScale=" in (interrupted / "train.log").read_text()
+        assert float(rows[-1]["space_scale"]) == resumed["space_scale"]
+        assert resumed["space_scale"] == resumed["model_state_dict"]["spatial.space_scale"].item()
 
 
-def test_early_stopping_and_training_does_not_read_test(tmp_path, prepared, monkeypatch):
+@pytest.mark.parametrize("model_name", ["gru", "stfednet_residual"])
+def test_early_stopping_and_training_does_not_read_test(tmp_path, prepared, monkeypatch, model_name):
     import src.training.engine as engine
 
     class ForbiddenTest:
@@ -71,7 +79,7 @@ def test_early_stopping_and_training_does_not_read_test(tmp_path, prepared, monk
 
     monkeypatch.setattr(engine, "validate", constant_wape)
     settings = dict(config(), epochs=5, patience=1)
-    directory = train(settings, "gru", "synthetic", tmp_path / "early", prepared=prepared)
+    directory = train(settings, model_name, "synthetic", tmp_path / "early", prepared=prepared)
     assert load_checkpoint(directory / "latest.pt")["epoch"] == 2
     assert load_checkpoint(directory / "best.pt")["epoch"] == 1
     assert "[EarlyStopping] Best epoch: 1" in (directory / "train.log").read_text()

@@ -6,7 +6,7 @@ from torch.nn import functional as F
 
 
 MODEL_NAMES = ("persistence", "seasonal_naive", "gru", "gru_attention",
-               "gcn_gru", "gat_gru", "stfednet")
+               "gcn_gru", "gat_gru", "stfednet", "stfednet_residual")
 
 
 def adjacency(edge_index, num_nodes, device):
@@ -130,12 +130,54 @@ class NeuralForecast(nn.Module):
         return self.head(self.dropout(context)).transpose(1, 2).contiguous()
 
 
+class SpatialResidualFusion(nn.Module):
+    """Map GAT features to one channel and add a small learned spatial residual."""
+
+    def __init__(self, hidden_dim=32, dropout=0.1, initial_scale=0.05):
+        super().__init__()
+        self.gat = GraphAttention(hidden_dim=hidden_dim, heads=2, dropout=dropout)
+        self.to_load_channel = nn.Linear(hidden_dim, 1)
+        self.space_scale = nn.Parameter(torch.tensor(float(initial_scale)))
+
+    def forward(self, x, edge_index, return_spatial=False):
+        spatial_features = self.to_load_channel(self.gat(x, edge_index))
+        fused = x + self.space_scale * spatial_features
+        if return_spatial:
+            return fused, spatial_features
+        return fused
+
+
+class ResidualSTFedNet(nn.Module):
+    """GAT -> learned scalar spatial residual -> GRU -> temporal attention."""
+
+    def __init__(self, hidden_dim=32, dropout=0.1, horizon=1, initial_scale=0.05):
+        super().__init__()
+        self.spatial = SpatialResidualFusion(hidden_dim, dropout, initial_scale)
+        self.temporal = TemporalEncoder(1, hidden_dim)
+        self.attention = AdditiveTemporalAttention(hidden_dim)
+        self.dropout = nn.Dropout(dropout)
+        self.head = nn.Linear(hidden_dim, horizon)
+
+    @property
+    def space_scale(self):
+        """Learnable scalar coefficient, exposed for logs and experiment analysis."""
+        return self.spatial.space_scale
+
+    def forward(self, x, edge_index):
+        x = self.spatial(x, edge_index)
+        states = self.temporal(x)
+        context = self.attention(states)
+        return self.head(self.dropout(context)).transpose(1, 2).contiguous()
+
+
 def build_model(name, hidden_dim=32, dropout=0.1, horizon=1):
     """Common factory used by local training and future federated clients."""
     if name not in MODEL_NAMES:
         raise ValueError(f"Unknown model {name!r}; choose from {MODEL_NAMES}")
     if name in {"persistence", "seasonal_naive"}:
         return NaiveForecast(name == "seasonal_naive", horizon)
+    if name == "stfednet_residual":
+        return ResidualSTFedNet(hidden_dim, dropout, horizon, initial_scale=0.05)
     spatial = None
     if name in {"gat_gru", "stfednet"}:
         spatial = GraphAttention(hidden_dim=hidden_dim, heads=2, dropout=dropout)

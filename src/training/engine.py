@@ -204,6 +204,9 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
             handle.write(message + "\n")
 
     log(f"Model={model_name} | Client={client_id} | Device={device} | BatchSize={config['batch_size']} | LearningRate={config['learning_rate']} | Input={config['input_hours']} | Horizon={config['horizon_hours']} | Epochs={config['epochs']} | Seed={config['seed']}")
+    tracks_space_scale = hasattr(model, "space_scale")
+    if tracks_space_scale:
+        log(f"[SpatialResidual] Initial/resumed SpaceScale={float(model.space_scale.detach()):.6f}")
     smoke = bool(config.get("max_train_batches") or config.get("max_val_batches"))
     if smoke:
         log("[Smoke] Limited batches; metrics are engineering checks, not experiment results")
@@ -212,6 +215,8 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
     mask = torch.as_tensor(prepared.grid.load_mask, dtype=torch.bool, device=device)
     csv_path = run_dir / "epochs.csv"
     fields = ["epoch", "train_loss", "val_mae_kw", "val_rmse_kw", "val_wape_percent", "val_mape_percent", "mape_valid_fraction", "best_wape_percent", "seconds"]
+    if tracks_space_scale:
+        fields.append("space_scale")
     if not csv_path.exists():
         with csv_path.open("w", newline="", encoding="utf-8") as handle:
             csv.DictWriter(handle, fieldnames=fields).writeheader()
@@ -259,18 +264,25 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
                                   "scale": torch.from_numpy(prepared.scaler.scale.copy()),
                                   "fit_start": str(prepared.scaler.fit_start), "fit_end": str(prepared.scaler.fit_end)},
                        "rng_state": random_state(generator)}
+            space_scale = float(model.space_scale.detach()) if tracks_space_scale else None
+            if tracks_space_scale:
+                payload["space_scale"] = space_scale
             if improved:
                 atomic_save(dict(payload, kind="best"), run_dir / "best.pt")
             atomic_save(dict(payload, kind="latest"), run_dir / "latest.pt")
             seconds = time.perf_counter() - begin
             mape = metrics["mape_percent"]
             mape_text = f"{mape:.4f}" if mape is not None else "n/a"
-            log(f"Epoch {epoch:02d}/{end_epoch} | TrainLoss={total_loss/observations:.6f} | ValMAE={metrics['mae_kw']:.4f} | ValRMSE={metrics['rmse_kw']:.4f} | ValWAPE={wape:.4f} | ValMAPE={mape_text} | Best={best_wape:.4f} | Time={seconds:.2f}s")
+            spatial_text = f" | SpaceScale={space_scale:.6f}" if tracks_space_scale else ""
+            log(f"Epoch {epoch:02d}/{end_epoch} | TrainLoss={total_loss/observations:.6f} | ValMAE={metrics['mae_kw']:.4f} | ValRMSE={metrics['rmse_kw']:.4f} | ValWAPE={wape:.4f} | ValMAPE={mape_text} | Best={best_wape:.4f} | Time={seconds:.2f}s{spatial_text}")
             if improved:
                 log("[Checkpoint] New best model saved")
             with csv_path.open("a", newline="", encoding="utf-8") as handle:
-                csv.DictWriter(handle, fieldnames=fields).writerow(dict(zip(fields, [epoch, total_loss/observations,
-                    metrics["mae_kw"], metrics["rmse_kw"], wape, mape, metrics["mape_valid_fraction"], best_wape, seconds])))
+                values = [epoch, total_loss/observations, metrics["mae_kw"], metrics["rmse_kw"],
+                          wape, mape, metrics["mape_valid_fraction"], best_wape, seconds]
+                if tracks_space_scale:
+                    values.append(space_scale)
+                csv.DictWriter(handle, fieldnames=fields).writerow(dict(zip(fields, values)))
             if stale >= config["patience"]:
                 log(f"[EarlyStopping] Best epoch: {best_epoch}")
                 break

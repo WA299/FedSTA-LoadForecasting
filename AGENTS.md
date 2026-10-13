@@ -6,7 +6,7 @@ The project name is **基于时空注意力机制与联邦学习的配电网负�
 
 ## Technical route
 
-The approved G1 ST-FedNet is GAT (2 heads and self-loops) -> single-layer GRU -> single-head Additive Temporal Attention -> Linear. Hidden dimension is 32, dropout 0.1; no Transformer or extra gates. G1 uses 48 history hours to predict the next 1 hour. Preserve configurable G0 48-to-24 preprocessing. Later phases add FedAvg, FedProx, DP-SGD and epsilon/utility analysis.
+The original G1 ST-FedNet remains GAT (2 heads and self-loops) -> single-layer GRU -> single-head Additive Temporal Attention -> Linear. G1.1 adds a separate `stfednet_residual` variant: GAT -> Linear back to one channel -> `x + alpha * spatial`, with learnable scalar alpha initialized to 0.05 -> the same GRU/temporal attention/output head. Do not change old G1 model shapes or checkpoints. Both use hidden dimension 32, dropout 0.1, 48-to-1 windows; preserve configurable G0 48-to-24 preprocessing. Later phases add FedAvg, FedProx, DP-SGD and epsilon/utility analysis.
 
 ## Federated design
 
@@ -32,7 +32,7 @@ Pin or record Python dependencies, use deterministic chronological splits, fit s
 
 ## Progress
 
-G0 data engineering remains available. G1 implements Persistence, Seasonal Naive, GRU, GRU+Temporal Attention, GCN+GRU, GAT+GRU and ST-FedNet in `src/models/forecasting.py`. `src/training` provides train/validation, masked Huber Loss, AdamW, early stopping (patience 8), best/latest checkpoints, epoch-boundary recovery and independent testing. Use validation WAPE for selection; never access the test split during training. Restore physical kW before metrics, exclude non-load nodes, and use |true| >= 0.1 kW for MAPE. Summary must include client-equal WAPE alongside pooled metrics.
+G0 data engineering remains available. G1 implements Persistence, Seasonal Naive, GRU, GRU+Temporal Attention, GCN+GRU, GAT+GRU and original ST-FedNet; G1.1 adds `stfednet_residual` without altering them. `src/training` provides train/validation, masked Huber Loss, AdamW, early stopping (patience 8), best/latest checkpoints, epoch-boundary recovery and independent testing. Use validation WAPE for selection; never access the test split during training or the G1.1 comparison. Restore physical kW before metrics, exclude non-load nodes, and use |true| >= 0.1 kW for MAPE. Summary must include client-equal WAPE alongside pooled metrics.
 
 ## Runtime and commands
 
@@ -43,6 +43,8 @@ Train: `python -m scripts.train_model --model stfednet --client lv_39 --epochs 3
 Formal runs are user-owned in PyCharm. Codex runs only small smoke batches unless explicitly asked to train longer. A checkpoint trained/evaluated with limited batches is marked `smoke`; do not report it as a formal result. Checkpoints and prediction NPZ remain local; source, configs, logs and compact JSON results may be committed. Checkpoints bind to a hash of data/topology/IDs and save scaler, optimizer and RNG state. Resume restores the last completed epoch, not a partial epoch.
 
 G1 validation completed: 47 automated tests passed, including the six G0 tests; 35 actual-data CUDA model/client smoke combinations passed, including 25 neural-model resume checks. See `docs/G1_ACCEPTANCE_REPORT.md`. Await overall acceptance before user-owned formal comparison experiments; G2 follows with federated algorithms.
+
+G1.1 adds `scripts/train_clients.py` for five-client training, `scripts/compare_validation.py` for seed/protocol-matched validation WAPE comparisons against GRU+Attention and original ST-FedNet, and `scripts/smoke_g11.py` for bounded train/validation-only checks. Write G1.1 runs under `results/g1_1/`; do not overwrite the user's existing G1 runs. `space_scale` is logged to terminal/CSV/checkpoints each epoch. See `docs/G1_1_TECHNICAL_NOTE.md`; no formal test evaluation is part of G1.1 development.
 
 ## G2 and G3 extension boundary
 

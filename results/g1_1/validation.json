@@ -1,0 +1,19 @@
+{
+  "stage": "G1.1",
+  "automated_tests_passed": 67,
+  "cuda_smoke_clients_passed": 5,
+  "smoke_model": "stfednet_residual",
+  "smoke_resume_checks_passed": 5,
+  "smoke_checkpoint_reload_checks_passed": 5,
+  "smoke_space_scale_update_checks_passed": 5,
+  "smoke_gat_update_checks_passed": 5,
+  "test_split_accessed": false,
+  "formal_test_evaluation_run": false,
+  "legacy_models_same_seed_unchanged": true,
+  "existing_checkpoints_strict_load_count": 38,
+  "evidence": [
+    "results/g1_1_smoke/summary.json",
+    "results/g1_1/compatibility.json",
+    "results/g1_1/pytest.log"
+  ]
+}

@@ -1,0 +1,11 @@
+Model=stfednet_residual | Client=lv_50 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[SpatialResidual] Initial/resumed SpaceScale=0.050000
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.445349 | ValMAE=1.0680 | ValRMSE=1.4625 | ValWAPE=74.9618 | ValMAPE=182.8051 | Best=74.9618 | Time=0.03s | SpaceScale=0.048097
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_1_smoke\stfednet_residual\lv_50\seed42_20261013_115424_938800
+Model=stfednet_residual | Client=lv_50 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[SpatialResidual] Initial/resumed SpaceScale=0.048097
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.430890 | ValMAE=1.0750 | ValRMSE=1.4720 | ValWAPE=75.4504 | ValMAPE=183.6920 | Best=74.9618 | Time=0.02s | SpaceScale=0.046829
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_1_smoke\stfednet_residual\lv_50\seed42_20261013_115424_938800

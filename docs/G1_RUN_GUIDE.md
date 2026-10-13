@@ -23,7 +23,7 @@ cd E:\Dachuang_FedSTA
 
 没有 NVIDIA GPU 的机器将第一行换成 `--index-url https://download.pytorch.org/whl/cpu`。默认设备 `auto` 自动选择 CUDA 或 CPU，也可以显式传 `--device cpu`。
 
-## 七种方法
+## 七种原始方法与 G1.1 新增模型
 
 | 命令名称 | 方法 |
 |---|---|
@@ -34,8 +34,11 @@ cd E:\Dachuang_FedSTA
 | `gcn_gru` | 物理拓扑 GCN + 单层 GRU |
 | `gat_gru` | 双头 GAT + 单层 GRU |
 | `stfednet` | 双头 GAT + 单层 GRU + Additive Temporal Attention |
+| `stfednet_residual` | GAT → 学习型小比例空间残差 → 同一 GRU + Temporal Attention |
 
 可选客户端为 `lv_39`、`lv_50`、`lv_56`、`lv_80`、`industrial_mvlv`。模型复用相同 GAT、GRU 和时间注意力模块；所有可训练参数均不依赖节点数。
+
+G1.1 的新增空间残差模型结构、批量命令和验证集比较见 [G1.1 技术说明](G1_1_TECHNICAL_NOTE.md)。
 
 ## 训练与恢复
 
@@ -91,7 +94,7 @@ MAE/RMSE 单位 kW，WAPE/MAPE 单位 %，仅统计有效负荷母线；MAPE 限
 .\.venv\Scripts\python.exe -m scripts.smoke_g1 --output-root results/g1_smoke --device auto
 ```
 
-全面冒烟每张网只加载一次，检查 7×5=35 个组合，每个神经模型训练 1 轮后恢复到第 2 轮，每轮仅 2 个训练和验证 batch。再次执行需指定新的空 `--output-root`。冒烟指标只用于工程检查，已写入 `smoke=true`，独立测试入口禁止将其当正式测试。
+全面 G1 冒烟每张网只加载一次，当前包括 G1.1 残差模型，共 8×5=40 个组合，每个神经模型训练 1 轮后恢复到第 2 轮，每轮仅 2 个训练和验证 batch。再次执行需指定新的空 `--output-root`。冒烟指标只用于工程检查，已写入 `smoke=true`，独立测试入口禁止将其当正式测试。G1.1 开发阶段只使用 `scripts.smoke_g11`，它只验证新增模型的训练/验证路径，不运行测试入口。
 
 ## 联邦与隐私扩展
 

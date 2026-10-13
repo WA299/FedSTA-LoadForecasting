@@ -1,0 +1,114 @@
+{
+  "model_name": "stfednet_residual",
+  "smoke": true,
+  "device": "cuda",
+  "torch": "2.10.0+cu126",
+  "test_split_accessed": false,
+  "clients": [
+    {
+      "client_id": "lv_39",
+      "num_nodes": 39,
+      "best_epoch": 1,
+      "space_scale": 0.048777539283037186,
+      "latest_space_scale": 0.04977193474769592,
+      "validation_metrics": {
+        "mae_kw": 0.8344932203846318,
+        "rmse_kw": 1.0364904762163898,
+        "wape_percent": 71.84727074558134,
+        "mape_percent": 101.91691526482514,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true,
+      "space_scale_update_passed": true,
+      "gat_update_passed": true
+    },
+    {
+      "client_id": "lv_50",
+      "num_nodes": 50,
+      "best_epoch": 1,
+      "space_scale": 0.04809701070189476,
+      "latest_space_scale": 0.04682913050055504,
+      "validation_metrics": {
+        "mae_kw": 1.0679914659510057,
+        "rmse_kw": 1.462508626960967,
+        "wape_percent": 74.96179886439442,
+        "mape_percent": 182.8050565258555,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true,
+      "space_scale_update_passed": true,
+      "gat_update_passed": true
+    },
+    {
+      "client_id": "lv_56",
+      "num_nodes": 56,
+      "best_epoch": 1,
+      "space_scale": 0.04804527759552002,
+      "latest_space_scale": 0.046691764146089554,
+      "validation_metrics": {
+        "mae_kw": 1.0066938176751137,
+        "rmse_kw": 1.1588204480510014,
+        "wape_percent": 67.0971635625256,
+        "mape_percent": 118.6202054353457,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true,
+      "space_scale_update_passed": true,
+      "gat_update_passed": true
+    },
+    {
+      "client_id": "lv_80",
+      "num_nodes": 80,
+      "best_epoch": 2,
+      "space_scale": 0.05375194922089577,
+      "latest_space_scale": 0.05375194922089577,
+      "validation_metrics": {
+        "mae_kw": 0.7927518137221341,
+        "rmse_kw": 1.3886623078179225,
+        "wape_percent": 122.03221988706156,
+        "mape_percent": 288.3492287573163,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true,
+      "space_scale_update_passed": true,
+      "gat_update_passed": true
+    },
+    {
+      "client_id": "industrial_mvlv",
+      "num_nodes": 76,
+      "best_epoch": 1,
+      "space_scale": 0.05200089141726494,
+      "latest_space_scale": 0.05399846285581589,
+      "validation_metrics": {
+        "mae_kw": 23.487122755704654,
+        "rmse_kw": 58.517479504731945,
+        "wape_percent": 34.99535183085186,
+        "mape_percent": 40.61876465893346,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "checkpoint_reload_passed": true,
+      "resume_passed": true,
+      "space_scale_update_passed": true,
+      "gat_update_passed": true
+    }
+  ]
+}
