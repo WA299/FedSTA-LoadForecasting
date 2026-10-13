@@ -5,7 +5,7 @@ import pytest
 import torch
 
 from src.data.loader import GridData, prepare_client
-from src.training.engine import evaluate, load_checkpoint, read_config, train
+from src.training.engine import evaluate, load_checkpoint, read_config, train, validate
 
 
 @pytest.fixture
@@ -58,7 +58,7 @@ def test_checkpoint_resume_matches_uninterrupted_run(tmp_path, prepared, model_n
         assert resumed["space_scale"] == resumed["model_state_dict"]["spatial.space_scale"].item()
 
 
-@pytest.mark.parametrize("model_name", ["gru", "stfednet_residual"])
+@pytest.mark.parametrize("model_name", ["gru", "stfednet_residual", "stfednet_gated"])
 def test_early_stopping_and_training_does_not_read_test(tmp_path, prepared, monkeypatch, model_name):
     import src.training.engine as engine
 
@@ -90,3 +90,44 @@ def test_parameter_free_baseline_checkpoint(tmp_path, prepared):
     checkpoint = load_checkpoint(directory / "best.pt")
     assert checkpoint["optimizer_state_dict"] is None
     assert checkpoint["model_state_dict"] == {}
+
+
+def test_gated_validation_stats_checkpoint_exact_resume_no_test(tmp_path, prepared):
+    import csv
+    import json
+    from scripts.smoke_g11 import ForbiddenTest
+
+    prepared.test = ForbiddenTest()
+    settings = config()
+    full = train(settings, "stfednet_gated", "synthetic", tmp_path / "full", prepared=prepared)
+    run = train(dict(settings, epochs=1), "stfednet_gated", "synthetic", tmp_path / "resume", prepared=prepared)
+    train(settings, "stfednet_gated", "synthetic", resume=run / "latest.pt", prepared=prepared)
+    a, b = load_checkpoint(full / "latest.pt"), load_checkpoint(run / "latest.pt")
+    assert all(torch.equal(a["model_state_dict"][key], b["model_state_dict"][key])
+               for key in a["model_state_dict"])
+    assert a["validation_gate_statistics"] == b["validation_gate_statistics"]
+    best = load_checkpoint(run / "best.pt")
+    saved = json.loads((run / "best_gate_statistics.json").read_text())
+    assert saved["epoch"] == best["epoch"]
+    assert saved["gate_mean"] == best["validation_gate_statistics"]["gate_mean"]
+    rows = list(csv.DictReader((run / "epochs.csv").open(encoding="utf-8")))
+    assert len(rows) == 2
+    assert float(rows[-1]["gate_std"]) == b["validation_gate_statistics"]["gate_std"]
+    assert "GateMean=" in (run / "train.log").read_text()
+    assert "GateStd=" in (run / "train.log").read_text()
+    from src.models.forecasting import build_model
+    model = build_model("stfednet_gated").eval()
+    model.load_state_dict(best["model_state_dict"], strict=True)
+    _, stats, _ = validate(model, prepared.val, prepared, settings, "cpu")
+    assert stats["gate_statistics"]["complete_validation"]
+    assert stats["gate_statistics"]["gate_count"] == len(prepared.val) * 48 * 3
+    # Compare the streaming statistics to all validation forwards concatenated.
+    from src.training.engine import loader
+    gates = []
+    with torch.no_grad():
+        for x, _ in loader(prepared.val, settings):
+            _, gate = model.forward_with_gate(x, torch.as_tensor(prepared.grid.edge_index))
+            gates.append(gate.flatten().double())
+    values = torch.cat(gates)
+    assert stats["gate_statistics"]["gate_mean"] == pytest.approx(values.mean().item())
+    assert stats["gate_statistics"]["gate_std"] == pytest.approx(values.std(correction=0).item())

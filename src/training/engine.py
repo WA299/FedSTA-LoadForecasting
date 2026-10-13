@@ -17,6 +17,7 @@ import yaml
 from src.data.loader import StandardScaler, discover_grids, load_grid, prepare_client
 from src.models.forecasting import build_model
 from src.training.metrics import MetricAccumulator
+from src.training.gate_statistics import GateStatistics
 
 
 def read_config(path="configs/g1.yaml"):
@@ -96,16 +97,26 @@ def validate(model, dataset, prepared, config, device, max_batches=None, collect
     edges = torch.as_tensor(prepared.grid.edge_index, dtype=torch.long, device=device)
     metrics = MetricAccumulator(config["mape_threshold_kw"])
     predictions, targets = [], []
+    tracks_gate = hasattr(model, "forward_with_gate")
+    gate_statistics = GateStatistics() if tracks_gate else None
     for x, y in loader(dataset, config, max_batches=max_batches):
-        prediction = model(x.to(device), edges).cpu().numpy()
+        if tracks_gate:
+            prediction_tensor, gate_tensor = model.forward_with_gate(x.to(device), edges)
+            gate_statistics.update(gate_tensor)
+            prediction = prediction_tensor.cpu().numpy()
+        else:
+            prediction = model(x.to(device), edges).cpu().numpy()
         truth_kw = prepared.scaler.inverse_transform(y.numpy())
         prediction_kw = prepared.scaler.inverse_transform(prediction)
         metrics.update(truth_kw, prediction_kw, prepared.grid.load_mask)
         if collect:
             predictions.append(prediction_kw)
             targets.append(truth_kw)
+    statistics = metrics.statistics()
+    if tracks_gate:
+        statistics["gate_statistics"] = gate_statistics.compute(len(dataset))
     arrays = (np.concatenate(targets), np.concatenate(predictions)) if collect else None
-    return metrics.compute(), metrics.statistics(), arrays
+    return metrics.compute(), statistics, arrays
 
 
 def write_json(path, data):
@@ -205,8 +216,11 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
 
     log(f"Model={model_name} | Client={client_id} | Device={device} | BatchSize={config['batch_size']} | LearningRate={config['learning_rate']} | Input={config['input_hours']} | Horizon={config['horizon_hours']} | Epochs={config['epochs']} | Seed={config['seed']}")
     tracks_space_scale = hasattr(model, "space_scale")
+    tracks_gate = hasattr(model, "forward_with_gate")
     if tracks_space_scale:
         log(f"[SpatialResidual] Initial/resumed SpaceScale={float(model.space_scale.detach()):.6f}")
+    if tracks_gate:
+        log("[SpatialGate] Stats: evaluated validation windows x 48 history steps x all nodes; population std")
     smoke = bool(config.get("max_train_batches") or config.get("max_val_batches"))
     if smoke:
         log("[Smoke] Limited batches; metrics are engineering checks, not experiment results")
@@ -217,6 +231,8 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
     fields = ["epoch", "train_loss", "val_mae_kw", "val_rmse_kw", "val_wape_percent", "val_mape_percent", "mape_valid_fraction", "best_wape_percent", "seconds"]
     if tracks_space_scale:
         fields.append("space_scale")
+    if tracks_gate:
+        fields.extend(["gate_mean", "gate_std"])
     if not csv_path.exists():
         with csv_path.open("w", newline="", encoding="utf-8") as handle:
             csv.DictWriter(handle, fieldnames=fields).writeheader()
@@ -245,7 +261,8 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
                     optimizer.step()
                 total_loss += float(loss.detach()) * x.shape[0]
                 observations += x.shape[0]
-            metrics, _, _ = validate(model, prepared.val, prepared, config, device, config.get("max_val_batches"))
+            metrics, validation_statistics, _ = validate(model, prepared.val, prepared, config, device,
+                                                          config.get("max_val_batches"))
             wape = metrics["wape_percent"]
             if wape is None or not np.isfinite(wape):
                 raise ValueError("Validation WAPE undefined; cannot select best checkpoint")
@@ -267,14 +284,24 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
             space_scale = float(model.space_scale.detach()) if tracks_space_scale else None
             if tracks_space_scale:
                 payload["space_scale"] = space_scale
+            if tracks_gate:
+                payload["validation_gate_statistics"] = validation_statistics["gate_statistics"]
+                gate_mean = validation_statistics["gate_statistics"]["gate_mean"]
+                gate_std = validation_statistics["gate_statistics"]["gate_std"]
             if improved:
                 atomic_save(dict(payload, kind="best"), run_dir / "best.pt")
+                if tracks_gate:
+                    write_json(run_dir / "best_gate_statistics.json", {
+                        "model_name": model_name, "client_id": client_id, "seed": config["seed"],
+                        "epoch": epoch, "best_validation_wape": best_wape, "smoke": smoke,
+                        **payload["validation_gate_statistics"]})
             atomic_save(dict(payload, kind="latest"), run_dir / "latest.pt")
             seconds = time.perf_counter() - begin
             mape = metrics["mape_percent"]
             mape_text = f"{mape:.4f}" if mape is not None else "n/a"
             spatial_text = f" | SpaceScale={space_scale:.6f}" if tracks_space_scale else ""
-            log(f"Epoch {epoch:02d}/{end_epoch} | TrainLoss={total_loss/observations:.6f} | ValMAE={metrics['mae_kw']:.4f} | ValRMSE={metrics['rmse_kw']:.4f} | ValWAPE={wape:.4f} | ValMAPE={mape_text} | Best={best_wape:.4f} | Time={seconds:.2f}s{spatial_text}")
+            gate_text = f" | GateMean={gate_mean:.6f} | GateStd={gate_std:.6f}" if tracks_gate else ""
+            log(f"Epoch {epoch:02d}/{end_epoch} | TrainLoss={total_loss/observations:.6f} | ValMAE={metrics['mae_kw']:.4f} | ValRMSE={metrics['rmse_kw']:.4f} | ValWAPE={wape:.4f} | ValMAPE={mape_text} | Best={best_wape:.4f} | Time={seconds:.2f}s{spatial_text}{gate_text}")
             if improved:
                 log("[Checkpoint] New best model saved")
             with csv_path.open("a", newline="", encoding="utf-8") as handle:
@@ -282,6 +309,8 @@ def train(config, model_name, client_id, run_dir=None, resume=None, prepared=Non
                           wape, mape, metrics["mape_valid_fraction"], best_wape, seconds]
                 if tracks_space_scale:
                     values.append(space_scale)
+                if tracks_gate:
+                    values.extend([gate_mean, gate_std])
                 csv.DictWriter(handle, fieldnames=fields).writerow(dict(zip(fields, values)))
             if stale >= config["patience"]:
                 log(f"[EarlyStopping] Best epoch: {best_epoch}")

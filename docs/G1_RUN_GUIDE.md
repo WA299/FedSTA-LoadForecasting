@@ -35,10 +35,13 @@ cd E:\Dachuang_FedSTA
 | `gat_gru` | 双头 GAT + 单层 GRU |
 | `stfednet` | 双头 GAT + 单层 GRU + Additive Temporal Attention |
 | `stfednet_residual` | GAT → 学习型小比例空间残差 → 同一 GRU + Temporal Attention |
+| `stfednet_gated` | GAT → 共享节点自适应sigmoid门控 → 同一GRU+Temporal Attention |
 
 可选客户端为 `lv_39`、`lv_50`、`lv_56`、`lv_80`、`industrial_mvlv`。模型复用相同 GAT、GRU 和时间注意力模块；所有可训练参数均不依赖节点数。
 
 G1.1 的新增空间残差模型结构、批量命令和验证集比较见 [G1.1 技术说明](G1_1_TECHNICAL_NOTE.md)。
+
+G1.2门控模型、GateMean/GateStd统计定义、正式五客户端命令和四模型比较见 [G1.2技术说明](G1_2_TECHNICAL_NOTE.md)。G1.2专用冒烟入口为`scripts.smoke_g12`，只运行训练/验证，不调用测试集。
 
 ## 训练与恢复
 
@@ -94,7 +97,7 @@ MAE/RMSE 单位 kW，WAPE/MAPE 单位 %，仅统计有效负荷母线；MAPE 限
 .\.venv\Scripts\python.exe -m scripts.smoke_g1 --output-root results/g1_smoke --device auto
 ```
 
-全面 G1 冒烟每张网只加载一次，当前包括 G1.1 残差模型，共 8×5=40 个组合，每个神经模型训练 1 轮后恢复到第 2 轮，每轮仅 2 个训练和验证 batch。再次执行需指定新的空 `--output-root`。冒烟指标只用于工程检查，已写入 `smoke=true`，独立测试入口禁止将其当正式测试。G1.1 开发阶段只使用 `scripts.smoke_g11`，它只验证新增模型的训练/验证路径，不运行测试入口。
+全面 G1 冒烟每张网只加载一次，当前包括 G1.1残差和G1.2门控模型，共9×5=45个组合，每个神经模型训练1轮后恢复到第2轮，每轮仅2个训练和验证batch。再次执行需指定新的空 `--output-root`。冒烟指标只用于工程检查，已写入 `smoke=true`，独立测试入口禁止将其当正式测试。G1.1/G1.2开发阶段分别只使用`scripts.smoke_g11`/`scripts.smoke_g12`，它们只验证新增模型的训练/验证路径，不运行测试入口。
 
 ## 联邦与隐私扩展
 

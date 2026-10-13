@@ -1,0 +1,17 @@
+{
+  "stage": "G1.2",
+  "automated_tests_passed": 83,
+  "pytest_duration_seconds": 20.4,
+  "cuda_smoke_clients_passed": 5,
+  "cuda_smoke_resume_checks": 5,
+  "legacy_models_same_seed_unchanged": 8,
+  "existing_checkpoints_strict_load_passed": 48,
+  "formal_training_run": false,
+  "formal_test_evaluation_run": false,
+  "test_windows_accessed": false,
+  "g2_started": false,
+  "evidence": [
+    "results/g1_2_smoke/summary.json",
+    "results/g1_2/compatibility.json"
+  ]
+}

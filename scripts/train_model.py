@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--max-train-batches", type=int)
     parser.add_argument("--max-val-batches", type=int)
     parser.add_argument("--run-dir")
+    parser.add_argument("--output-root", help="Override result root; gated defaults to results/g1_2")
     parser.add_argument("--resume", help="Path to latest.pt; defaults to the saved config/model/client")
     args = parser.parse_args()
     if args.resume:
@@ -29,6 +30,10 @@ def main():
     else:
         config = read_config(args.config)
         model, client = args.model or "stfednet", args.client or "lv_39"
+        if model == "stfednet_gated":
+            config["output_root"] = "results/g1_2"
+    if args.output_root:
+        config["output_root"] = args.output_root
     for key in ("epochs", "batch_size", "learning_rate", "seed", "patience", "device",
                 "max_train_batches", "max_val_batches"):
         value = getattr(args, key)

@@ -1,0 +1,164 @@
+{
+  "model_name": "stfednet_gated",
+  "smoke": true,
+  "device": "cuda",
+  "torch": "2.10.0+cu126",
+  "test_split_accessed": false,
+  "clients": [
+    {
+      "client_id": "lv_39",
+      "nodes": 39,
+      "run_dir": "results\\g1_2_smoke\\stfednet_gated\\lv_39\\seed42_20261013_141433_845600",
+      "validation_metrics": {
+        "mae_kw": 0.8914966695010662,
+        "rmse_kw": 1.0978185730864018,
+        "wape_percent": 76.75509041631842,
+        "mape_percent": 110.13751048780703,
+        "mape_valid_fraction": 0.9732142857142857,
+        "mape_valid_count": 109,
+        "effective_count": 112,
+        "mape_threshold_kw": 0.1
+      },
+      "best_gate_statistics": {
+        "gate_mean": 0.0473705322897603,
+        "gate_std": 6.10776915394021e-05,
+        "gate_count": 7488,
+        "validation_windows": 4,
+        "total_validation_windows": 1314,
+        "complete_validation": false,
+        "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+        "std_definition": "population (ddof=0)",
+        "node_scope": "all nodes including non-load intermediate buses",
+        "overlap_handling": "each window occurrence is counted"
+      },
+      "resume_passed": true,
+      "strict_reload_passed": true,
+      "gat_and_gate_updates_passed": true,
+      "gate_range_passed": true
+    },
+    {
+      "client_id": "lv_50",
+      "nodes": 50,
+      "run_dir": "results\\g1_2_smoke\\stfednet_gated\\lv_50\\seed42_20261013_141434_536300",
+      "validation_metrics": {
+        "mae_kw": 1.1582760763842435,
+        "rmse_kw": 1.5839695093444537,
+        "wape_percent": 81.29883153142985,
+        "mape_percent": 195.47005410857304,
+        "mape_valid_fraction": 0.75,
+        "mape_valid_count": 63,
+        "effective_count": 84,
+        "mape_threshold_kw": 0.1
+      },
+      "best_gate_statistics": {
+        "gate_mean": 0.04730970828367087,
+        "gate_std": 5.2398845239398786e-05,
+        "gate_count": 9600,
+        "validation_windows": 4,
+        "total_validation_windows": 1314,
+        "complete_validation": false,
+        "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+        "std_definition": "population (ddof=0)",
+        "node_scope": "all nodes including non-load intermediate buses",
+        "overlap_handling": "each window occurrence is counted"
+      },
+      "resume_passed": true,
+      "strict_reload_passed": true,
+      "gat_and_gate_updates_passed": true,
+      "gate_range_passed": true
+    },
+    {
+      "client_id": "lv_56",
+      "nodes": 56,
+      "run_dir": "results\\g1_2_smoke\\stfednet_gated\\lv_56\\seed42_20261013_141435_633000",
+      "validation_metrics": {
+        "mae_kw": 1.0774048512632197,
+        "rmse_kw": 1.2340441053654339,
+        "wape_percent": 71.81012564000561,
+        "mape_percent": 127.3021335226767,
+        "mape_valid_fraction": 0.9715909090909091,
+        "mape_valid_count": 171,
+        "effective_count": 176,
+        "mape_threshold_kw": 0.1
+      },
+      "best_gate_statistics": {
+        "gate_mean": 0.04728542387359387,
+        "gate_std": 5.856580431814936e-05,
+        "gate_count": 10752,
+        "validation_windows": 4,
+        "total_validation_windows": 1314,
+        "complete_validation": false,
+        "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+        "std_definition": "population (ddof=0)",
+        "node_scope": "all nodes including non-load intermediate buses",
+        "overlap_handling": "each window occurrence is counted"
+      },
+      "resume_passed": true,
+      "strict_reload_passed": true,
+      "gat_and_gate_updates_passed": true,
+      "gate_range_passed": true
+    },
+    {
+      "client_id": "lv_80",
+      "nodes": 80,
+      "run_dir": "results\\g1_2_smoke\\stfednet_gated\\lv_80\\seed42_20261013_141436_699000",
+      "validation_metrics": {
+        "mae_kw": 0.8139759243204026,
+        "rmse_kw": 1.364515085150014,
+        "wape_percent": 125.29935253387885,
+        "mape_percent": 305.9693012719946,
+        "mape_valid_fraction": 0.625,
+        "mape_valid_count": 80,
+        "effective_count": 128,
+        "mape_threshold_kw": 0.1
+      },
+      "best_gate_statistics": {
+        "gate_mean": 0.04766447920289162,
+        "gate_std": 9.936033231667938e-05,
+        "gate_count": 15360,
+        "validation_windows": 4,
+        "total_validation_windows": 1314,
+        "complete_validation": false,
+        "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+        "std_definition": "population (ddof=0)",
+        "node_scope": "all nodes including non-load intermediate buses",
+        "overlap_handling": "each window occurrence is counted"
+      },
+      "resume_passed": true,
+      "strict_reload_passed": true,
+      "gat_and_gate_updates_passed": true,
+      "gate_range_passed": true
+    },
+    {
+      "client_id": "industrial_mvlv",
+      "nodes": 76,
+      "run_dir": "results\\g1_2_smoke\\stfednet_gated\\industrial_mvlv\\seed42_20261013_141447_535800",
+      "validation_metrics": {
+        "mae_kw": 21.605883195954892,
+        "rmse_kw": 53.4670218468543,
+        "wape_percent": 32.19234181739376,
+        "mape_percent": 39.20531429773983,
+        "mape_valid_fraction": 0.9444444444444444,
+        "mape_valid_count": 170,
+        "effective_count": 180,
+        "mape_threshold_kw": 0.1
+      },
+      "best_gate_statistics": {
+        "gate_mean": 0.04755028320416163,
+        "gate_std": 6.942680849641765e-05,
+        "gate_count": 14592,
+        "validation_windows": 4,
+        "total_validation_windows": 1314,
+        "complete_validation": false,
+        "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+        "std_definition": "population (ddof=0)",
+        "node_scope": "all nodes including non-load intermediate buses",
+        "overlap_handling": "each window occurrence is counted"
+      },
+      "resume_passed": true,
+      "strict_reload_passed": true,
+      "gat_and_gate_updates_passed": true,
+      "gate_range_passed": true
+    }
+  ]
+}

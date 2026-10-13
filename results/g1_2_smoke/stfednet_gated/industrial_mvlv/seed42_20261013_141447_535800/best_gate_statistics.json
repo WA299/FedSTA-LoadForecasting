@@ -1,0 +1,18 @@
+{
+  "model_name": "stfednet_gated",
+  "client_id": "industrial_mvlv",
+  "seed": 42,
+  "epoch": 1,
+  "best_validation_wape": 32.19234181739376,
+  "smoke": true,
+  "gate_mean": 0.04755028320416163,
+  "gate_std": 6.942680849641765e-05,
+  "gate_count": 14592,
+  "validation_windows": 4,
+  "total_validation_windows": 1314,
+  "complete_validation": false,
+  "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+  "std_definition": "population (ddof=0)",
+  "node_scope": "all nodes including non-load intermediate buses",
+  "overlap_handling": "each window occurrence is counted"
+}

@@ -1,0 +1,18 @@
+{
+  "model_name": "stfednet_gated",
+  "client_id": "lv_39",
+  "seed": 42,
+  "epoch": 1,
+  "best_validation_wape": 76.75509041631842,
+  "smoke": true,
+  "gate_mean": 0.0473705322897603,
+  "gate_std": 6.10776915394021e-05,
+  "gate_count": 7488,
+  "validation_windows": 4,
+  "total_validation_windows": 1314,
+  "complete_validation": false,
+  "scope": "evaluated_validation_windows_all_history_steps_all_nodes",
+  "std_definition": "population (ddof=0)",
+  "node_scope": "all nodes including non-load intermediate buses",
+  "overlap_handling": "each window occurrence is counted"
+}

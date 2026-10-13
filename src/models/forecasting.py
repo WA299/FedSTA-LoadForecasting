@@ -6,7 +6,8 @@ from torch.nn import functional as F
 
 
 MODEL_NAMES = ("persistence", "seasonal_naive", "gru", "gru_attention",
-               "gcn_gru", "gat_gru", "stfednet", "stfednet_residual")
+               "gcn_gru", "gat_gru", "stfednet", "stfednet_residual",
+               "stfednet_gated")
 
 
 def adjacency(edge_index, num_nodes, device):
@@ -170,6 +171,49 @@ class ResidualSTFedNet(nn.Module):
         return self.head(self.dropout(context)).transpose(1, 2).contiguous()
 
 
+class SpatialGatedFusion(nn.Module):
+    """GAT residual with a shared sample/time/node adaptive sigmoid gate."""
+
+    def __init__(self, hidden_dim=32, dropout=0.1):
+        super().__init__()
+        self.gat = GraphAttention(hidden_dim=hidden_dim, heads=2, dropout=dropout)
+        self.to_load_channel = nn.Linear(hidden_dim, 1)
+        self.gate = nn.Linear(2, 1)
+        nn.init.zeros_(self.gate.weight)
+        nn.init.constant_(self.gate.bias, -3.0)
+
+    def forward(self, x, edge_index, return_gate=False):
+        spatial_features = self.to_load_channel(self.gat(x, edge_index))
+        gate = torch.sigmoid(self.gate(torch.cat([x, spatial_features], dim=-1)))
+        fused = x + gate * spatial_features
+        if return_gate:
+            return fused, gate, spatial_features
+        return fused
+
+
+class GatedSTFedNet(nn.Module):
+    """GAT -> per sample/time/node gate -> GRU -> temporal attention."""
+
+    def __init__(self, hidden_dim=32, dropout=0.1, horizon=1):
+        super().__init__()
+        self.spatial = SpatialGatedFusion(hidden_dim, dropout)
+        self.temporal = TemporalEncoder(1, hidden_dim)
+        self.attention = AdditiveTemporalAttention(hidden_dim)
+        self.dropout = nn.Dropout(dropout)
+        self.head = nn.Linear(hidden_dim, horizon)
+
+    def forward_with_gate(self, x, edge_index):
+        fused, gate, _ = self.spatial(x, edge_index, return_gate=True)
+        states = self.temporal(fused)
+        context = self.attention(states)
+        prediction = self.head(self.dropout(context)).transpose(1, 2).contiguous()
+        return prediction, gate
+
+    def forward(self, x, edge_index):
+        prediction, _ = self.forward_with_gate(x, edge_index)
+        return prediction
+
+
 def build_model(name, hidden_dim=32, dropout=0.1, horizon=1):
     """Common factory used by local training and future federated clients."""
     if name not in MODEL_NAMES:
@@ -178,6 +222,8 @@ def build_model(name, hidden_dim=32, dropout=0.1, horizon=1):
         return NaiveForecast(name == "seasonal_naive", horizon)
     if name == "stfednet_residual":
         return ResidualSTFedNet(hidden_dim, dropout, horizon, initial_scale=0.05)
+    if name == "stfednet_gated":
+        return GatedSTFedNet(hidden_dim, dropout, horizon)
     spatial = None
     if name in {"gat_gru", "stfednet"}:
         spatial = GraphAttention(hidden_dim=hidden_dim, heads=2, dropout=dropout)

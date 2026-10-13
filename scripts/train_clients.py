@@ -16,14 +16,15 @@ def main():
     parser.add_argument("--clients", choices=CLIENT_IDS, nargs="+", default=list(CLIENT_IDS))
     parser.add_argument("--config", default="configs/g1.yaml")
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"))
-    parser.add_argument("--output-root", default="results/g1_1")
-    parser.add_argument("--summary", default="results/g1_1/batch_summary.json",
+    parser.add_argument("--output-root", help="Default: results/g1_2 for gated, results/g1_1 otherwise")
+    parser.add_argument("--summary",
                         help="JSON manifest of best validation results; use an empty string to disable")
     args = parser.parse_args()
     if len(set(args.clients)) != len(args.clients):
         parser.error("Each client must appear once")
     config = read_config(args.config)
-    config["output_root"] = args.output_root
+    config["output_root"] = args.output_root or ("results/g1_2" if args.model == "stfednet_gated" else "results/g1_1")
+    summary_path = args.summary if args.summary is not None else str(Path(config["output_root"]) / "batch_summary.json")
     if args.device:
         config["device"] = args.device
     records = []
@@ -33,9 +34,11 @@ def main():
         records.append({"client_id": client, "run_dir": str(directory.resolve()),
                         "best_epoch": best["epoch"], "validation": best["validation_metrics"],
                         "space_scale": best.get("space_scale"), "smoke": best["smoke"]})
-    if args.summary:
-        Path(args.summary).parent.mkdir(parents=True, exist_ok=True)
-        write_json(args.summary, {"model_name": args.model, "seed": config["seed"],
+        if "validation_gate_statistics" in best:
+            records[-1]["validation_gate_statistics"] = best["validation_gate_statistics"]
+    if summary_path:
+        Path(summary_path).parent.mkdir(parents=True, exist_ok=True)
+        write_json(summary_path, {"model_name": args.model, "seed": config["seed"],
                                   "split": "validation", "test_evaluated": False,
                                   "results": records})
     print("[Batch] Train/validation completed for all requested clients; no test evaluation", flush=True)

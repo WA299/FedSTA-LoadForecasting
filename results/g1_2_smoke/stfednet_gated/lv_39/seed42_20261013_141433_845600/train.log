@@ -1,0 +1,11 @@
+Model=stfednet_gated | Client=lv_39 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=1 | Seed=42
+[SpatialGate] Stats: evaluated validation windows x 48 history steps x all nodes; population std
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 01/1 | TrainLoss=0.356073 | ValMAE=0.8915 | ValRMSE=1.0978 | ValWAPE=76.7551 | ValMAPE=110.1375 | Best=76.7551 | Time=0.50s | GateMean=0.047371 | GateStd=0.000061
+[Checkpoint] New best model saved
+[Run] Checkpoints and logs: results\g1_2_smoke\stfednet_gated\lv_39\seed42_20261013_141433_845600
+Model=stfednet_gated | Client=lv_39 | Device=cuda | BatchSize=2 | LearningRate=0.001 | Input=48 | Horizon=1 | Epochs=2 | Seed=42
+[SpatialGate] Stats: evaluated validation windows x 48 history steps x all nodes; population std
+[Smoke] Limited batches; metrics are engineering checks, not experiment results
+Epoch 02/2 | TrainLoss=0.344528 | ValMAE=0.8956 | ValRMSE=1.1015 | ValWAPE=77.1096 | ValMAPE=110.8486 | Best=76.7551 | Time=0.03s | GateMean=0.047407 | GateStd=0.000124
+[Run] Checkpoints and logs: E:\Dachuang_FedSTA\results\g1_2_smoke\stfednet_gated\lv_39\seed42_20261013_141433_845600
