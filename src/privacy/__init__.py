@@ -1,1 +1,1 @@
-"""Privacy feasibility helpers; no formal DP training is wired into G2."""
+"""G3.0 per-sample references and isolated G3.1 research-only DP-FedAvg."""

@@ -1,0 +1,162 @@
+{
+  "phase": "G3.1",
+  "status": "engineering_implementation_complete_research_mode_only",
+  "privacy_claim_allowed": false,
+  "formal_training": false,
+  "test_evaluated": false,
+  "project_protocol": {
+    "record": "one complete 48-hour all-node input window plus one-hour all-node target",
+    "adjacency": "add_remove_window_level_conditional_on_fixed_topology_load_mask_and_preprocessing",
+    "clients": [
+      "lv_39",
+      "lv_50",
+      "lv_56",
+      "lv_80",
+      "industrial_mvlv"
+    ],
+    "models": [
+      "stfednet_gated",
+      "gru_attention"
+    ],
+    "train_windows_per_client": 6084,
+    "expected_batch_size": 32,
+    "sample_rate": 0.005259697567389875,
+    "clip_norm": 1.0,
+    "nominal_steps_per_epoch": 191,
+    "rounds": 20,
+    "total_steps_per_client": 3820,
+    "delta": 1e-05,
+    "client_participation": "5/5; no client-participation amplification"
+  },
+  "environment": {
+    "python": "3.13.7",
+    "pytorch": "2.10.0+cu126",
+    "cuda_runtime": "12.6",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "opacus": "1.6.0",
+    "opacus_usage": "RDPAccountant only; no GradSampleModule or DPOptimizer",
+    "torchcsprng_available": false,
+    "secure_noise_backend_reviewed": false
+  },
+  "gradient_routes": {
+    "loop": "explicit full-window gradient loop; numerical oracle and CPU route",
+    "torch_func": "CUDA functional_call + grad_and_value + vmap; cuDNN disabled for GRU",
+    "cuda_default_enabled_after_clipped_agreement": true,
+    "clipped_gradient_comparison": {
+      "models": [
+        "stfednet_gated",
+        "gru_attention"
+      ],
+      "clip_norm": 0.001,
+      "clipping_observed": true,
+      "per_parameter_clipped_aggregate_allclose": true,
+      "absolute_tolerance": 1e-07,
+      "relative_tolerance": 0.0008
+    },
+    "dropout": "both routes execute with dropout=0.1 and finite gradients; masks are independently sampled"
+  },
+  "mechanism": {
+    "sampling": "independent Bernoulli per client record at each DP step",
+    "gradient_unit": "whole graph-window; all trainable model parameters",
+    "gradient_clip": "per-record global L2 clipping before aggregation",
+    "noise": "per-parameter independent Gaussian noise with std sigma*C added to clipped-gradient sum",
+    "normalizer": "fixed q*N=32, including random non-empty batches of other sizes",
+    "empty_draw": "noise-only gradient and AdamW update; step counted by accountant",
+    "fedavg_weight": "available unique training-window count per client",
+    "optimizer": "AdamW state reset at each client-round, retained within local epoch"
+  },
+  "accounting": {
+    "library": "Opacus 1.6.0 RDPAccountant",
+    "accountant_state_per_client": true,
+    "counts_actual_committed_steps": true,
+    "resume_checks_accountant_vs_training_progress": true,
+    "epsilon_label": "theoretical ideal-Gaussian Poisson-RDP estimate; not a claim for research PRNG runs",
+    "planned_20_round_3820_step_examples": [
+      {
+        "sigma": 0.5,
+        "epsilon": 15.634678583719642,
+        "delta": 1e-05,
+        "theoretical_only": true
+      },
+      {
+        "sigma": 1.0,
+        "epsilon": 1.9792508113974125,
+        "delta": 1e-05,
+        "theoretical_only": true
+      },
+      {
+        "sigma": 2.0,
+        "epsilon": 0.693580431027448,
+        "delta": 1e-05,
+        "theoretical_only": true
+      },
+      {
+        "sigma": 4.0,
+        "epsilon": 0.30776175505614917,
+        "delta": 1e-05,
+        "theoretical_only": true
+      }
+    ],
+    "sigma_zero_control": "epsilon null; explicitly non-DP"
+  },
+  "randomness": {
+    "research_mode": "reproducible ordinary PyTorch PRNG; states are stored for research recovery",
+    "privacy_claim_mode": "refused before data loading; no insecure fallback",
+    "secure_randomness_work_remaining": "integrate and review a cryptographically secure Gaussian RNG and protect its state before any privacy claim"
+  },
+  "cuda_smoke": {
+    "summary_file": "results/g3_1/cuda_smoke_summary.json",
+    "smoke": true,
+    "models": 2,
+    "clients_per_model": 5,
+    "dp_steps_per_client": 1,
+    "actual_poisson_batch_size_range": [
+      26,
+      42
+    ],
+    "gated_total_round_seconds": 2.6365449000149965,
+    "gated_peak_memory_mb": 1616.00634765625,
+    "gru_attention_total_round_seconds": 1.902607399970293,
+    "gru_attention_peak_memory_mb": 751.98046875,
+    "no_oom": true,
+    "best_latest_strict_loading": true,
+    "validation_visibility": "internal_restricted_non_dp",
+    "test_evaluated": false,
+    "gated_gradient_stack_bytes_by_client": {
+      "lv_39": 613140,
+      "lv_50": 650300,
+      "lv_56": 483080,
+      "lv_80": 743200,
+      "industrial_mvlv": 780360
+    },
+    "gated_gradient_stack_bytes_range": [
+      483080,
+      780360
+    ],
+    "gru_attention_gradient_stack_bytes_by_client": {
+      "lv_39": 591492,
+      "lv_50": 627340,
+      "lv_56": 466024,
+      "lv_80": 716960,
+      "industrial_mvlv": 752808
+    },
+    "gru_attention_gradient_stack_bytes_range": [
+      466024,
+      752808
+    ]
+  },
+  "tests": {
+    "g31_new_unit_tests": 14,
+    "repository_total_passed": 152,
+    "cuda_torch_func_gru_slow_fallback_warning": true,
+    "test_data_accessed": false
+  },
+  "known_limitations": [
+    "Ordinary PRNG does not support a privacy guarantee.",
+    "Window overlap prevents translating window-level privacy to timepoint/user/client privacy.",
+    "Scaler fitting, topology/load mask, validation statistics and validation-based selection are outside this conditional training guarantee.",
+    "Repeated source curves across clients require composition for the protected underlying unit.",
+    "torch.func uses a slow native-GRU fallback and its measured speed should be revisited at the full 32-record batch and full epoch.",
+    "DP-SGD does not provide secure aggregation, communication encryption or client identity hiding."
+  ]
+}

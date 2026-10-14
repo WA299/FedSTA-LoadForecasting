@@ -1,0 +1,172 @@
+{
+  "phase": "G3.1 short feasibility smoke",
+  "smoke": true,
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "torch_version": "2.10.0+cu126",
+  "cuda_runtime": "12.6",
+  "opacus_version": "1.6.0",
+  "privacy_mode": "research",
+  "noise_source": "ordinary_torch_prng_not_secure",
+  "privacy_claim_allowed": false,
+  "test_evaluated": false,
+  "formal_training": false,
+  "clients": [
+    "lv_39",
+    "lv_50",
+    "lv_56",
+    "lv_80",
+    "industrial_mvlv"
+  ],
+  "models": [
+    {
+      "model_name": "stfednet_gated",
+      "rounds": 1,
+      "smoke": true,
+      "gradient_method": "torch_func",
+      "seconds_for_five_client_one_step_round_and_validation": 2.6365449000149965,
+      "cuda_peak_memory_mb": 1616.00634765625,
+      "client_records": {
+        "lv_39": {
+          "nodes": 39,
+          "actual_poisson_batch_size": 33.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 613140,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.5159958000294864,
+          "rough_191_step_local_epoch_seconds_from_single_step": 98.5551978056319
+        },
+        "lv_50": {
+          "nodes": 50,
+          "actual_poisson_batch_size": 35.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 650300,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.2706082999939099,
+          "rough_191_step_local_epoch_seconds_from_single_step": 51.68618529883679
+        },
+        "lv_56": {
+          "nodes": 56,
+          "actual_poisson_batch_size": 26.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 483080,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.2231039999751374,
+          "rough_191_step_local_epoch_seconds_from_single_step": 42.612863995251246
+        },
+        "lv_80": {
+          "nodes": 80,
+          "actual_poisson_batch_size": 40.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 743200,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.3150012999540195,
+          "rough_191_step_local_epoch_seconds_from_single_step": 60.16524829121772
+        },
+        "industrial_mvlv": {
+          "nodes": 76,
+          "actual_poisson_batch_size": 42.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 780360,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.336950600030832,
+          "rough_191_step_local_epoch_seconds_from_single_step": 64.35756460588891
+        }
+      },
+      "validation_metrics_visibility": "internal_restricted_non_dp",
+      "privacy_claim_allowed": false,
+      "test_evaluated": false,
+      "strict_best_latest_load": true,
+      "epoch_estimate_caveat": "Single draw extrapolation includes one model initialization and disk/accountant overhead per measured draw; not a measured epoch or performance guarantee."
+    },
+    {
+      "model_name": "gru_attention",
+      "rounds": 1,
+      "smoke": true,
+      "gradient_method": "torch_func",
+      "seconds_for_five_client_one_step_round_and_validation": 1.902607399970293,
+      "cuda_peak_memory_mb": 751.98046875,
+      "client_records": {
+        "lv_39": {
+          "nodes": 39,
+          "actual_poisson_batch_size": 33.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 591492,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.16838040004950017,
+          "rough_191_step_local_epoch_seconds_from_single_step": 32.16065640945453
+        },
+        "lv_50": {
+          "nodes": 50,
+          "actual_poisson_batch_size": 35.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 627340,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.19970280001871288,
+          "rough_191_step_local_epoch_seconds_from_single_step": 38.14323480357416
+        },
+        "lv_56": {
+          "nodes": 56,
+          "actual_poisson_batch_size": 26.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 466024,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.21935730008408427,
+          "rough_191_step_local_epoch_seconds_from_single_step": 41.897244316060096
+        },
+        "lv_80": {
+          "nodes": 80,
+          "actual_poisson_batch_size": 40.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 716960,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.26830410002730787,
+          "rough_191_step_local_epoch_seconds_from_single_step": 51.2460831052158
+        },
+        "industrial_mvlv": {
+          "nodes": 76,
+          "actual_poisson_batch_size": 42.0,
+          "accounted_steps": 1,
+          "theoretical_epsilon_after_one_step": 0.8300152585667391,
+          "method_counts": {
+            "torch_func": 1
+          },
+          "max_gradient_stack_bytes": 752808,
+          "seconds_one_local_update_including_initialization_checkpoint_and_accounting": 0.296590399928391,
+          "rough_191_step_local_epoch_seconds_from_single_step": 56.64876638632268
+        }
+      },
+      "validation_metrics_visibility": "internal_restricted_non_dp",
+      "privacy_claim_allowed": false,
+      "test_evaluated": false,
+      "strict_best_latest_load": true,
+      "epoch_estimate_caveat": "Single draw extrapolation includes one model initialization and disk/accountant overhead per measured draw; not a measured epoch or performance guarantee."
+    }
+  ]
+}

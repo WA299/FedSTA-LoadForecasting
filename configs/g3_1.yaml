@@ -1,0 +1,16 @@
+# Inherits unchanged data/model/optimizer settings from configs/g2.yaml.
+project_name: "基于时空注意力机制与联邦学习的配电网负荷预测"
+output_root: results/g3_1
+rounds: 20
+local_epochs: 1
+batch_size: 32
+expected_batch_size: 32
+expected_train_records: 6084
+noise_multiplier: null  # Must be supplied with --noise-multiplier, including 0 for non-DP.
+max_grad_norm: 1.0
+delta: 0.00001
+gradient_method: auto  # CUDA torch.func; CPU loop. No silent fallback.
+privacy_mode: research
+max_dp_steps_per_epoch: null
+max_train_batches: null
+max_val_batches: null

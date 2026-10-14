@@ -142,12 +142,12 @@ def torch_func_clipped_gradients(model, x: torch.Tensor, y: torch.Tensor,
 
     This path materializes a ``[B, ...parameter_shape]`` gradient stack and
     disables cuDNN for CUDA GRU transforms in the currently tested PyTorch
-    build. It is kept for comparison only; the explicit loop is the supported
-    numerical reference. Some PyTorch CPU/CUDA configurations cannot transform
+    build. G3.1 uses it on this verified CUDA runtime after clipped-gradient
+    comparison with the explicit numerical reference. Other CPU/CUDA builds cannot transform
     the native GRU, in which case the underlying exception is intentionally
     propagated to the caller.
     """
-    from torch.func import functional_call, grad, vmap
+    from torch.func import functional_call, grad_and_value, vmap
 
     clip = float(max_grad_norm)
     sigma = float(noise_multiplier)
@@ -171,8 +171,8 @@ def torch_func_clipped_gradients(model, x: torch.Tensor, y: torch.Tensor,
     transform_context = (torch.backends.cudnn.flags(enabled=False)
                          if x.device.type == "cuda" else nullcontext())
     with transform_context:
-        gradient_stack = vmap(grad(loss_fn), in_dims=(None, 0, 0),
-                              randomness="different")(parameters, x, y)
+        gradient_stack, loss_stack = vmap(grad_and_value(loss_fn), in_dims=(None, 0, 0),
+                                          randomness="different")(parameters, x, y)
     # Optimizer gradients are values, not differentiable meta-gradients. Keep
     # no higher-order graph alive between benchmark steps or in parameter.grad.
     gradient_stack = {name: value.detach() for name, value in gradient_stack.items()}
@@ -192,6 +192,7 @@ def torch_func_clipped_gradients(model, x: torch.Tensor, y: torch.Tensor,
             total = total + noise * noise_std_on_sum
         result[name] = total / divisor
     return {"gradients": result,
+            "losses": loss_stack.detach().cpu().tolist(),
             "pre_clip_norms": norms.detach().cpu().tolist(),
             "clipped_norms": (norms * factors).detach().cpu().tolist(),
             "record_count": batch_size,
