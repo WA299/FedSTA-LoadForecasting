@@ -1,0 +1,1568 @@
+{
+  "protocol": {
+    "seed": 42,
+    "rounds": 20,
+    "clients": [
+      "lv_39",
+      "lv_50",
+      "lv_56",
+      "lv_80",
+      "industrial_mvlv"
+    ],
+    "split": "validation",
+    "input_hours": 48,
+    "horizon_hours": 1,
+    "test_evaluated": false
+  },
+  "selection": {
+    "g2": "latest completed formal run per method/model/seed; Best by equal-client validation WAPE",
+    "fedprox_mu": {
+      "stfednet_gated": 0.001,
+      "gru_attention": 0.0001
+    },
+    "fedprox_mu_source": "G2.1 completed validation sensitivity selection",
+    "fedper": "latest completed formal FedPer run by Latest checkpoint mtime_ns then path; never by validation score"
+  },
+  "fedper_interpretation": "FedPer is five personalized prediction models: one shared backbone plus a separate head per client.",
+  "runs": [
+    {
+      "algorithm": "fedavg",
+      "model_name": "stfednet_gated",
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedavg\\stfednet_gated\\seed42_20261014_015312_840900\\best_global.pt",
+      "best_round": 18,
+      "client_equal_wape_percent": 24.225829258124044,
+      "overall": {
+        "mae_kw": 2.2438232168159287,
+        "rmse_kw": 14.36613544931287,
+        "wape_percent": 15.907837000596839,
+        "mape_percent": 37.431512271086454,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4165188786453217,
+          "rmse_kw": 0.6216175970258836,
+          "wape_percent": 28.784716075899905,
+          "mape_percent": 34.5552864414674,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.3528661600229636,
+          "rmse_kw": 0.6461118466636745,
+          "wape_percent": 19.218191588935206,
+          "mape_percent": 36.13278219193642,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.4588217464896411,
+          "rmse_kw": 0.6554349803736308,
+          "wape_percent": 25.34061756019572,
+          "mape_percent": 31.724999353132056,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.24687575764101663,
+          "rmse_kw": 0.6715623067516342,
+          "wape_percent": 32.693350666722594,
+          "mape_percent": 47.68546709543677,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 7.42864550680222,
+          "rmse_kw": 27.901682131539868,
+          "wape_percent": 15.092270398866805,
+          "mape_percent": 40.889678739972474,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "configured_rounds": 20,
+        "completed_rounds": 20,
+        "local_epochs_per_round": 1
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": 24.225829258124044,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": {
+        "lv_39": 6084,
+        "lv_50": 6084,
+        "lv_56": 6084,
+        "lv_80": 6084,
+        "industrial_mvlv": 6084
+      },
+      "smoke": false,
+      "test_evaluated": false,
+      "delta_client_equal_wape_vs_fedavg_pp": 0.0,
+      "delta_client_equal_wape_vs_local_only_pp": 2.156763213369519,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": 0.0,
+        "lv_50": 0.0,
+        "lv_56": 0.0,
+        "lv_80": 0.0,
+        "industrial_mvlv": 0.0
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": 0.5919984286489175,
+        "lv_50": 0.4726834404197895,
+        "lv_56": 0.13943160569173685,
+        "lv_80": 4.3906763085998115,
+        "industrial_mvlv": 5.189026283487349
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 4.3906763085998115,
+          "change_vs_fedavg_pp": 0.0
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": 5.189026283487349,
+          "change_vs_fedavg_pp": 0.0
+        }
+      }
+    },
+    {
+      "algorithm": "centralized",
+      "model_name": "stfednet_gated",
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\centralized\\stfednet_gated\\seed42_20261014_022544_058100\\best_global.pt",
+      "best_round": 18,
+      "client_equal_wape_percent": 21.91181829626533,
+      "overall": {
+        "mae_kw": 1.5531701139275131,
+        "rmse_kw": 10.544284748204117,
+        "wape_percent": 11.011374167711082,
+        "mape_percent": 30.876966086979593,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.39859419458455225,
+          "rmse_kw": 0.6104648196354331,
+          "wape_percent": 27.54598004761339,
+          "mape_percent": 31.57528875752174,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.33356694274329446,
+          "rmse_kw": 0.632000673156686,
+          "wape_percent": 18.16709602575331,
+          "mape_percent": 31.565417063068868,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.44553794902551547,
+          "rmse_kw": 0.6485347326475386,
+          "wape_percent": 24.606956538544246,
+          "mape_percent": 29.86347061528762,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.22158169782648035,
+          "rmse_kw": 0.6349462775639525,
+          "wape_percent": 29.343699914443548,
+          "mape_percent": 42.27436038813967,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 4.870646489647345,
+          "rmse_kw": 20.467155282202587,
+          "wape_percent": 9.895358954972172,
+          "mape_percent": 25.15286368513741,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "configured_rounds": 20,
+        "completed_rounds": 20,
+        "local_epochs_per_round": 1
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": 21.91181829626533,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": null,
+      "smoke": false,
+      "test_evaluated": false,
+      "delta_client_equal_wape_vs_fedavg_pp": -2.3140109618587132,
+      "delta_client_equal_wape_vs_local_only_pp": -0.1572477484891941,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": -1.2387360282865139,
+        "lv_50": -1.051095563181896,
+        "lv_56": -0.733661021651475,
+        "lv_80": -3.3496507522790466,
+        "industrial_mvlv": -5.196911443894633
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": -0.6467375996375964,
+        "lv_50": -0.5784121227621064,
+        "lv_56": -0.5942294159597381,
+        "lv_80": 1.0410255563207649,
+        "industrial_mvlv": -0.00788516040728382
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 1.0410255563207649,
+          "change_vs_fedavg_pp": -3.3496507522790466
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": -0.00788516040728382,
+          "change_vs_fedavg_pp": -5.196911443894633
+        }
+      }
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "stfednet_gated",
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedprox\\stfednet_gated\\seed42_20261014_100217_245600\\best_global.pt",
+      "best_round": 20,
+      "client_equal_wape_percent": 24.83069134803939,
+      "overall": {
+        "mae_kw": 2.3729545936202516,
+        "rmse_kw": 14.68576838640533,
+        "wape_percent": 16.823328416529694,
+        "mape_percent": 38.8564839587645,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4207066501851029,
+          "rmse_kw": 0.6216711350824194,
+          "wape_percent": 29.07412388174868,
+          "mape_percent": 35.48532511439207,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.36136079699339974,
+          "rmse_kw": 0.6493422120449477,
+          "wape_percent": 19.680836011301096,
+          "mape_percent": 37.73040149958265,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.4660636970957104,
+          "rmse_kw": 0.6589287389313181,
+          "wape_percent": 25.740588795435272,
+          "mape_percent": 33.34253964947211,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.25381502510621046,
+          "rmse_kw": 0.6668806329793298,
+          "wape_percent": 33.61230644746657,
+          "mape_percent": 49.03496008445147,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 7.897889655506411,
+          "rmse_kw": 28.52336016936348,
+          "wape_percent": 16.045601604245356,
+          "mape_percent": 42.40726429488081,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "configured_rounds": 20,
+        "completed_rounds": 20,
+        "local_epochs_per_round": 1
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.001,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": 24.83069134803939,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": {
+        "lv_39": 6084,
+        "lv_50": 6084,
+        "lv_56": 6084,
+        "lv_80": 6084,
+        "industrial_mvlv": 6084
+      },
+      "smoke": false,
+      "test_evaluated": false,
+      "mu": 0.001,
+      "mu_selection_source": "completed G2.1 validation sensitivity selection",
+      "delta_client_equal_wape_vs_fedavg_pp": 0.604862089915347,
+      "delta_client_equal_wape_vs_local_only_pp": 2.761625303284866,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": 0.289407805848775,
+        "lv_50": 0.46264442236589076,
+        "lv_56": 0.39997123523955125,
+        "lv_80": 0.9189557807439783,
+        "industrial_mvlv": 0.9533312053785501
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": 0.8814062344976925,
+        "lv_50": 0.9353278627856803,
+        "lv_56": 0.5394028409312881,
+        "lv_80": 5.30963208934379,
+        "industrial_mvlv": 6.142357488865899
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 5.30963208934379,
+          "change_vs_fedavg_pp": 0.9189557807439783
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": 6.142357488865899,
+          "change_vs_fedavg_pp": 0.9533312053785501
+        }
+      }
+    },
+    {
+      "algorithm": "fedavg",
+      "model_name": "gru_attention",
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedavg\\gru_attention\\seed42_20261014_020959_569300\\best_global.pt",
+      "best_round": 20,
+      "client_equal_wape_percent": 23.575646295050568,
+      "overall": {
+        "mae_kw": 2.0131340681372887,
+        "rmse_kw": 13.062184189747622,
+        "wape_percent": 14.272340341375266,
+        "mape_percent": 35.83507181474429,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4103242678235253,
+          "rmse_kw": 0.607165146217654,
+          "wape_percent": 28.35661996105863,
+          "mape_percent": 34.5100936326086,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.34790034028362965,
+          "rmse_kw": 0.6270020098991711,
+          "wape_percent": 18.947737558601364,
+          "mape_percent": 36.29444644134977,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.4563804359446015,
+          "rmse_kw": 0.6445941444713659,
+          "wape_percent": 25.20578455077358,
+          "mape_percent": 32.48563636651119,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.24180360654959446,
+          "rmse_kw": 0.6400484907252486,
+          "wape_percent": 32.021654037409995,
+          "mape_percent": 49.12324229295147,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 6.569318896603881,
+          "rmse_kw": 25.366444274840266,
+          "wape_percent": 13.346435367409267,
+          "mape_percent": 33.192210399993144,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "configured_rounds": 20,
+        "completed_rounds": 20,
+        "local_epochs_per_round": 1
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": 23.575646295050568,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": {
+        "lv_39": 6084,
+        "lv_50": 6084,
+        "lv_56": 6084,
+        "lv_80": 6084,
+        "industrial_mvlv": 6084
+      },
+      "smoke": false,
+      "test_evaluated": false,
+      "delta_client_equal_wape_vs_fedavg_pp": 0.0,
+      "delta_client_equal_wape_vs_local_only_pp": 1.685974730324837,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": 0.0,
+        "lv_50": 0.0,
+        "lv_56": 0.0,
+        "lv_80": 0.0,
+        "industrial_mvlv": 0.0
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": 0.2915623214463814,
+        "lv_50": 0.14003571815205973,
+        "lv_56": -0.09025631171193993,
+        "lv_80": 3.6144721222657843,
+        "industrial_mvlv": 4.4740598014718955
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 3.6144721222657843,
+          "change_vs_fedavg_pp": 0.0
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": 4.4740598014718955,
+          "change_vs_fedavg_pp": 0.0
+        }
+      }
+    },
+    {
+      "algorithm": "centralized",
+      "model_name": "gru_attention",
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\centralized\\gru_attention\\seed42_20261014_023405_043600\\best_global.pt",
+      "best_round": 16,
+      "client_equal_wape_percent": 21.87053254382731,
+      "overall": {
+        "mae_kw": 1.5572324539221054,
+        "rmse_kw": 10.587910830624201,
+        "wape_percent": 11.040174583889451,
+        "mape_percent": 32.332315117890964,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.40417005431865266,
+          "rmse_kw": 0.6107034396464878,
+          "wape_percent": 27.93131561714899,
+          "mape_percent": 32.94337240181118,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.3353409016661623,
+          "rmse_kw": 0.6264950744827396,
+          "wape_percent": 18.263711361291172,
+          "mape_percent": 33.04583948526244,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.4485747396020172,
+          "rmse_kw": 0.6446875563470403,
+          "wape_percent": 24.774677770587623,
+          "mape_percent": 30.81421905501695,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.21492043415064457,
+          "rmse_kw": 0.6100907667254883,
+          "wape_percent": 28.4615597184253,
+          "mape_percent": 45.13014502247035,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 4.883463428345264,
+          "rmse_kw": 20.552789539753654,
+          "wape_percent": 9.921398251683472,
+          "mape_percent": 26.470263463736394,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "configured_rounds": 20,
+        "completed_rounds": 20,
+        "local_epochs_per_round": 1
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": 21.87053254382731,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": null,
+      "smoke": false,
+      "test_evaluated": false,
+      "delta_client_equal_wape_vs_fedavg_pp": -1.7051137512232586,
+      "delta_client_equal_wape_vs_local_only_pp": -0.019139020898421677,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": -0.4253043439096409,
+        "lv_50": -0.6840261973101924,
+        "lv_56": -0.4311067801859565,
+        "lv_80": -3.560094318984696,
+        "industrial_mvlv": -3.425037115725795
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": -0.1337420224632595,
+        "lv_50": -0.5439904791581327,
+        "lv_56": -0.5213630918978964,
+        "lv_80": 0.05437780328108843,
+        "industrial_mvlv": 1.0490226857461007
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 0.05437780328108843,
+          "change_vs_fedavg_pp": -3.560094318984696
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": 1.0490226857461007,
+          "change_vs_fedavg_pp": -3.425037115725795
+        }
+      }
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "gru_attention",
+      "checkpoint": "E:\\Dachuang_FedSTA\\results\\g2\\fedprox\\gru_attention\\seed42_20261014_102244_616800\\best_global.pt",
+      "best_round": 20,
+      "client_equal_wape_percent": 23.26810233586428,
+      "overall": {
+        "mae_kw": 1.9256737379720026,
+        "rmse_kw": 12.707005255416064,
+        "wape_percent": 13.652280496258738,
+        "mape_percent": 34.73059931539869,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4091728377303991,
+          "rmse_kw": 0.608425208154892,
+          "wape_percent": 28.277047125321435,
+          "mape_percent": 34.2373601833679,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.3421092791356038,
+          "rmse_kw": 0.6225020463466236,
+          "wape_percent": 18.632338307398708,
+          "mape_percent": 35.65064136241792,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.4556802946734481,
+          "rmse_kw": 0.6459557613833287,
+          "wape_percent": 25.167115912405524,
+          "mape_percent": 32.14439418209528,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.2384356035056855,
+          "rmse_kw": 0.639370237713989,
+          "wape_percent": 31.5756349320379,
+          "mape_percent": 48.13202244839166,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 6.245411752425065,
+          "rmse_kw": 24.67549998109254,
+          "wape_percent": 12.688375402157842,
+          "mape_percent": 30.39286229694695,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "configured_rounds": 20,
+        "completed_rounds": 20,
+        "local_epochs_per_round": 1
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0001,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": 23.26810233586428,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": {
+        "lv_39": 6084,
+        "lv_50": 6084,
+        "lv_56": 6084,
+        "lv_80": 6084,
+        "industrial_mvlv": 6084
+      },
+      "smoke": false,
+      "test_evaluated": false,
+      "mu": 0.0001,
+      "mu_selection_source": "completed G2.1 validation sensitivity selection",
+      "delta_client_equal_wape_vs_fedavg_pp": -0.30754395918628674,
+      "delta_client_equal_wape_vs_local_only_pp": 1.3784307711385502,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": -0.07957283573719565,
+        "lv_50": -0.3153992512026562,
+        "lv_56": -0.038668638368054786,
+        "lv_80": -0.44601910537209477,
+        "industrial_mvlv": -0.6580599652514252
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": 0.21198948570918574,
+        "lv_50": -0.1753635330505965,
+        "lv_56": -0.12892495007999472,
+        "lv_80": 3.1684530168936895,
+        "industrial_mvlv": 3.8159998362204703
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 3.1684530168936895,
+          "change_vs_fedavg_pp": -0.44601910537209477
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": 3.8159998362204703,
+          "change_vs_fedavg_pp": -0.6580599652514252
+        }
+      }
+    },
+    {
+      "algorithm": "local_only",
+      "model_name": "stfednet_gated",
+      "checkpoint": null,
+      "best_round": null,
+      "client_equal_wape_percent": 22.069066044754525,
+      "overall": {
+        "mae_kw": 1.5583557976595281,
+        "rmse_kw": 10.528911865005018,
+        "wape_percent": 11.048138655629431,
+        "mape_percent": 33.33234712453985,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4079525783555965,
+          "rmse_kw": 0.6060181225646422,
+          "wape_percent": 28.192717647250987,
+          "mape_percent": 33.77721254579288,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.34418719614878696,
+          "rmse_kw": 0.636865721249526,
+          "wape_percent": 18.745508148515416,
+          "mape_percent": 35.43967855751247,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.45629717293939637,
+          "rmse_kw": 0.6474682213483856,
+          "wape_percent": 25.201185954503984,
+          "mape_percent": 32.275825330539796,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.2137206506196566,
+          "rmse_kw": 0.6257010632359268,
+          "wape_percent": 28.302674358122783,
+          "mape_percent": 44.65363591339429,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 4.874527685775025,
+          "rmse_kw": 20.437483623056657,
+          "wape_percent": 9.903244115379456,
+          "mape_percent": 27.20016410850345,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "per_client": {
+          "lv_39": {
+            "configured_epochs": 30,
+            "best_epoch": 18,
+            "completed_epochs": 26
+          },
+          "lv_50": {
+            "configured_epochs": 30,
+            "best_epoch": 19,
+            "completed_epochs": 27
+          },
+          "lv_56": {
+            "configured_epochs": 30,
+            "best_epoch": 22,
+            "completed_epochs": 30
+          },
+          "lv_80": {
+            "configured_epochs": 30,
+            "best_epoch": 26,
+            "completed_epochs": 30
+          },
+          "industrial_mvlv": {
+            "configured_epochs": 30,
+            "best_epoch": 28,
+            "completed_epochs": 30
+          }
+        }
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": null,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": null,
+      "smoke": false,
+      "test_evaluated": false,
+      "checkpoint_by_client": {
+        "lv_39": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_39\\seed42_20261013_233247_156300\\best.pt",
+        "lv_50": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_50\\seed42_20261013_233359_492500\\best.pt",
+        "lv_56": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_56\\seed42_20261013_233533_456000\\best.pt",
+        "lv_80": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\lv_80\\seed42_20261013_233733_839300\\best.pt",
+        "industrial_mvlv": "E:\\Dachuang_FedSTA\\results\\g1_2\\stfednet_gated\\industrial_mvlv\\seed42_20261013_234052_983300\\best.pt"
+      },
+      "config_by_client": {
+        "lv_39": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1_2",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "cuda",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "lv_50": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1_2",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "cuda",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "lv_56": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1_2",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "cuda",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "lv_80": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1_2",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "cuda",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "industrial_mvlv": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1_2",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "cuda",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        }
+      },
+      "note": "Five independent Local-only models; not one shared global model.",
+      "delta_client_equal_wape_vs_fedavg_pp": -2.156763213369519,
+      "delta_client_equal_wape_vs_local_only_pp": 0.0,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": -0.5919984286489175,
+        "lv_50": -0.4726834404197895,
+        "lv_56": -0.13943160569173685,
+        "lv_80": -4.3906763085998115,
+        "industrial_mvlv": -5.189026283487349
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": 0.0,
+        "lv_50": 0.0,
+        "lv_56": 0.0,
+        "lv_80": 0.0,
+        "industrial_mvlv": 0.0
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 0.0,
+          "change_vs_fedavg_pp": -4.3906763085998115
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": 0.0,
+          "change_vs_fedavg_pp": -5.189026283487349
+        }
+      }
+    },
+    {
+      "algorithm": "local_only",
+      "model_name": "gru_attention",
+      "checkpoint": null,
+      "best_round": null,
+      "client_equal_wape_percent": 21.88967156472573,
+      "overall": {
+        "mae_kw": 1.424471471121637,
+        "rmse_kw": 9.557469906488217,
+        "wape_percent": 10.098950668118663,
+        "mape_percent": 32.714075572674425,
+        "mape_valid_fraction": 0.8926672038678485,
+        "mape_valid_count": 199404,
+        "effective_count": 223380,
+        "mape_threshold_kw": 0.1
+      },
+      "clients": {
+        "lv_39": {
+          "mae_kw": 0.4061053201408782,
+          "rmse_kw": 0.602843561337506,
+          "wape_percent": 28.06505763961225,
+          "mape_percent": 33.89042451560154,
+          "mape_valid_fraction": 0.9967927810393564,
+          "mape_valid_count": 36674,
+          "effective_count": 36792,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_50": {
+          "mae_kw": 0.34532913758218364,
+          "rmse_kw": 0.6369095054330615,
+          "wape_percent": 18.807701840449305,
+          "mape_percent": 34.79785003520491,
+          "mape_valid_fraction": 0.9021526418786693,
+          "mape_valid_count": 24894,
+          "effective_count": 27594,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_56": {
+          "mae_kw": 0.45801463284106675,
+          "rmse_kw": 0.64908110935035,
+          "wape_percent": 25.29604086248552,
+          "mape_percent": 32.51311089216608,
+          "mape_valid_fraction": 0.995416493704165,
+          "mape_valid_count": 57551,
+          "effective_count": 57816,
+          "mape_threshold_kw": 0.1
+        },
+        "lv_80": {
+          "mae_kw": 0.21450981360823757,
+          "rmse_kw": 0.6205403368410839,
+          "wape_percent": 28.40718191514421,
+          "mape_percent": 44.80858863247892,
+          "mape_valid_fraction": 0.6599838280060882,
+          "mape_valid_count": 27751,
+          "effective_count": 42048,
+          "mape_threshold_kw": 0.1
+        },
+        "industrial_mvlv": {
+          "mae_kw": 4.367118474600829,
+          "rmse_kw": 18.54671881589993,
+          "wape_percent": 8.872375565937372,
+          "mape_percent": 24.736689190563013,
+          "mape_valid_fraction": 0.8884491797733807,
+          "mape_valid_count": 52534,
+          "effective_count": 59130,
+          "mape_threshold_kw": 0.1
+        }
+      },
+      "training_budget": {
+        "per_client": {
+          "lv_39": {
+            "configured_epochs": 30,
+            "best_epoch": 29,
+            "completed_epochs": 30
+          },
+          "lv_50": {
+            "configured_epochs": 30,
+            "best_epoch": 19,
+            "completed_epochs": 27
+          },
+          "lv_56": {
+            "configured_epochs": 30,
+            "best_epoch": 20,
+            "completed_epochs": 28
+          },
+          "lv_80": {
+            "configured_epochs": 30,
+            "best_epoch": 25,
+            "completed_epochs": 30
+          },
+          "industrial_mvlv": {
+            "configured_epochs": 30,
+            "best_epoch": 28,
+            "completed_epochs": 30
+          }
+        }
+      },
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_validation_wape": null,
+      "data_signatures": {
+        "lv_39": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+        "lv_50": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+        "lv_56": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+        "lv_80": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+        "industrial_mvlv": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f"
+      },
+      "round_sample_counts": null,
+      "smoke": false,
+      "test_evaluated": false,
+      "checkpoint_by_client": {
+        "lv_39": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_39\\seed42_20261013_001714_496800\\best.pt",
+        "lv_50": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_50\\seed42_20261013_010050_317300\\best.pt",
+        "lv_56": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_56\\seed42_20261013_010431_454800\\best.pt",
+        "lv_80": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\lv_80\\seed42_20261013_010808_651000\\best.pt",
+        "industrial_mvlv": "E:\\Dachuang_FedSTA\\results\\g1\\gru_attention\\industrial_mvlv\\seed42_20261013_011339_276700\\best.pt"
+      },
+      "config_by_client": {
+        "lv_39": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "auto",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "lv_50": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "auto",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "lv_56": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "auto",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "lv_80": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "auto",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        },
+        "industrial_mvlv": {
+          "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+          "data_root": "Datasets",
+          "output_root": "results/g1",
+          "input_hours": 48,
+          "horizon_hours": 1,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "hidden_dim": 32,
+          "dropout": 0.1,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "epochs": 30,
+          "patience": 8,
+          "min_delta": 0.0,
+          "seed": 42,
+          "device": "auto",
+          "num_workers": 0,
+          "cpu_threads": 4,
+          "mape_threshold_kw": 0.1,
+          "huber_delta": 1.0,
+          "gradient_clip": 1.0,
+          "max_train_batches": null,
+          "max_val_batches": null
+        }
+      },
+      "note": "Five independent Local-only models; not one shared global model.",
+      "delta_client_equal_wape_vs_fedavg_pp": -1.685974730324837,
+      "delta_client_equal_wape_vs_local_only_pp": 0.0,
+      "client_delta_wape_vs_fedavg_pp": {
+        "lv_39": -0.2915623214463814,
+        "lv_50": -0.14003571815205973,
+        "lv_56": 0.09025631171193993,
+        "lv_80": -3.6144721222657843,
+        "industrial_mvlv": -4.4740598014718955
+      },
+      "client_delta_wape_vs_local_only_pp": {
+        "lv_39": 0.0,
+        "lv_50": 0.0,
+        "lv_56": 0.0,
+        "lv_80": 0.0,
+        "industrial_mvlv": 0.0
+      },
+      "negative_transfer_diagnostics": {
+        "lv_80": {
+          "excess_wape_vs_local_only_pp": 0.0,
+          "change_vs_fedavg_pp": -3.6144721222657843
+        },
+        "industrial_mvlv": {
+          "excess_wape_vs_local_only_pp": 0.0,
+          "change_vs_fedavg_pp": -4.4740598014718955
+        }
+      }
+    }
+  ],
+  "skipped_or_missing": [
+    {
+      "model_name": "stfednet_gated",
+      "method": "fedper",
+      "reason": "no completed formal FedPer run; user training pending"
+    },
+    {
+      "model_name": "gru_attention",
+      "method": "fedper",
+      "reason": "no completed formal FedPer run; user training pending"
+    }
+  ],
+  "training_budget_note": "Local-only comprises independent per-client training; other methods use recorded round and local-epoch budgets.",
+  "validation_only": true,
+  "test_evaluated": false
+}

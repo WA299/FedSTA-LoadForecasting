@@ -1,0 +1,148 @@
+{
+  "scope": "existing G2 FedAvg/FedProx/Centralized Best and Latest checkpoint strict-load verification",
+  "checkpoint_count": 20,
+  "all_strict_load": true,
+  "weights_modified": false,
+  "checks": [
+    {
+      "checkpoint": "results/g2/centralized/gru_attention/seed42_20261014_023405_043600/best_global.pt",
+      "algorithm": "centralized",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "de2ea74aca6d7676d0c39ca3c3b77df6b12f8f4fa1f88294fe33b2aa81a02adf"
+    },
+    {
+      "checkpoint": "results/g2/centralized/gru_attention/seed42_20261014_023405_043600/latest_global.pt",
+      "algorithm": "centralized",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "780593a2e4708047770a35d63b712169010cb52718b6bfda4092504ab21396c4"
+    },
+    {
+      "checkpoint": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/best_global.pt",
+      "algorithm": "centralized",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "1380f6aa120c76c9b3f47b3b66ad355ebf0003c5accbc08b940aba43f658c49b"
+    },
+    {
+      "checkpoint": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/latest_global.pt",
+      "algorithm": "centralized",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "c2525965fee35c5f8b60d900e31dec461dd3647aa463a237743f45766693c30c"
+    },
+    {
+      "checkpoint": "results/g2/fedavg/gru_attention/seed42_20261014_020959_569300/best_global.pt",
+      "algorithm": "fedavg",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "63f8b8f80cc1438c6aa2b0fd73daabb5d347543c2887ef3a62363aa16d27551c"
+    },
+    {
+      "checkpoint": "results/g2/fedavg/gru_attention/seed42_20261014_020959_569300/latest_global.pt",
+      "algorithm": "fedavg",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "699ae9972fdbb94768e5ada4e3583d870f9d243a51b3113eb6d284115ab6d459"
+    },
+    {
+      "checkpoint": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/best_global.pt",
+      "algorithm": "fedavg",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "1e04766f801dae343153f76c7b15f344f45cab45b2466d72e3b83a888f0708bd"
+    },
+    {
+      "checkpoint": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/latest_global.pt",
+      "algorithm": "fedavg",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "f027a295824c8e7d9558498e4114e44f6675cba44703e65685e8afdee36e40be"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/gru_attention/seed42_20261014_021406_491200/best_global.pt",
+      "algorithm": "fedprox",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "21e88a1b6e431b13f879f7e54f95600ac3fe7464ff41a649ec88a094a8332426"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/gru_attention/seed42_20261014_021406_491200/latest_global.pt",
+      "algorithm": "fedprox",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "ebbf3671b7ec2f5c651df3d5652f0e49da2ae44a58a5470421141a49d0171e35"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/gru_attention/seed42_20261014_101844_749100/best_global.pt",
+      "algorithm": "fedprox",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "74a772e552c045a2d3b91cfc5d07738a78d00bedd765f99d42c6aa87ad30cf68"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/gru_attention/seed42_20261014_101844_749100/latest_global.pt",
+      "algorithm": "fedprox",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "fbc353ec889e6a481571bd1bf6409d0e25cf46dd2e1f95273d385cd0822bf3f6"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/gru_attention/seed42_20261014_102244_616800/best_global.pt",
+      "algorithm": "fedprox",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "49303f219053cb1aa3aa1e870fb24f2eece76f817c59611e6e321cc77a24ab32"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/gru_attention/seed42_20261014_102244_616800/latest_global.pt",
+      "algorithm": "fedprox",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "1abcc081b4d2f71e3ad70bdfc4998b76586d1b9497159abde2b3b0f41c9c3949"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_020055_882900/best_global.pt",
+      "algorithm": "fedprox",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "d4aefd614c9afc80e88e235f2ffee6f6d0f036b7925d05a3be88c6c191dd232b"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_020055_882900/latest_global.pt",
+      "algorithm": "fedprox",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "3d02ff3cfdd55e904a8260e28ac2b63c7ca5dcbf6410ed0f793ff9ac20a08a95"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/best_global.pt",
+      "algorithm": "fedprox",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "98d8ac8744d1d8a99315c6e96ea3a3dc564f8327adabb428db950edef124299b"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/latest_global.pt",
+      "algorithm": "fedprox",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "e99fdd93c6e2f0363e4748d5134e72b9176ddc68d04f5b079a286f280a24243b"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_101031_196400/best_global.pt",
+      "algorithm": "fedprox",
+      "kind": "best_global",
+      "strict_model_load": true,
+      "sha256": "f382f37dcae03846bf549cb6ff7717d6d4bb927f7c5455735566864f482878c3"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_101031_196400/latest_global.pt",
+      "algorithm": "fedprox",
+      "kind": "latest_global",
+      "strict_model_load": true,
+      "sha256": "b38dab290e3ba900b6915594c687f380c96ea6172d1dd0934ea5bae0c8f7d4ba"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "smoke": true,
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "clients": [
+    "lv_39",
+    "lv_50",
+    "lv_56",
+    "lv_80",
+    "industrial_mvlv"
+  ],
+  "models": [
+    {
+      "model_name": "stfednet_gated",
+      "run_dir": "E:\\Dachuang_FedSTA\\.pytest_tmp\\g2_2_cuda_smoke\\1791956420282732900\\stfednet_gated\\full",
+      "round": 2,
+      "smoke": true,
+      "best_round": 2,
+      "client_equal_validation_wape_percent": 81.94875449178424,
+      "head_clients": [
+        "lv_39",
+        "lv_50",
+        "lv_56",
+        "lv_80",
+        "industrial_mvlv"
+      ],
+      "head_updates_and_cross_round_retention_checked": true,
+      "weighted_backbone_only_aggregation_checked": true,
+      "strict_load_combinations": 10,
+      "resume_exact_on_cuda": true,
+      "node_counts": {
+        "lv_39": 39,
+        "lv_50": 50,
+        "lv_56": 56,
+        "lv_80": 80,
+        "industrial_mvlv": 76
+      },
+      "train_batches_per_client_per_round": 1,
+      "validation_batches_per_client_per_round": 1,
+      "batch_size": 2,
+      "test_evaluated": false
+    },
+    {
+      "model_name": "gru_attention",
+      "run_dir": "E:\\Dachuang_FedSTA\\.pytest_tmp\\g2_2_cuda_smoke\\1791956420282732900\\gru_attention\\full",
+      "round": 2,
+      "smoke": true,
+      "best_round": 2,
+      "client_equal_validation_wape_percent": 74.95807124615263,
+      "head_clients": [
+        "lv_39",
+        "lv_50",
+        "lv_56",
+        "lv_80",
+        "industrial_mvlv"
+      ],
+      "head_updates_and_cross_round_retention_checked": true,
+      "weighted_backbone_only_aggregation_checked": true,
+      "strict_load_combinations": 10,
+      "resume_exact_on_cuda": true,
+      "node_counts": {
+        "lv_39": 39,
+        "lv_50": 50,
+        "lv_56": 56,
+        "lv_80": 80,
+        "industrial_mvlv": 76
+      },
+      "train_batches_per_client_per_round": 1,
+      "validation_batches_per_client_per_round": 1,
+      "batch_size": 2,
+      "test_evaluated": false
+    }
+  ],
+  "formal_training": false,
+  "test_evaluated": false
+}
