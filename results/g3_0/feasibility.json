@@ -1,0 +1,366 @@
+{
+  "phase": "G3.0 feasibility only",
+  "formal_dp_training_executed": false,
+  "test_split_accessed": false,
+  "smoke": true,
+  "environment": {
+    "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "torch": "2.10.0+cu126",
+    "cuda_runtime": "12.6",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "opacus": {
+      "installed": true,
+      "version": "1.6.0",
+      "models": {
+        "gru_attention": {
+          "validator_errors": [
+            "We do not support nn.GRU because its implementation uses special modules. We have written a GRU class that is a drop-in replacement which is compatible with our Grad Sample hooks. Please run the recommended replacement!"
+          ],
+          "fixed_gru_type": "DPGRU",
+          "strict_state_dict_compatible": false,
+          "grad_sample_backward": true,
+          "fixed_output_equivalent": true,
+          "original_grad_sample_backward": false,
+          "original_grad_sample_error": "RuntimeError: output with shape [1, 8] doesn't match the broadcast shape [6, 1, 8]",
+          "strict_state_dict_error": "RuntimeError: Error(s) in loading state_dict for NeuralForecast:\n\tMissing key(s) in state_dict: \"temporal.gru.l0.ih.weight\", \"temporal.gru.l0.ih.bias\", \"temporal.gru.l0.hh.weight\", \"temporal.gru.l0.hh.bias\". ",
+          "grad_sample_leading_sizes": {
+            "_module.temporal.gru.weight_ih_l0": 6,
+            "_module.temporal.gru.bias_ih_l0": 6,
+            "_module.temporal.gru.weight_hh_l0": 6,
+            "_module.temporal.gru.bias_hh_l0": 6,
+            "_module.attention.hidden.weight": 2,
+            "_module.attention.hidden.bias": 2,
+            "_module.attention.score.weight": 2,
+            "_module.head.weight": 2,
+            "_module.head.bias": 2
+          },
+          "dp_optimizer_step": false,
+          "dp_optimizer_error": "RuntimeError: stack expects each tensor to be equal size, but got [6] at entry 0 and [2] at entry 4"
+        },
+        "stfednet_gated": {
+          "validator_errors": [
+            "We do not support nn.GRU because its implementation uses special modules. We have written a GRU class that is a drop-in replacement which is compatible with our Grad Sample hooks. Please run the recommended replacement!"
+          ],
+          "fixed_gru_type": "DPGRU",
+          "strict_state_dict_compatible": false,
+          "grad_sample_backward": false,
+          "fixed_output_equivalent": true,
+          "original_grad_sample_backward": false,
+          "original_grad_sample_error": "RuntimeError: output with shape [1, 8] doesn't match the broadcast shape [6, 1, 8]",
+          "strict_state_dict_error": "RuntimeError: Error(s) in loading state_dict for GatedSTFedNet:\n\tMissing key(s) in state_dict: \"temporal.gru.l0.ih.weight\", \"temporal.gru.l0.ih.bias\", \"temporal.gru.l0.hh.weight\", \"temporal.gru.l0.hh.bias\". ",
+          "grad_sample_error": "TypeError: GraphAttention.forward() missing 1 required positional argument: 'edge_index'"
+        }
+      },
+      "secure_rng": false,
+      "secure_rng_error": "ImportError: To use secure RNG, you must install the torchcsprng package! Check out the instructions here: https://github.com/pytorch/csprng#installation",
+      "torchcsprng_installed": false
+    }
+  },
+  "per_sample_gradient_methods": {
+    "explicit_window_loop": {
+      "status": "numerically validated on both models; reference implementation",
+      "supports_variable_graph_nodes": true,
+      "noise_added_to": "sum of individually clipped per-window gradients",
+      "normalization": "actual batch size, or caller-supplied expected Poisson batch size"
+    },
+    "opacus": {
+      "installed": true,
+      "version": "1.6.0",
+      "models": {
+        "gru_attention": {
+          "validator_errors": [
+            "We do not support nn.GRU because its implementation uses special modules. We have written a GRU class that is a drop-in replacement which is compatible with our Grad Sample hooks. Please run the recommended replacement!"
+          ],
+          "fixed_gru_type": "DPGRU",
+          "strict_state_dict_compatible": false,
+          "grad_sample_backward": true,
+          "fixed_output_equivalent": true,
+          "original_grad_sample_backward": false,
+          "original_grad_sample_error": "RuntimeError: output with shape [1, 8] doesn't match the broadcast shape [6, 1, 8]",
+          "strict_state_dict_error": "RuntimeError: Error(s) in loading state_dict for NeuralForecast:\n\tMissing key(s) in state_dict: \"temporal.gru.l0.ih.weight\", \"temporal.gru.l0.ih.bias\", \"temporal.gru.l0.hh.weight\", \"temporal.gru.l0.hh.bias\". ",
+          "grad_sample_leading_sizes": {
+            "_module.temporal.gru.weight_ih_l0": 6,
+            "_module.temporal.gru.bias_ih_l0": 6,
+            "_module.temporal.gru.weight_hh_l0": 6,
+            "_module.temporal.gru.bias_hh_l0": 6,
+            "_module.attention.hidden.weight": 2,
+            "_module.attention.hidden.bias": 2,
+            "_module.attention.score.weight": 2,
+            "_module.head.weight": 2,
+            "_module.head.bias": 2
+          },
+          "dp_optimizer_step": false,
+          "dp_optimizer_error": "RuntimeError: stack expects each tensor to be equal size, but got [6] at entry 0 and [2] at entry 4"
+        },
+        "stfednet_gated": {
+          "validator_errors": [
+            "We do not support nn.GRU because its implementation uses special modules. We have written a GRU class that is a drop-in replacement which is compatible with our Grad Sample hooks. Please run the recommended replacement!"
+          ],
+          "fixed_gru_type": "DPGRU",
+          "strict_state_dict_compatible": false,
+          "grad_sample_backward": false,
+          "fixed_output_equivalent": true,
+          "original_grad_sample_backward": false,
+          "original_grad_sample_error": "RuntimeError: output with shape [1, 8] doesn't match the broadcast shape [6, 1, 8]",
+          "strict_state_dict_error": "RuntimeError: Error(s) in loading state_dict for GatedSTFedNet:\n\tMissing key(s) in state_dict: \"temporal.gru.l0.ih.weight\", \"temporal.gru.l0.ih.bias\", \"temporal.gru.l0.hh.weight\", \"temporal.gru.l0.hh.bias\". ",
+          "grad_sample_error": "TypeError: GraphAttention.forward() missing 1 required positional argument: 'edge_index'"
+        }
+      },
+      "secure_rng": false,
+      "secure_rng_error": "ImportError: To use secure RNG, you must install the torchcsprng package! Check out the instructions here: https://github.com/pytorch/csprng#installation",
+      "torchcsprng_installed": false
+    },
+    "torch_func": {
+      "cpu": [
+        {
+          "model": "gru_attention",
+          "device": "cpu",
+          "single_grad": true,
+          "batched_grad": false,
+          "error": "RuntimeError: output with shape [3, 8] doesn't match the broadcast shape [2, 3, 8]"
+        },
+        {
+          "model": "stfednet_gated",
+          "device": "cpu",
+          "single_grad": true,
+          "batched_grad": false,
+          "error": "RuntimeError: output with shape [3, 8] doesn't match the broadcast shape [2, 3, 8]"
+        }
+      ],
+      "cuda_cudnn_disabled": [
+        {
+          "model": "gru_attention",
+          "device": "cuda",
+          "single_grad": true,
+          "batched_grad": true,
+          "error": null
+        },
+        {
+          "model": "stfednet_gated",
+          "device": "cuda",
+          "single_grad": true,
+          "batched_grad": true,
+          "error": null
+        }
+      ]
+    }
+  },
+  "cuda_benchmark": {
+    "device": "cuda",
+    "torch": "2.10.0+cu126",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "rows": [
+      {
+        "model": "gru_attention",
+        "client": "lv_39",
+        "nodes": 39,
+        "batch_size": 32,
+        "train_windows": 6084,
+        "ordinary_batch_seconds": 0.003630399936810136,
+        "per_sample_loop_batch_seconds": 0.10294510005041957,
+        "torch_func_batch_seconds": 0.08483159996103495,
+        "torch_func_error": null,
+        "slowdown": 28.356407514945214,
+        "ordinary_peak_cuda_mb": 225.62939453125,
+        "per_sample_peak_cuda_mb": 30.8564453125,
+        "torch_func_peak_cuda_mb": 268.2646484375,
+        "one_record_gradient_bytes": 17924,
+        "accumulator_gradient_bytes": 17924,
+        "torch_func_gradient_stack_bytes": 573568,
+        "max_clipped_norm": 0.9999999999991502,
+        "rough_dp_loop_epoch_seconds": 19.57243714708602,
+        "rough_ordinary_epoch_seconds_at_measured_batch": 0.693406387930736,
+        "rough_torch_func_epoch_seconds_at_measured_batch": 16.202835592557676,
+        "rough_epoch_estimate_assumption": "repeat one measured training batch; excludes data loading and validation",
+        "test_split_accessed": false
+      },
+      {
+        "model": "stfednet_gated",
+        "client": "lv_39",
+        "nodes": 39,
+        "batch_size": 32,
+        "train_windows": 6084,
+        "ordinary_batch_seconds": 0.008659200044348836,
+        "per_sample_loop_batch_seconds": 0.16619289992377162,
+        "torch_func_batch_seconds": 0.09005320002324879,
+        "torch_func_error": null,
+        "slowdown": 19.19263893576779,
+        "ordinary_peak_cuda_mb": 291.33056640625,
+        "per_sample_peak_cuda_mb": 32.9462890625,
+        "torch_func_peak_cuda_mb": 430.31005859375,
+        "one_record_gradient_bytes": 18580,
+        "accumulator_gradient_bytes": 18580,
+        "torch_func_gradient_stack_bytes": 594560,
+        "max_clipped_norm": 0.999999999999052,
+        "rough_dp_loop_epoch_seconds": 31.59742509800708,
+        "rough_ordinary_epoch_seconds_at_measured_batch": 1.6539072084706277,
+        "rough_torch_func_epoch_seconds_at_measured_batch": 17.20016120444052,
+        "rough_epoch_estimate_assumption": "repeat one measured training batch; excludes data loading and validation",
+        "test_split_accessed": false
+      },
+      {
+        "model": "gru_attention",
+        "client": "lv_80",
+        "nodes": 80,
+        "batch_size": 32,
+        "train_windows": 6084,
+        "ordinary_batch_seconds": 0.007996900007128716,
+        "per_sample_loop_batch_seconds": 0.09668299998156726,
+        "torch_func_batch_seconds": 0.07980029995087534,
+        "torch_func_error": null,
+        "slowdown": 12.09005988512807,
+        "ordinary_peak_cuda_mb": 436.984375,
+        "per_sample_peak_cuda_mb": 37.65625,
+        "torch_func_peak_cuda_mb": 535.078125,
+        "one_record_gradient_bytes": 17924,
+        "accumulator_gradient_bytes": 17924,
+        "torch_func_gradient_stack_bytes": 573568,
+        "max_clipped_norm": 0.4155614826322024,
+        "rough_dp_loop_epoch_seconds": 18.381855371495476,
+        "rough_ordinary_epoch_seconds_at_measured_batch": 1.5274079013615847,
+        "rough_torch_func_epoch_seconds_at_measured_batch": 15.24185729061719,
+        "rough_epoch_estimate_assumption": "repeat one measured training batch; excludes data loading and validation",
+        "test_split_accessed": false
+      },
+      {
+        "model": "stfednet_gated",
+        "client": "lv_80",
+        "nodes": 80,
+        "batch_size": 32,
+        "train_windows": 6084,
+        "ordinary_batch_seconds": 0.026639900053851306,
+        "per_sample_loop_batch_seconds": 0.15947429998777807,
+        "torch_func_batch_seconds": 0.09112580004148185,
+        "torch_func_error": null,
+        "slowdown": 5.986294981040029,
+        "ordinary_peak_cuda_mb": 651.87744140625,
+        "per_sample_peak_cuda_mb": 44.32177734375,
+        "torch_func_peak_cuda_mb": 1064.44775390625,
+        "one_record_gradient_bytes": 18580,
+        "accumulator_gradient_bytes": 18580,
+        "torch_func_gradient_stack_bytes": 594560,
+        "max_clipped_norm": 0.304156083839519,
+        "rough_dp_loop_epoch_seconds": 30.320051285176305,
+        "rough_ordinary_epoch_seconds_at_measured_batch": 5.0882209102855995,
+        "rough_torch_func_epoch_seconds_at_measured_batch": 17.405027807923034,
+        "rough_epoch_estimate_assumption": "repeat one measured training batch; excludes data loading and validation",
+        "test_split_accessed": false
+      },
+      {
+        "model": "gru_attention",
+        "client": "industrial_mvlv",
+        "nodes": 76,
+        "batch_size": 32,
+        "train_windows": 6084,
+        "ordinary_batch_seconds": 0.016203699982725084,
+        "per_sample_loop_batch_seconds": 0.09790980000980198,
+        "torch_func_batch_seconds": 0.08362589997705072,
+        "torch_func_error": null,
+        "slowdown": 6.042434759603334,
+        "ordinary_peak_cuda_mb": 415.24853515625,
+        "per_sample_peak_cuda_mb": 36.9931640625,
+        "torch_func_peak_cuda_mb": 506.3798828125,
+        "one_record_gradient_bytes": 17924,
+        "accumulator_gradient_bytes": 17924,
+        "torch_func_gradient_stack_bytes": 573568,
+        "max_clipped_norm": 0.6147091352451635,
+        "rough_dp_loop_epoch_seconds": 18.615100726863602,
+        "rough_ordinary_epoch_seconds_at_measured_batch": 3.094906696700491,
+        "rough_torch_func_epoch_seconds_at_measured_batch": 15.972546895616688,
+        "rough_epoch_estimate_assumption": "repeat one measured training batch; excludes data loading and validation",
+        "test_split_accessed": false
+      },
+      {
+        "model": "stfednet_gated",
+        "client": "industrial_mvlv",
+        "nodes": 76,
+        "batch_size": 32,
+        "train_windows": 6084,
+        "ordinary_batch_seconds": 0.021791100036352873,
+        "per_sample_loop_batch_seconds": 0.16074760002084076,
+        "torch_func_batch_seconds": 0.09118109999690205,
+        "torch_func_error": null,
+        "slowdown": 7.3767547187922835,
+        "ordinary_peak_cuda_mb": 609.73486328125,
+        "per_sample_peak_cuda_mb": 43.1044921875,
+        "torch_func_peak_cuda_mb": 987.880859375,
+        "one_record_gradient_bytes": 18580,
+        "accumulator_gradient_bytes": 18580,
+        "torch_func_gradient_stack_bytes": 594560,
+        "max_clipped_norm": 0.8885982991199584,
+        "rough_dp_loop_epoch_seconds": 30.56213745396235,
+        "rough_ordinary_epoch_seconds_at_measured_batch": 4.162100106943399,
+        "rough_torch_func_epoch_seconds_at_measured_batch": 17.41559009940829,
+        "rough_epoch_estimate_assumption": "repeat one measured training batch; excludes data loading and validation",
+        "test_split_accessed": false
+      }
+    ],
+    "maximum_per_sample_cuda_peak_mb": 44.32177734375,
+    "maximum_torch_func_cuda_peak_mb": 1064.44775390625,
+    "maximum_torch_func_gradient_stack_bytes": 594560,
+    "epoch_estimate_scope": "batch32 extrapolation from one limited training batch; excludes data loading and validation"
+  },
+  "accounting_examples": {
+    "status": "theoretical Poisson-sampling examples; no model was trained",
+    "mechanism": "per-client Poisson subsampled Gaussian mechanism, composed with RDP",
+    "record": "one complete graph time window",
+    "adjacency": "add/remove one transformed training window, conditional on fixed public topology, load mask, and scaler",
+    "clients": 5,
+    "client_participation": "5/5 each communication round",
+    "windows_per_client": 6084,
+    "batch_size_expected": 32,
+    "sample_rate": 0.005259697567389875,
+    "nominal_steps_per_epoch": 191,
+    "rounds": 20,
+    "local_epochs_per_round": 1,
+    "steps_per_client": 3820,
+    "clipping_norm_example": 1.0,
+    "delta": 1e-05,
+    "rdp_results": [
+      {
+        "noise_multiplier": 0.5,
+        "epsilon": 15.634678583719642,
+        "delta": 1e-05,
+        "sample_rate": 0.005259697567389875,
+        "steps": 3820,
+        "assumption": "Poisson sampling; illustrative only"
+      },
+      {
+        "noise_multiplier": 1.0,
+        "epsilon": 1.9792508113974125,
+        "delta": 1e-05,
+        "sample_rate": 0.005259697567389875,
+        "steps": 3820,
+        "assumption": "Poisson sampling; illustrative only"
+      },
+      {
+        "noise_multiplier": 2.0,
+        "epsilon": 0.693580431027448,
+        "delta": 1e-05,
+        "sample_rate": 0.005259697567389875,
+        "steps": 3820,
+        "assumption": "Poisson sampling; illustrative only"
+      },
+      {
+        "noise_multiplier": 4.0,
+        "epsilon": 0.30776175505614917,
+        "delta": 1e-05,
+        "sample_rate": 0.005259697567389875,
+        "steps": 3820,
+        "assumption": "Poisson sampling; illustrative only"
+      }
+    ],
+    "current_g2_sampler_accounted_by_these_values": false,
+    "current_g2_sampler": "fixed-size shuffled DataLoader; Poisson amplification assumptions do not apply without a matching proof"
+  },
+  "privacy_limits": [
+    "Window-level protection does not imply timepoint-, household-, user-, or client-level protection.",
+    "Overlapping 48-to-1 windows reuse an hourly value in up to 49 records; a raw-timepoint change can affect multiple records.",
+    "A training-fitted scaler and physical topology/load mask are private-derived side information unless public or separately protected.",
+    "Published validation metrics and validation-based model selection are not protected by DP-SGD on training windows.",
+    "Repeated/correlated raw curves across clients require cross-client composition analysis.",
+    "DP-SGD does not add secure aggregation, encrypted transport, client identity hiding, or protect all metadata."
+  ]
+}

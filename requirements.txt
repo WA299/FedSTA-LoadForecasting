@@ -9,3 +9,4 @@ matplotlib==3.11.2
 tqdm==4.70.1
 PyYAML==6.0.3
 pytest==9.1.1
+opacus==1.6.0

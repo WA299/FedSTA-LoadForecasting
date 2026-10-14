@@ -1,0 +1,180 @@
+{
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "torch": "2.10.0+cu126",
+  "cuda_runtime": "12.6",
+  "cuda_available": true,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "opacus": {
+    "installed": true,
+    "version": "1.6.0",
+    "models": {
+      "gru_attention": {
+        "validator_errors": [
+          "We do not support nn.GRU because its implementation uses special modules. We have written a GRU class that is a drop-in replacement which is compatible with our Grad Sample hooks. Please run the recommended replacement!"
+        ],
+        "fixed_gru_type": "DPGRU",
+        "strict_state_dict_compatible": false,
+        "grad_sample_backward": true,
+        "fixed_output_equivalent": true,
+        "original_grad_sample_backward": false,
+        "original_grad_sample_error": "RuntimeError: output with shape [1, 8] doesn't match the broadcast shape [6, 1, 8]",
+        "strict_state_dict_error": "RuntimeError: Error(s) in loading state_dict for NeuralForecast:\n\tMissing key(s) in state_dict: \"temporal.gru.l0.ih.weight\", \"temporal.gru.l0.ih.bias\", \"temporal.gru.l0.hh.weight\", \"temporal.gru.l0.hh.bias\". ",
+        "grad_sample_leading_sizes": {
+          "_module.temporal.gru.weight_ih_l0": 6,
+          "_module.temporal.gru.bias_ih_l0": 6,
+          "_module.temporal.gru.weight_hh_l0": 6,
+          "_module.temporal.gru.bias_hh_l0": 6,
+          "_module.attention.hidden.weight": 2,
+          "_module.attention.hidden.bias": 2,
+          "_module.attention.score.weight": 2,
+          "_module.head.weight": 2,
+          "_module.head.bias": 2
+        },
+        "dp_optimizer_step": false,
+        "dp_optimizer_error": "RuntimeError: stack expects each tensor to be equal size, but got [6] at entry 0 and [2] at entry 4"
+      },
+      "stfednet_gated": {
+        "validator_errors": [
+          "We do not support nn.GRU because its implementation uses special modules. We have written a GRU class that is a drop-in replacement which is compatible with our Grad Sample hooks. Please run the recommended replacement!"
+        ],
+        "fixed_gru_type": "DPGRU",
+        "strict_state_dict_compatible": false,
+        "grad_sample_backward": false,
+        "fixed_output_equivalent": true,
+        "original_grad_sample_backward": false,
+        "original_grad_sample_error": "RuntimeError: output with shape [1, 8] doesn't match the broadcast shape [6, 1, 8]",
+        "strict_state_dict_error": "RuntimeError: Error(s) in loading state_dict for GatedSTFedNet:\n\tMissing key(s) in state_dict: \"temporal.gru.l0.ih.weight\", \"temporal.gru.l0.ih.bias\", \"temporal.gru.l0.hh.weight\", \"temporal.gru.l0.hh.bias\". ",
+        "grad_sample_error": "TypeError: GraphAttention.forward() missing 1 required positional argument: 'edge_index'"
+      }
+    },
+    "secure_rng": false,
+    "secure_rng_error": "ImportError: To use secure RNG, you must install the torchcsprng package! Check out the instructions here: https://github.com/pytorch/csprng#installation",
+    "torchcsprng_installed": false
+  },
+  "torch_func": {
+    "cpu": [
+      {
+        "model": "gru_attention",
+        "device": "cpu",
+        "single_grad": true,
+        "batched_grad": false,
+        "error": "RuntimeError: output with shape [3, 8] doesn't match the broadcast shape [2, 3, 8]"
+      },
+      {
+        "model": "stfednet_gated",
+        "device": "cpu",
+        "single_grad": true,
+        "batched_grad": false,
+        "error": "RuntimeError: output with shape [3, 8] doesn't match the broadcast shape [2, 3, 8]"
+      }
+    ],
+    "cuda_cudnn_disabled": [
+      {
+        "model": "gru_attention",
+        "device": "cuda",
+        "single_grad": true,
+        "batched_grad": true,
+        "error": null
+      },
+      {
+        "model": "stfednet_gated",
+        "device": "cuda",
+        "single_grad": true,
+        "batched_grad": true,
+        "error": null
+      }
+    ]
+  },
+  "reference": [
+    {
+      "model": "gru_attention",
+      "nodes": 39,
+      "device": "cuda",
+      "record_count": 2,
+      "loss_mean": 0.4245327115058899,
+      "max_clipped_norm": 0.13957543615647736,
+      "parameter_count": 4481
+    },
+    {
+      "model": "gru_attention",
+      "nodes": 80,
+      "device": "cuda",
+      "record_count": 2,
+      "loss_mean": 0.4256320297718048,
+      "max_clipped_norm": 0.2615655524066983,
+      "parameter_count": 4481
+    },
+    {
+      "model": "gru_attention",
+      "nodes": 76,
+      "device": "cuda",
+      "record_count": 2,
+      "loss_mean": 0.38368719816207886,
+      "max_clipped_norm": 0.06334649950225096,
+      "parameter_count": 4481
+    },
+    {
+      "model": "stfednet_gated",
+      "nodes": 39,
+      "device": "cuda",
+      "record_count": 2,
+      "loss_mean": 0.4471420496702194,
+      "max_clipped_norm": 0.3720567167626429,
+      "parameter_count": 4645
+    },
+    {
+      "model": "stfednet_gated",
+      "nodes": 80,
+      "device": "cuda",
+      "record_count": 2,
+      "loss_mean": 0.41915617883205414,
+      "max_clipped_norm": 0.17312175051792641,
+      "parameter_count": 4645
+    },
+    {
+      "model": "stfednet_gated",
+      "nodes": 76,
+      "device": "cuda",
+      "record_count": 2,
+      "loss_mean": 0.3912646025419235,
+      "max_clipped_norm": 0.18436546051383834,
+      "parameter_count": 4645
+    }
+  ],
+  "rdp_examples": [
+    {
+      "noise_multiplier": 0.5,
+      "epsilon": 15.634678583719642,
+      "delta": 1e-05,
+      "sample_rate": 0.005259697567389875,
+      "steps": 3820,
+      "assumption": "Poisson sampling; illustrative only"
+    },
+    {
+      "noise_multiplier": 1.0,
+      "epsilon": 1.9792508113974125,
+      "delta": 1e-05,
+      "sample_rate": 0.005259697567389875,
+      "steps": 3820,
+      "assumption": "Poisson sampling; illustrative only"
+    },
+    {
+      "noise_multiplier": 2.0,
+      "epsilon": 0.693580431027448,
+      "delta": 1e-05,
+      "sample_rate": 0.005259697567389875,
+      "steps": 3820,
+      "assumption": "Poisson sampling; illustrative only"
+    },
+    {
+      "noise_multiplier": 4.0,
+      "epsilon": 0.30776175505614917,
+      "delta": 1e-05,
+      "sample_rate": 0.005259697567389875,
+      "steps": 3820,
+      "assumption": "Poisson sampling; illustrative only"
+    }
+  ],
+  "test_split_accessed": false
+}
