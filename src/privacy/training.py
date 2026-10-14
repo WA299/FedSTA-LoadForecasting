@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import math
+import time
 from collections import Counter
 
 import numpy as np
@@ -66,6 +67,9 @@ def client_dp_update(global_state, prepared, config, model_name, device,
     if steps_this_epoch <= 0:
         raise ValueError("At least one Poisson update step is required")
     total_steps = epoch_count * steps_this_epoch
+    checkpoint_interval = int(config.get("checkpoint_every_steps", 25))
+    if checkpoint_interval <= 0:
+        raise ValueError("checkpoint_every_steps must be positive")
 
     model = build_model(model_name, config["hidden_dim"], config["dropout"],
                         config["horizon_hours"]).to(device)
@@ -79,6 +83,13 @@ def client_dp_update(global_state, prepared, config, model_name, device,
     methods = Counter()
     loss_total, clipped_records, gradient_norm_total, gradient_record_count = 0.0, 0, 0.0, 0
     max_gradient_stack_bytes = 0
+    timings = {"poisson_and_batch_seconds": 0.0,
+               "per_window_gradient_seconds": 0.0,
+               "adamw_update_seconds": 0.0,
+               "model_optimizer_state_copy_seconds": 0.0,
+               "rng_state_copy_seconds": 0.0,
+               "epsilon_calculation_seconds": 0.0,
+               "checkpoint_snapshots": 0}
     if resume_progress is not None:
         if resume_progress.get("client_id") != prepared.client_id:
             raise ValueError("In-progress DP client does not match the configured client")
@@ -94,6 +105,7 @@ def client_dp_update(global_state, prepared, config, model_name, device,
         gradient_norm_total = float(resume_progress.get("gradient_norm_total", 0.0))
         gradient_record_count = int(resume_progress.get("gradient_record_count", 0))
         max_gradient_stack_bytes = int(resume_progress.get("max_gradient_stack_bytes", 0))
+        timings.update(resume_progress.get("timings", {}))
         if not 0 <= next_step <= total_steps:
             raise ValueError("Invalid in-progress DP step index")
         # Model construction above consumes the framework PRNG. Undo that
@@ -109,9 +121,12 @@ def client_dp_update(global_state, prepared, config, model_name, device,
     fixed_normalizer = q * record_count
     model.train()
     for step_index in range(next_step, total_steps):
+        stage_started = time.perf_counter()
         indices = poisson_indices(record_count, q, sampling_generator)
         x, y = _stack_records(dataset, indices, device)
+        timings["poisson_and_batch_seconds"] += time.perf_counter() - stage_started
         actual = int(indices.numel())
+        stage_started = time.perf_counter()
         if actual == 0:
             # No per-record transform is required, but the normal DP mechanism
             # still draws Gaussian noise and performs an AdamW update.
@@ -135,6 +150,8 @@ def client_dp_update(global_state, prepared, config, model_name, device,
                 delta=float(config["huber_delta"]), normalizer=fixed_normalizer,
                 generator=noise_generator)
             used_method = "torch_func"
+        timings["per_window_gradient_seconds"] += time.perf_counter() - stage_started
+        stage_started = time.perf_counter()
         optimizer.zero_grad(set_to_none=True)
         parameters = dict(model.named_parameters())
         for name, parameter in parameters.items():
@@ -143,6 +160,7 @@ def client_dp_update(global_state, prepared, config, model_name, device,
                     raise ValueError("Nonfinite per-window DP gradient for " + prepared.client_id + ": " + name)
                 parameter.grad = result["gradients"][name].detach().clone()
         optimizer.step()
+        timings["adamw_update_seconds"] += time.perf_counter() - stage_started
         accountant.step()
         selected_total += actual
         batch_sizes.append(actual)
@@ -156,10 +174,23 @@ def client_dp_update(global_state, prepared, config, model_name, device,
         max_gradient_stack_bytes = max(max_gradient_stack_bytes,
                                        int(result.get("gradient_stack_bytes", 0)))
         completed = step_index + 1
+        # Do not snapshot tensors, AdamW or RNGs on uncommitted steps. The
+        # server force-saves the completed client update immediately on return.
+        if on_step is None or completed % checkpoint_interval != 0:
+            continue
+        copy_started = time.perf_counter()
+        model_state_snapshot = _cpu_copy(model.state_dict())
+        optimizer_state_snapshot = _cpu_copy(optimizer.state_dict())
+        timings["model_optimizer_state_copy_seconds"] += time.perf_counter() - copy_started
+        rng_started = time.perf_counter()
+        torch_rng_state = torch.get_rng_state()
+        cuda_rng_state = torch.cuda.get_rng_state_all() if torch.cuda.is_available() else []
+        timings["rng_state_copy_seconds"] += time.perf_counter() - rng_started
+        timings["checkpoint_snapshots"] += 1
         progress = {
             "client_id": prepared.client_id,
-            "model_state_dict": _cpu_copy(model.state_dict()),
-            "optimizer_state_dict": _cpu_copy(optimizer.state_dict()),
+            "model_state_dict": model_state_snapshot,
+            "optimizer_state_dict": optimizer_state_snapshot,
             "next_step": completed,
             "selected_records": selected_total,
             "empty_steps": empty_steps,
@@ -170,14 +201,20 @@ def client_dp_update(global_state, prepared, config, model_name, device,
             "gradient_norm_total": gradient_norm_total,
             "gradient_record_count": gradient_record_count,
             "max_gradient_stack_bytes": max_gradient_stack_bytes,
-            "torch_rng_state": torch.get_rng_state(),
-            "cuda_rng_state": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+            "torch_rng_state": torch_rng_state,
+            "cuda_rng_state": cuda_rng_state,
+            "timings": dict(timings),
         }
-        if on_step is not None:
-            on_step(progress, accountant.state_dict())
+        on_step(progress, None)
 
+    copy_started = time.perf_counter()
+    completed_model_state = _cpu_copy(model.state_dict())
+    timings["model_optimizer_state_copy_seconds"] += time.perf_counter() - copy_started
+    epsilon_started = time.perf_counter()
+    epsilon_value = accountant.epsilon()
+    timings["epsilon_calculation_seconds"] += time.perf_counter() - epsilon_started
     return {
-        "state_dict": _cpu_copy(model.state_dict()),
+        "state_dict": completed_model_state,
         # FedAvg weight uses unique available training windows, not Poisson draw
         # count (which is random and may visit a window more than once).
         "sample_count": record_count,
@@ -198,7 +235,8 @@ def client_dp_update(global_state, prepared, config, model_name, device,
                 gradient_norm_total / gradient_record_count if gradient_record_count else None),
             "clipped_record_fraction": (clipped_records / gradient_record_count
                                          if gradient_record_count else None),
-            "theoretical_epsilon": accountant.epsilon(),
+            "theoretical_epsilon": epsilon_value,
+            "timings": timings,
             "epsilon_claim_allowed": False,
             "diagnostics_visibility": "internal_restricted_non_dp",
         },

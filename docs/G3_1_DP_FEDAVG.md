@@ -22,7 +22,11 @@ G3.1 新增独立的客户端窗口级 DP-SGD 与服务器 FedAvg 流程，支�
 
 ## 会计器与复现
 
-每客户端独立使用已安装的 Opacus 1.6.0 `RDPAccountant`；未使用Opacus `GradSampleModule`或`DPOptimizer`。Accounting只在一次带噪AdamW步骤完成后增加，checkpoint会同时保存Accountant history与实际step count。恢复检查训练进度、每客户端步数与Accountant状态是否一致；客户端本地每一个提交步骤都保存模型、AdamW状态、Poisson采样器与随机状态。这样恢复时从下一步继续，不会重复已提交步骤。通信轮次只有在五个客户端都完成并聚合、验证后才作为完整轮次提交。
+每客户端独立使用已安装的 Opacus 1.6.0 `RDPAccountant`；未使用Opacus `GradSampleModule`或`DPOptimizer`。Accounting只在一次带噪AdamW步骤完成后、在内存中增加；RDP历史及实际step count只在写入Checkpoint时序列化，ε按会计器步数缓存，步数变化后才重算。默认`checkpoint_every_steps=25`，可通过`--checkpoint-every-steps 25`调整；显式设为1即每个本地步骤提交。客户端完成、五客户端聚合完成、轮次验证和Best选择之后仍强制保存。低于间隔的未提交步骤不会提前复制模型、AdamW、随机数或Accountant状态。
+
+Checkpoint采用同目录唯一临时文件加原子替换；Windows替换短暂占用时有限重试。**最新成功原子替换的`latest_dp_global.pt`是唯一恢复提交点**。例如运行到第37步、最近提交为25步，中断恢复时模型、AdamW、Poisson采样器、噪声生成器、Dropout随机状态及RDP会计均回滚至25步，再重算26步起。客户端完成、聚合完成等提交点同样完整保存；聚合后、验证提交前恢复会重做确定性的聚合与验证，不会重复任何客户端DP步骤。最佳/最新权重及对应验证数据仍绑定同一完整轮次。Checkpoint强制点可能早于25步间隔发生，这是有意的耐久性边界。
+
+每步仍有一次内存中的Accountant更新，但完整Accountant状态读取、ε查询和`privacy_accounting.json`写入移到Checkpoint。`src/privacy/accountant.py`只在步骤计数改变时重算ε。各阶段耗时汇总至受限的`checkpoint_performance.json`；精确CUDA阶段测量通过单独的profile pass完成并同步CUDA，不把profile额外同步计入常规墙钟比较。训练公式、Poisson抽样、噪声、归一化、AdamW和FedAvg均保持原样。
 
 配置是 `C=1`、`δ=1e-5`、`q=32/6084`、191步/本地Epoch、20轮。以下只是在该Poisson抽样与独立理想高斯噪声假设下，用同一版本RDP会计器计算的**理论示例**，尚未执行这些正式训练：
 
@@ -76,3 +80,18 @@ RDP组合只按一个客户端的实际Poisson更新次数累计。五客户端�
 五张真实图的短冒烟对两个模型各运行1轮、每客户端1次Poisson更新、验证最多1个Batch。节点数为39/50/56/80/76，固定`qN=32`；实际抽样Batch在本次随机实现中为26到42，所有客户端均严格写入每轮1次Accountant更新，Best/Latest严格加载通过。ST-FedNet Gated五客户端一轮与验证约2.64秒，GPU峰值分配约1616MB；GRU+Attention约1.90秒、约752MB。按单步计时线性乘191得到的本地Epoch粗估范围约43–99秒（Gated）和约32–57秒（GRU+Attention）；该单步时长包含模型初始化与原子检查点写入，Poisson Batch计算量又随随机Batch而变，因此只是粗略成本界限，不是实测Epoch或时限保证。G3.1短冒烟实际`torch.func`梯度堆栈占用约466–780KB（Gated）及466–753KB（GRU+Attention），并按客户端记录在机器报告中；该数字仅计逐样本参数梯度堆栈，不包含激活、优化器与CUDA缓存。未发生OOM，报告保存在 `results/g3_1/cuda_smoke_summary.json`，所有冒烟产物均标记`smoke=true`、`test_evaluated=false`及`privacy_claim_allowed=false`。
 
 本阶段没有执行完整20轮训练。数值一致、工程恢复和冒烟通过仅证明代码路径可运行，不代表模型预测性能或正式差分隐私声明已获验证。
+
+## Checkpoint开销优化验收
+
+对照程序：`python -m scripts.benchmark_dp_checkpoints --steps 30 --profile-steps 2`。脚本从基线Commit `3bd0589e02490a30957c997ef9154effe87e00df`动态加载旧训练代码，在隔离模块运行；不检出旧分支、不修改现有文件。使用五个真实客户端、CUDA、Seed=42、σ=1、每客户端30步、单通信轮、相同Poisson采样预算和验证最多一个Batch。另对当前优化版间隔1进行对照，以证明恢复逐步保存后模型输出仍与旧提交相同。验证值仅作实现一致性检查，不是正式模型结果。机器汇总在`results/g3_1_checkpoint_optimization.json`。
+
+| 模型 | 旧提交逐步保存 | 优化版间隔1 | 优化版间隔25 | 旧→间隔25 | Latest/全部Checkpoint写入：旧→间隔1→间隔25 | 峰值显存 |
+|---|---:|---:|---:|---:|---:|---:|
+| `stfednet_gated` | 37.02 s | 21.34 s | 19.08 s | 1.94× | 157/158 → 158/159 → 13/14 | 1735.3 MiB，各模式相同 |
+| `gru_attention` | 33.92 s | 19.09 s | 16.90 s | 2.01× | 157/158 → 158/159 → 13/14 | 802.4 MiB，各模式相同 |
+
+两种模型在旧提交、优化版间隔1和间隔25之间的全局参数、Best参数、每客户端Accountant状态、最终RNG状态和最佳验证结果均逐项完全一致。优化版间隔1比旧提交多一次Latest写入，这是按要求新增的聚合后强制提交点。Profile pass另外计时Poisson/Batch构造、逐窗口梯度与裁剪、AdamW、模型/优化器及RNG复制、Checkpoint写入、Accountant状态读取、ε查询和JSON写入。两步profile中，baseline→优化版间隔25的ε查询累计时间为Gated 1.696→0.037秒、GRU 1.719→0.037秒；状态复制分别为0.038→0.005秒、0.023→0.004秒；Checkpoint写入为0.076→0.032秒和0.062→0.027秒。逐窗口梯度仍是主要计算成本；两步profile样本较小，不据此得出梯度速度结论。Poisson/Batch和AdamW耗时变化很小。用户先前记录的Gated 56.57秒、GRU 34.16秒与本次旧版单次实测37.02/33.92秒存在环境波动，以上加速比不构成固定时限保证。
+
+自动化恢复测试在research模式使用固定随机状态。间隔1与间隔25得到完全相同的参数、Accountant、RNG和验证结果；模拟第37步完成后异常退出时，磁盘Checkpoint仍严格记录第25步。恢复后重算未提交步骤，与连续40步的五客户端FedAvg输出一致，已提交Accountant步骤未重复记录。所有冒烟均不访问测试集，结果标记`smoke=true`及`privacy_claim_allowed=false`。本优化没有改动G3.1机制，也没有运行正式20轮训练。
+
+对两种模型各挑选一组已有旧版正式目录，校验旧配置（没有`checkpoint_every_steps`字段）能恢复读取，Best/Latest均严格装载，已完成Run恢复不执行额外DP更新，并确认源Checkpoint文件SHA-256未改变、RDP步数/状态未变化。全仓自动化测试本轮为159 passed；新增检查覆盖间隔1旧版一致、间隔25保存频次、37步异常回滚、CUDA两模型未提交步骤恢复、聚合后恢复、Accountant ε缓存以及原子替换失败时旧提交保留。CUDA torch.func原有GRU batching-rule警告仍会出现，不影响测试结果。

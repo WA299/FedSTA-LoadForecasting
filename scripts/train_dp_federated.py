@@ -22,6 +22,8 @@ def main():
     parser.add_argument("--privacy-mode", choices=("research", "privacy_claim"))
     parser.add_argument("--max-dp-steps-per-epoch", type=int)
     parser.add_argument("--max-val-batches", type=int)
+    parser.add_argument("--checkpoint-every-steps", type=int,
+                        help="Local step snapshot interval (default 25); 1 saves every step")
     parser.add_argument("--output-root")
     parser.add_argument("--resume", help="latest_dp_global.pt (full round or committed local step)")
     args = parser.parse_args()
@@ -29,7 +31,7 @@ def main():
     overrides = dict(checkpoint["config"]) if checkpoint else {}
     for key in ("noise_multiplier", "max_grad_norm", "delta", "rounds", "local_epochs",
                 "expected_batch_size", "seed", "device", "gradient_method", "privacy_mode",
-                "max_dp_steps_per_epoch", "max_val_batches", "output_root"):
+                "max_dp_steps_per_epoch", "max_val_batches", "checkpoint_every_steps", "output_root"):
         value = getattr(args, key)
         if value is not None:
             overrides[key] = value

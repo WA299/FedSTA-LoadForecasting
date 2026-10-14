@@ -1,0 +1,245 @@
+{
+  "smoke": true,
+  "test_evaluated": false,
+  "privacy_claim_allowed": false,
+  "visibility": "internal_restricted_non_dp",
+  "baseline_commit": "3bd0589e02490a30957c997ef9154effe87e00df",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "steps_per_client": 30,
+  "seed": 42,
+  "sigma": 1.0,
+  "models": {
+    "stfednet_gated": {
+      "runs": {
+        "baseline_every_step": {
+          "wall_seconds": 37.02054059994407,
+          "checkpoint_writes": 158,
+          "latest_writes": 157,
+          "peak_allocated_mb": 1735.28466796875,
+          "oom": false
+        },
+        "optimized_every_step": {
+          "wall_seconds": 21.34051130001899,
+          "checkpoint_writes": 159,
+          "latest_writes": 158,
+          "peak_allocated_mb": 1735.28466796875,
+          "oom": false
+        },
+        "optimized_every_25": {
+          "wall_seconds": 19.07898969994858,
+          "checkpoint_writes": 14,
+          "latest_writes": 13,
+          "peak_allocated_mb": 1735.28466796875,
+          "oom": false
+        }
+      },
+      "exact_equality": {
+        "old_vs_interval1": {
+          "model_parameters": true,
+          "best_parameters": true,
+          "accountants": true,
+          "rng_states": true,
+          "best_validation": true
+        },
+        "old_vs_interval25": {
+          "model_parameters": true,
+          "best_parameters": true,
+          "accountants": true,
+          "rng_states": true,
+          "best_validation": true
+        }
+      },
+      "speedup_baseline_to_25": 1.9403826503477721,
+      "interval1_wall_ratio_to_baseline": 0.5764505583705936,
+      "profiles": {
+        "baseline_every_step": {
+          "seconds": {
+            "model_optimizer_state_copy": 0.037800200283527374,
+            "json_write": 0.014098900370299816,
+            "rng_state_copy": 0.001770300092175603,
+            "rdp_epsilon_query": 1.6959727000212297,
+            "rdp_state_read": 0.005632801097817719,
+            "checkpoint_write": 0.07590870023705065,
+            "poisson_and_batch": 0.00871920003555715,
+            "per_window_gradients_clipping_noise": 1.3299714998574927,
+            "adamw_update": 0.0086924999486655
+          },
+          "calls": {
+            "model_optimizer_state_copy": 1349,
+            "json_write": 20,
+            "rng_state_copy": 17,
+            "rdp_epsilon_query": 370,
+            "rdp_state_read": 275,
+            "checkpoint_write": 18,
+            "poisson_and_batch": 20,
+            "per_window_gradients_clipping_noise": 10,
+            "adamw_update": 10
+          },
+          "steps_per_client": 2,
+          "note": "CUDA-synchronized exclusive stage timing; separate from wall run"
+        },
+        "optimized_every_25": {
+          "seconds": {
+            "model_optimizer_state_copy": 0.004504699842073023,
+            "json_write": 0.007443899870850146,
+            "rdp_epsilon_query": 0.036986999795772135,
+            "rng_state_copy": 0.0009839000413194299,
+            "checkpoint_write": 0.03185369982384145,
+            "poisson_and_batch": 0.0075522002298384905,
+            "per_window_gradients_clipping_noise": 1.2933223001891747,
+            "adamw_update": 0.009020500117912889
+          },
+          "calls": {
+            "model_optimizer_state_copy": 126,
+            "json_write": 12,
+            "rdp_epsilon_query": 50,
+            "rng_state_copy": 8,
+            "checkpoint_write": 9,
+            "poisson_and_batch": 20,
+            "per_window_gradients_clipping_noise": 10,
+            "adamw_update": 10
+          },
+          "steps_per_client": 2,
+          "note": "CUDA-synchronized exclusive stage timing; separate from wall run",
+          "native_accounting_timings": {
+            "accountant_state_read_seconds": 0.00023690005764365196,
+            "epsilon_calculation_seconds": 0.03726319991983473
+          }
+        }
+      }
+    },
+    "gru_attention": {
+      "runs": {
+        "baseline_every_step": {
+          "wall_seconds": 33.92088670004159,
+          "checkpoint_writes": 158,
+          "latest_writes": 157,
+          "peak_allocated_mb": 802.39794921875,
+          "oom": false
+        },
+        "optimized_every_step": {
+          "wall_seconds": 19.08876519999467,
+          "checkpoint_writes": 159,
+          "latest_writes": 158,
+          "peak_allocated_mb": 802.39794921875,
+          "oom": false
+        },
+        "optimized_every_25": {
+          "wall_seconds": 16.895999099942856,
+          "checkpoint_writes": 14,
+          "latest_writes": 13,
+          "peak_allocated_mb": 802.39794921875,
+          "oom": false
+        }
+      },
+      "exact_equality": {
+        "old_vs_interval1": {
+          "model_parameters": true,
+          "best_parameters": true,
+          "accountants": true,
+          "rng_states": true,
+          "best_validation": true
+        },
+        "old_vs_interval25": {
+          "model_parameters": true,
+          "best_parameters": true,
+          "accountants": true,
+          "rng_states": true,
+          "best_validation": true
+        }
+      },
+      "speedup_baseline_to_25": 2.0076283444023333,
+      "interval1_wall_ratio_to_baseline": 0.5627436973801532,
+      "profiles": {
+        "baseline_every_step": {
+          "seconds": {
+            "model_optimizer_state_copy": 0.023114000563509762,
+            "json_write": 0.01544170023407787,
+            "rng_state_copy": 0.0016774001996964216,
+            "rdp_epsilon_query": 1.7186457006027922,
+            "rdp_state_read": 0.006016198545694351,
+            "checkpoint_write": 0.061804400058463216,
+            "poisson_and_batch": 0.010049799806438386,
+            "per_window_gradients_clipping_noise": 1.1561699997400865,
+            "adamw_update": 0.005392300081439316
+          },
+          "calls": {
+            "model_optimizer_state_copy": 829,
+            "json_write": 20,
+            "rng_state_copy": 17,
+            "rdp_epsilon_query": 370,
+            "rdp_state_read": 275,
+            "checkpoint_write": 18,
+            "poisson_and_batch": 20,
+            "per_window_gradients_clipping_noise": 10,
+            "adamw_update": 10
+          },
+          "steps_per_client": 2,
+          "note": "CUDA-synchronized exclusive stage timing; separate from wall run"
+        },
+        "optimized_every_25": {
+          "seconds": {
+            "model_optimizer_state_copy": 0.003572799963876605,
+            "json_write": 0.006928100134246051,
+            "rdp_epsilon_query": 0.03670809988398105,
+            "rng_state_copy": 0.0008452998008579016,
+            "checkpoint_write": 0.027119499864056706,
+            "poisson_and_batch": 0.00905260001309216,
+            "per_window_gradients_clipping_noise": 1.2354837999446318,
+            "adamw_update": 0.007220999919809401
+          },
+          "calls": {
+            "model_optimizer_state_copy": 70,
+            "json_write": 12,
+            "rdp_epsilon_query": 50,
+            "rng_state_copy": 8,
+            "checkpoint_write": 9,
+            "poisson_and_batch": 20,
+            "per_window_gradients_clipping_noise": 10,
+            "adamw_update": 10
+          },
+          "steps_per_client": 2,
+          "note": "CUDA-synchronized exclusive stage timing; separate from wall run",
+          "native_accounting_timings": {
+            "accountant_state_read_seconds": 0.00017449993174523115,
+            "epsilon_calculation_seconds": 0.036953699542209506
+          }
+        }
+      }
+    }
+  },
+  "python_version": "3.13.7",
+  "torch_version": "2.10.0+cu126",
+  "cuda_runtime": "12.6",
+  "client_count": 5,
+  "input_hours": 48,
+  "horizon_hours": 1,
+  "expected_batch_size": 32,
+  "rounds": 1,
+  "oom": false,
+  "timing_note": "One uninstrumented wall run per mode; profile has CUDA synchronization and recursive copy-call counts; timing variability is not a speed guarantee.",
+  "legacy_checkpoint_compatibility": [
+    {
+      "model": "stfednet_gated",
+      "old_config_without_interval": true,
+      "strict_best_latest_load": true,
+      "completed_run_resume_no_dp_steps": true,
+      "source_hashes_unchanged": true,
+      "accountants_unchanged": true
+    },
+    {
+      "model": "gru_attention",
+      "old_config_without_interval": true,
+      "strict_best_latest_load": true,
+      "completed_run_resume_no_dp_steps": true,
+      "source_hashes_unchanged": true,
+      "accountants_unchanged": true
+    }
+  ],
+  "automated_tests": {
+    "passed": 159,
+    "warnings": 10,
+    "duration_seconds": 42.19,
+    "note": "Existing PyTorch GRU vmap slow fallback warnings; all tests passed."
+  }
+}

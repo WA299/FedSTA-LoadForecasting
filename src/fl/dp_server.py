@@ -5,8 +5,10 @@ from __future__ import annotations
 import csv
 import json
 import math
+import os
 import time
 from pathlib import Path
+import tempfile
 
 import torch
 import yaml
@@ -19,9 +21,31 @@ from src.privacy.accountant import (ClientRDPAccountant,
                                     require_privacy_claim_backend)
 from src.privacy.poisson import nominal_steps_per_epoch
 from src.privacy.training import _cpu_copy, client_dp_update
-from src.training.engine import (atomic_save, load_checkpoint,
+from src.training.engine import (load_checkpoint,
                                  random_state, restore_random_state,
                                  seed_everything, select_device, write_json)
+
+
+def atomic_save(payload, path):
+    """Atomically persist a G3.1 checkpoint with Windows replace retries."""
+    path = Path(path)
+    # OS-generated temporary names do not advance framework/research RNGs.
+    with tempfile.NamedTemporaryFile(dir=path.parent, prefix=path.name + ".",
+                                     suffix=".tmp", delete=False) as handle:
+        temporary = Path(handle.name)
+        torch.save(payload, handle)
+    try:
+        for attempt in range(6):
+            try:
+                os.replace(temporary, path)
+                return
+            except PermissionError:
+                if attempt == 5:
+                    raise
+                time.sleep(0.02 * (attempt + 1))
+    except Exception:
+        temporary.unlink(missing_ok=True)
+        raise
 
 
 def read_g31_config(path="configs/g3_1.yaml", overrides=None):
@@ -36,6 +60,7 @@ def read_g31_config(path="configs/g3_1.yaml", overrides=None):
 
 
 def validate_dp_config(config):
+    config.setdefault("checkpoint_every_steps", 25)
     validate_config(config)
     require_privacy_claim_backend(str(config.get("privacy_mode", "research")))
     if config.get("noise_multiplier") is None or not math.isfinite(float(config["noise_multiplier"])) or float(config["noise_multiplier"]) < 0:
@@ -56,6 +81,8 @@ def validate_dp_config(config):
         raise ValueError("privacy_mode must be research or privacy_claim")
     if config.get("max_dp_steps_per_epoch") is not None and int(config["max_dp_steps_per_epoch"]) <= 0:
         raise ValueError("max_dp_steps_per_epoch must be positive or null")
+    if int(config["checkpoint_every_steps"]) <= 0:
+        raise ValueError("checkpoint_every_steps must be positive")
     return config
 
 
@@ -107,7 +134,7 @@ def _csv_write(path, history):
 
 
 def _config_compatible(saved, current):
-    mutable = {"rounds", "cpu_threads", "output_root"}
+    mutable = {"rounds", "cpu_threads", "output_root", "checkpoint_every_steps"}
     for key, value in saved.items():
         if key not in mutable and current.get(key) != value:
             raise ValueError("DP-FedAvg resume configuration mismatch: " + key)
@@ -170,6 +197,17 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
     if not resume and latest_path.exists():
         raise ValueError("Run directory already contains a DP checkpoint; use --resume")
     history, pending_updates = [], {}
+    performance = {
+        "checkpoint_every_steps": int(config["checkpoint_every_steps"]),
+        "local_client_checkpoints": 0, "latest_checkpoint_writes": 0,
+        "best_checkpoint_writes": 0, "checkpoint_write_seconds": 0.0,
+        "privacy_report_write_count": 0, "privacy_report_write_seconds": 0.0,
+        "accountant_state_read_seconds": 0.0, "epsilon_calculation_seconds": 0.0,
+        "poisson_and_batch_seconds": 0.0, "per_window_gradient_seconds": 0.0,
+        "adamw_update_seconds": 0.0, "model_optimizer_state_copy_seconds": 0.0,
+        "rng_state_copy_seconds": 0.0,
+    }
+    account_states_cache = {}
     best_state, best_validation = None, None
     best_wape, best_round, completed_round = math.inf, 0, 0
     active_round, next_client_index, client_progress = None, 0, None
@@ -200,6 +238,7 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
         pending_updates = dict(latest.get("pending_round_updates", {}))
         client_progress = latest.get("client_progress")
         history = list(latest.get("round_history", []))
+        performance.update(latest.get("performance", {}))
         saved_accounts = latest["accountant_states"]
         _restore_random_state(latest["rng_state"], samplers, noises)
         run_dir = Path(resume).resolve().parent
@@ -242,14 +281,22 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
     write_json(run_dir / "config.json", config_out)
 
     def persist_checkpoint():
+        account_states = {}
+        for cid, acc in accounts.items():
+            snapshot, timing = acc.state_dict_with_timing()
+            account_states[cid] = snapshot
+            performance["accountant_state_read_seconds"] += timing["accountant_state_read_seconds"]
+            performance["epsilon_calculation_seconds"] += timing["epsilon_calculation_seconds"]
+        account_states_cache.clear()
+        account_states_cache.update(account_states)
         payload = {
             "format_version": 1, "kind": "latest_dp_global", "model_name": model_name,
-            "algorithm": "dp_fedavg", "global_model_state_dict": _cpu_copy(global_state),
-            "best_model_state_dict": _cpu_copy(best_state) if best_state is not None else None,
+            "algorithm": "dp_fedavg", "global_model_state_dict": global_state,
+            "best_model_state_dict": best_state,
             "round": completed_round, "completed_round": completed_round,
             "active_round": active_round, "next_client_index": next_client_index,
-            "pending_round_updates": _cpu_copy(pending_updates),
-            "client_progress": _cpu_copy(client_progress) if client_progress is not None else None,
+            "pending_round_updates": pending_updates,
+            "client_progress": client_progress,
             "best_round": best_round, "best_validation_wape": best_wape,
             "best_validation": best_validation,
             "best_accountant_states": best_accounts,
@@ -259,14 +306,23 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
             "gradient_method": actual_method, "privacy_mode": config["privacy_mode"],
             "randomness_security": "research_prng_not_secure",
             "rng_state": _capture_random_state(samplers, noises),
-            "accountant_states": {cid: acc.state_dict() for cid, acc in accounts.items()},
+            "accountant_states": account_states,
             "round_history": history, "smoke": smoke, "test_evaluated": False,
             "privacy_claim_allowed": False,
             "optimizer_policy": "AdamW reinitialized for each client-round; step state checkpointed during an active client",
+            "performance": dict(performance,
+                                latest_checkpoint_writes=performance["latest_checkpoint_writes"] + 1),
         }
+        checkpoint_started = time.perf_counter()
         atomic_save(payload, latest_path)
+        performance["latest_checkpoint_writes"] += 1
+        performance["checkpoint_write_seconds"] += time.perf_counter() - checkpoint_started
+        write_privacy_report(account_states)
+
+    def write_privacy_report(account_states):
         # Shareable protocol/accounting metadata contains no private diagnostics,
         # model-selection statistics, RNG seeds or reconstructible RNG states.
+        json_started = time.perf_counter()
         write_json(run_dir / "privacy_accounting.json", {
             "visibility": "research_protocol_metadata_no_privacy_claim",
             "privacy_mode": config["privacy_mode"],
@@ -280,20 +336,22 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
                 "max_grad_norm": acc.max_grad_norm,
                 "sample_rate": acc.sample_rate,
                 "delta": acc.delta,
-                "committed_update_steps": acc.steps,
-                "theoretical_epsilon": acc.epsilon(),
-                "status": acc.state_dict()["status"],
+                "committed_update_steps": account_states[cid]["steps"],
+                "theoretical_epsilon": account_states[cid]["theoretical_epsilon"],
+                "status": account_states[cid]["status"],
                 "accountant_name": "opacus.RDPAccountant",
-                "accountant_version": acc.state_dict()["accountant_version"],
+                "accountant_version": account_states[cid]["accountant_version"],
             } for cid, acc in accounts.items()},
         })
+        performance["privacy_report_write_count"] += 1
+        performance["privacy_report_write_seconds"] += time.perf_counter() - json_started
 
     def repair_best_outputs():
         if best_state is None:
             return
         best_payload = {
             "format_version": 1, "kind": "best_dp_global", "model_name": model_name,
-            "algorithm": "dp_fedavg", "model_state_dict": _cpu_copy(best_state),
+            "algorithm": "dp_fedavg", "model_state_dict": best_state,
             "round": best_round, "best_round": best_round,
             "best_validation_wape": best_wape, "best_validation": best_validation,
             "client_ids": list(prepared_clients), "data_signatures": signatures,
@@ -305,7 +363,10 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
             "randomness_security": "research_prng_not_secure",
             "privacy_claim_allowed": False, "smoke": smoke, "test_evaluated": False,
         }
+        checkpoint_started = time.perf_counter()
         atomic_save(best_payload, run_dir / "best_dp_global.pt")
+        performance["best_checkpoint_writes"] += 1
+        performance["checkpoint_write_seconds"] += time.perf_counter() - checkpoint_started
         write_json(run_dir / "best_clients_validation.json", {
             "algorithm": "dp_fedavg", "model_name": model_name,
             "best_round": best_round, "best_validation_wape": best_wape,
@@ -324,11 +385,15 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
         " | q range=" + str([round(acc.sample_rate, 8) for acc in accounts.values()]) +
         " | C=" + str(config["max_grad_norm"]) + " | sigma=" + str(config["noise_multiplier"]) +
         " | delta=" + str(config["delta"]) + " | GradientMethod=" + actual_method +
-        " | Mode=" + str(config["privacy_mode"]) + " | Rounds=" + str(config["rounds"]))
+        " | Mode=" + str(config["privacy_mode"]) + " | Rounds=" + str(config["rounds"]) +
+        " | CheckpointEverySteps=" + str(config["checkpoint_every_steps"]))
     log("[Privacy] Ordinary PyTorch PRNG; research only; no privacy claim is enabled")
     if smoke:
         log("[Smoke] Limited Poisson steps and/or validation batches; smoke=true; test split not accessed")
     if resume:
+        # A crash after atomic Latest but before writing a sidecar must not
+        # leave stale public accounting metadata, even for a completed run.
+        write_privacy_report(saved_accounts)
         repair_best_outputs()
 
     if active_round is None and completed_round < int(config["rounds"]):
@@ -340,22 +405,38 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
 
     while active_round is not None and int(active_round) <= int(config["rounds"]):
         round_started = time.perf_counter()
-        round_start_state = _cpu_copy(global_state)
+        # The CPU global state is immutable until all clients finish; avoid a
+        # needless full-model clone at the start of each round.
+        round_start_state = global_state
         for client_index in range(next_client_index, len(config["clients"])):
             client_id = config["clients"][client_index]
             current_progress = client_progress if client_id == (client_progress or {}).get("client_id") else None
+            timing_seen = dict((current_progress or {}).get("timings", {}))
 
             def save_step_progress(progress, account_state):
-                nonlocal client_progress
+                nonlocal client_progress, timing_seen
                 client_progress = progress
                 # The atomic latest checkpoint is the commit point for a local
                 # DP optimizer step and its matching accountant increment.
+                performance["local_client_checkpoints"] += 1
+                for key in ("poisson_and_batch_seconds", "per_window_gradient_seconds",
+                            "adamw_update_seconds", "model_optimizer_state_copy_seconds",
+                            "rng_state_copy_seconds", "epsilon_calculation_seconds"):
+                    current_total = float(progress.get("timings", {}).get(key, 0.0))
+                    performance[key] += max(0.0, current_total - float(timing_seen.get(key, 0.0)))
+                timing_seen = dict(progress.get("timings", {}))
                 persist_checkpoint()
 
             update = client_dp_update(
                 round_start_state, prepared_clients[client_id], config, model_name, device,
                 accounts[client_id], samplers[client_id], noises[client_id], actual_method,
                 config.get("max_dp_steps_per_epoch"), current_progress, save_step_progress)
+            final_timings = update["diagnostics"].get("timings", {})
+            for key in ("poisson_and_batch_seconds", "per_window_gradient_seconds",
+                        "adamw_update_seconds", "model_optimizer_state_copy_seconds",
+                        "rng_state_copy_seconds", "epsilon_calculation_seconds"):
+                performance[key] += max(0.0, float(final_timings.get(key, 0.0)) -
+                                        float(timing_seen.get(key, 0.0)))
             pending_updates[client_id] = update
             client_progress = None
             next_client_index = client_index + 1
@@ -365,6 +446,9 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
         global_state = fedavg_aggregate(
             [pending_updates[cid]["state_dict"] for cid in config["clients"]],
             [pending_updates[cid]["sample_count"] for cid in config["clients"]])
+        # All five updates are durable. Retain them until validation commits
+        # the full round; re-aggregation after interruption is deterministic.
+        persist_checkpoint()
         model.load_state_dict(global_state, strict=True)
         validation = evaluate_clients(model, prepared_clients, config, device,
                                       config.get("max_val_batches"))
@@ -377,7 +461,7 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
             best_state = _cpu_copy(global_state)
             best_validation = {"round": active_round, **validation, "smoke": smoke,
                                "test_evaluated": False}
-            best_accounts = {cid: acc.state_dict() for cid, acc in accounts.items()}
+            best_accounts = dict(account_states_cache)
         sampling = {cid: pending_updates[cid]["diagnostics"] for cid in config["clients"]}
         selected_count = sum(row["selected_record_draws"] for row in sampling.values())
         train_loss = (sum((row["mean_huber_loss_per_selected_record"] or 0.0) *
@@ -391,8 +475,7 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
             "client_equal_wape_percent": float(equal_wape),
             "overall_wape_percent": validation["overall"]["wape_percent"],
             "client_metrics_json": json.dumps(validation["clients"], sort_keys=True),
-            "client_privacy_json": json.dumps({cid: accounts[cid].state_dict()
-                                                for cid in config["clients"]}, sort_keys=True),
+            "client_privacy_json": json.dumps(account_states_cache, sort_keys=True),
             "client_sampling_json": json.dumps(sampling, sort_keys=True),
             "seconds": time.perf_counter() - round_started,
             "is_best": improved, "smoke": smoke, "test_evaluated": False,
@@ -418,4 +501,10 @@ def run_dp_federated(config, model_name="stfednet_gated", run_dir=None,
             next_client_index, pending_updates, client_progress = 0, {}, None
             persist_checkpoint()
     log("[Run] DP-FedAvg validation checkpoints and restricted diagnostics: " + str(run_dir))
+    performance["checkpoint_write_count"] = (performance["latest_checkpoint_writes"] +
+                                                 performance["best_checkpoint_writes"])
+    performance["smoke"] = smoke
+    performance["test_evaluated"] = False
+    performance["privacy_claim_allowed"] = False
+    write_json(run_dir / "checkpoint_performance.json", performance)
     return run_dir

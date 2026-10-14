@@ -11,6 +11,7 @@ max_grad_norm: 1.0
 delta: 0.00001
 gradient_method: auto  # CUDA torch.func; CPU loop. No silent fallback.
 privacy_mode: research
+checkpoint_every_steps: 25  # Also force-save completed clients, aggregation and validation.
 max_dp_steps_per_epoch: null
 max_train_batches: null
 max_val_batches: null

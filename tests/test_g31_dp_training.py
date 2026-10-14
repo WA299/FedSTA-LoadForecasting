@@ -1,6 +1,8 @@
 """G3.1 sampling, per-window clipping, accounting and resume tests."""
 
 from collections import OrderedDict
+import json
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -237,8 +239,15 @@ def _config(root, rounds=2):
 
 
 def _same_state(first, second):
-    return set(first) == set(second) and all(torch.equal(first[key], second[key])
-                                             for key in first)
+    if isinstance(first, torch.Tensor):
+        return isinstance(second, torch.Tensor) and torch.equal(first, second)
+    if isinstance(first, dict):
+        return isinstance(second, dict) and set(first) == set(second) and all(
+            _same_state(first[key], second[key]) for key in first)
+    if isinstance(first, (list, tuple)):
+        return (type(first) is type(second) and len(first) == len(second) and
+                all(_same_state(a, b) for a, b in zip(first, second)))
+    return first == second
 
 
 def test_five_client_dp_fedavg_checkpoint_and_resume_are_exact(tmp_path):
@@ -278,6 +287,47 @@ def test_five_client_dp_fedavg_checkpoint_and_resume_are_exact(tmp_path):
     assert resumed["accountant_states"][CLIENT_IDS[0]]["steps"] == 2
 
 
+def test_interval_one_and_25_are_parameter_equivalent_but_write_at_different_rates(
+        tmp_path, monkeypatch):
+    clients = synthetic_clients()
+    original_atomic_save = dp_server.atomic_save
+    outcomes, write_names = {}, {}
+    for interval in (1, 25):
+        root = tmp_path / ("interval_" + str(interval))
+        config = _config(root, rounds=1)
+        config["checkpoint_every_steps"] = interval
+        config["max_dp_steps_per_epoch"] = 2
+        config["dropout"] = 0.1
+        calls = []
+
+        def count_save(payload, path):
+            calls.append(Path(path).name)
+            return original_atomic_save(payload, path)
+
+        monkeypatch.setattr(dp_server, "atomic_save", count_save)
+        seed_everything(42, 1)
+        run = run_dp_federated(config, "gru_attention", run_dir=root / "run",
+                               prepared_clients=clients)
+        outcomes[interval] = load_checkpoint(run / "latest_dp_global.pt")
+        best_checkpoint = load_checkpoint(run / "best_dp_global.pt")
+        assert _same_state(best_checkpoint["model_state_dict"],
+                           outcomes[interval]["best_model_state_dict"])
+        rebuilt = build_model("gru_attention", hidden_dim=8, dropout=0.1)
+        rebuilt.load_state_dict(best_checkpoint["model_state_dict"], strict=True)
+        rebuilt.load_state_dict(outcomes[interval]["global_model_state_dict"], strict=True)
+        write_names[interval] = calls
+        monkeypatch.setattr(dp_server, "atomic_save", original_atomic_save)
+    for key in ("global_model_state_dict", "best_model_state_dict"):
+        assert _same_state(outcomes[1][key], outcomes[25][key])
+    assert outcomes[1]["accountant_states"] == outcomes[25]["accountant_states"]
+    assert outcomes[1]["best_validation"] == outcomes[25]["best_validation"]
+    assert _same_state(outcomes[1]["rng_state"], outcomes[25]["rng_state"])
+    assert write_names[1].count("latest_dp_global.pt") == 18
+    assert write_names[25].count("latest_dp_global.pt") == 8
+    assert len(write_names[1]) == 19
+    assert len(write_names[25]) == 9
+
+
 def test_mid_client_checkpoint_resume_does_not_repeat_committed_step(tmp_path, monkeypatch):
     clients = synthetic_clients()
     cfg = _config(tmp_path / "continuous", rounds=1)
@@ -292,6 +342,7 @@ def test_mid_client_checkpoint_resume_does_not_repeat_committed_step(tmp_path, m
     interrupted_cfg = _config(tmp_path / "interrupted", rounds=1)
     interrupted_cfg["max_dp_steps_per_epoch"] = 2
     interrupted_cfg["dropout"] = 0.1
+    interrupted_cfg["checkpoint_every_steps"] = 1
     original = dp_server.client_dp_update
     triggered = {"done": False}
 
@@ -325,4 +376,184 @@ def test_mid_client_checkpoint_resume_does_not_repeat_committed_step(tmp_path, m
     resumed = load_checkpoint(resumed_dir / "latest_dp_global.pt")
     assert _same_state(continuous["global_model_state_dict"], resumed["global_model_state_dict"])
     assert continuous["accountant_states"] == resumed["accountant_states"]
+    assert _same_state(continuous["rng_state"], resumed["rng_state"])
     assert all(resumed["accountant_states"][cid]["steps"] == 2 for cid in CLIENT_IDS)
+
+
+def test_interval_25_rolls_back_uncommitted_step_37_and_replays_exactly(tmp_path, monkeypatch):
+    clients = synthetic_clients()
+    cfg = _config(tmp_path / "continuous", rounds=1)
+    cfg["max_dp_steps_per_epoch"] = 40
+    cfg["checkpoint_every_steps"] = 25
+    cfg["dropout"] = 0.1
+    seed_everything(42, 1)
+    continuous_dir = run_dp_federated(cfg, "gru_attention",
+                                      run_dir=tmp_path / "continuous" / "run",
+                                      prepared_clients=clients)
+    continuous = load_checkpoint(continuous_dir / "latest_dp_global.pt")
+
+    interrupted_cfg = dict(cfg, output_root=str(tmp_path / "interrupted"))
+    original_sampler = __import__("src.privacy.training", fromlist=["poisson_indices"]).poisson_indices
+    calls = {"count": 0}
+
+    def stop_after_37_completed_steps(record_count, q, generator):
+        calls["count"] += 1
+        if calls["count"] == 38:
+            raise RuntimeError("injected crash after step 37; latest commit is step 25")
+        return original_sampler(record_count, q, generator)
+
+    monkeypatch.setattr("src.privacy.training.poisson_indices", stop_after_37_completed_steps)
+    seed_everything(42, 1)
+    with pytest.raises(RuntimeError, match="latest commit is step 25"):
+        run_dp_federated(interrupted_cfg, "gru_attention",
+                         run_dir=tmp_path / "interrupted" / "run",
+                         prepared_clients=clients)
+    committed = load_checkpoint(tmp_path / "interrupted" / "run" / "latest_dp_global.pt")
+    first = CLIENT_IDS[0]
+    assert committed["client_progress"]["next_step"] == 25
+    assert committed["client_progress"]["optimizer_state_dict"]
+    assert committed["client_progress"]["torch_rng_state"].numel() > 0
+    assert committed["rng_state"]["samplers"][first].numel() > 0
+    assert committed["rng_state"]["noise_generators"][first].numel() > 0
+    assert committed["accountant_states"][first]["steps"] == 25
+    assert all(committed["accountant_states"][cid]["steps"] == 0
+               for cid in CLIENT_IDS[1:])
+
+    monkeypatch.setattr("src.privacy.training.poisson_indices", original_sampler)
+    resumed_dir = run_dp_federated(interrupted_cfg, "gru_attention",
+                                   resume=tmp_path / "interrupted" / "run" / "latest_dp_global.pt",
+                                   prepared_clients=clients)
+    resumed = load_checkpoint(resumed_dir / "latest_dp_global.pt")
+    assert _same_state(continuous["global_model_state_dict"], resumed["global_model_state_dict"])
+    assert _same_state(continuous["best_model_state_dict"], resumed["best_model_state_dict"])
+    assert continuous["accountant_states"] == resumed["accountant_states"]
+    assert continuous["best_validation"] == resumed["best_validation"]
+    for actual, expected in zip(continuous["round_history"], resumed["round_history"]):
+        for key in ("train_loss", "train_selected_records", "client_equal_wape_percent",
+                    "overall_wape_percent", "client_metrics_json", "client_privacy_json",
+                    "is_best", "smoke", "test_evaluated"):
+            assert actual[key] == expected[key]
+        actual_sampling = json.loads(actual["client_sampling_json"])
+        expected_sampling = json.loads(expected["client_sampling_json"])
+        for client_id in CLIENT_IDS:
+            assert {key: value for key, value in actual_sampling[client_id].items()
+                    if key != "timings"} == {
+                key: value for key, value in expected_sampling[client_id].items()
+                if key != "timings"}
+    assert all(resumed["accountant_states"][cid]["steps"] == 40 for cid in CLIENT_IDS)
+    assert _same_state(continuous["rng_state"], resumed["rng_state"])
+
+
+@pytest.mark.parametrize("model_name", ["gru_attention", "stfednet_gated"])
+def test_cuda_uncommitted_steps_restore_noise_sampling_dropout_and_five_client_aggregate(
+        tmp_path, monkeypatch, model_name):
+    if not torch.cuda.is_available():
+        pytest.skip("CUDA required for DP recovery smoke")
+    clients = synthetic_clients()
+    config = dict(_config(tmp_path, rounds=1), device="cuda", gradient_method="torch_func",
+                  dropout=0.1, checkpoint_every_steps=25, max_dp_steps_per_epoch=2)
+    full_dir = run_dp_federated(config, model_name, run_dir=tmp_path / "full",
+                                prepared_clients=clients)
+    full = load_checkpoint(full_dir / "latest_dp_global.pt")
+    original = __import__("src.privacy.training", fromlist=["poisson_indices"]).poisson_indices
+    calls = 0
+
+    def interrupt_after_one_step(*args):
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise RuntimeError("CUDA interrupt between snapshots")
+        return original(*args)
+
+    monkeypatch.setattr("src.privacy.training.poisson_indices", interrupt_after_one_step)
+    with pytest.raises(RuntimeError, match="CUDA interrupt"):
+        run_dp_federated(config, model_name, run_dir=tmp_path / "resumed",
+                         prepared_clients=clients)
+    saved = load_checkpoint(tmp_path / "resumed" / "latest_dp_global.pt")
+    assert saved["client_progress"] is None
+    assert all(state["steps"] == 0 for state in saved["accountant_states"].values())
+    monkeypatch.setattr("src.privacy.training.poisson_indices", original)
+    resumed_dir = run_dp_federated(config, model_name,
+                                   resume=tmp_path / "resumed" / "latest_dp_global.pt",
+                                   prepared_clients=clients)
+    resumed = load_checkpoint(resumed_dir / "latest_dp_global.pt")
+    for key in ("global_model_state_dict", "best_model_state_dict", "rng_state"):
+        assert _same_state(full[key], resumed[key])
+    assert full["best_validation"] == resumed["best_validation"]
+    assert full["accountant_states"] == resumed["accountant_states"]
+
+
+def test_aggregation_commit_resume_and_stale_accounting_sidecar_are_repaired(tmp_path, monkeypatch):
+    clients = synthetic_clients()
+    config = _config(tmp_path, rounds=1)
+    full_dir = run_dp_federated(config, "gru_attention", run_dir=tmp_path / "full",
+                                prepared_clients=clients)
+    full = load_checkpoint(full_dir / "latest_dp_global.pt")
+    original = dp_server.evaluate_clients
+    monkeypatch.setattr(dp_server, "evaluate_clients", lambda *args, **kwargs:
+                        (_ for _ in ()).throw(RuntimeError("interrupt after aggregation commit")))
+    with pytest.raises(RuntimeError, match="aggregation commit"):
+        run_dp_federated(config, "gru_attention", run_dir=tmp_path / "resumed",
+                         prepared_clients=clients)
+    saved = load_checkpoint(tmp_path / "resumed" / "latest_dp_global.pt")
+    assert saved["next_client_index"] == 5
+    assert saved["completed_round"] == 0
+    assert saved["client_progress"] is None
+    assert all(state["steps"] == 1 for state in saved["accountant_states"].values())
+    monkeypatch.setattr(dp_server, "evaluate_clients", original)
+    resumed_dir = run_dp_federated(config, "gru_attention",
+                                   resume=tmp_path / "resumed" / "latest_dp_global.pt",
+                                   prepared_clients=clients)
+    resumed = load_checkpoint(resumed_dir / "latest_dp_global.pt")
+    assert _same_state(full["global_model_state_dict"], resumed["global_model_state_dict"])
+    assert full["accountant_states"] == resumed["accountant_states"]
+    assert full["best_validation"] == resumed["best_validation"]
+    # Completed-run recovery repairs a sidecar without replaying any DP update.
+    (resumed_dir / "privacy_accounting.json").write_text("{}", encoding="utf-8")
+    run_dp_federated(config, "gru_attention", resume=resumed_dir / "latest_dp_global.pt",
+                     prepared_clients=clients)
+    report = json.loads((resumed_dir / "privacy_accounting.json").read_text())
+    assert all(item["committed_update_steps"] == 1 for item in report["clients"].values())
+
+
+def test_epsilon_query_cache_does_not_skip_accounting_or_change_rdp_formula(monkeypatch):
+    account = ClientRDPAccountant(1.0, 32 / 6084, 1.0, 1e-5)
+    original = account.accountant.get_epsilon
+    calls = []
+
+    def query(**kwargs):
+        calls.append(account.steps)
+        return original(**kwargs)
+
+    monkeypatch.setattr(account.accountant, "get_epsilon", query)
+    account.step()
+    epsilon = account.epsilon()
+    assert account.state_dict()["theoretical_epsilon"] == epsilon
+    assert account.epsilon() == epsilon
+    assert calls == [1]
+    account.step()
+    assert account.epsilon() >= epsilon
+    assert calls == [1, 2]
+    assert account.steps == 2
+    assert account.epsilon() == original(delta=1e-5)
+
+
+def test_atomic_failure_leaves_old_checkpoint_and_retries_replace(tmp_path, monkeypatch):
+    path = tmp_path / "latest.pt"
+    dp_server.atomic_save({"steps": 25}, path)
+    original = dp_server.os.replace
+    calls = 0
+
+    def fail_replace(*args):
+        nonlocal calls
+        calls += 1
+        raise PermissionError("simulated Windows replace failure")
+
+    monkeypatch.setattr(dp_server.os, "replace", fail_replace)
+    with pytest.raises(PermissionError):
+        dp_server.atomic_save({"steps": 37}, path)
+    assert calls == 6
+    assert load_checkpoint(path)["steps"] == 25
+    monkeypatch.setattr(dp_server.os, "replace", original)
+    dp_server.atomic_save({"steps": 40}, path)
+    assert load_checkpoint(path)["steps"] == 40

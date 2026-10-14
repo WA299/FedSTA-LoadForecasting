@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import time
 import opacus
 
 from opacus.accountants import RDPAccountant
@@ -31,6 +32,7 @@ class ClientRDPAccountant:
         if not 0 < self.delta < 1:
             raise ValueError("delta must be in (0, 1)")
         self.steps = 0
+        self._epsilon_cache = None
         self.accountant = RDPAccountant() if self.noise_multiplier > 0 else None
         if state is not None:
             self._load(state)
@@ -49,11 +51,21 @@ class ClientRDPAccountant:
     def epsilon(self):
         if not self.is_dp or self.steps == 0:
             return None
+        if self._epsilon_cache is not None and self._epsilon_cache[0] == self.steps:
+            return self._epsilon_cache[1]
         value = float(self.accountant.get_epsilon(delta=self.delta))
-        return value if math.isfinite(value) else None
+        value = value if math.isfinite(value) else None
+        self._epsilon_cache = (self.steps, value)
+        return value
 
-    def state_dict(self):
-        return {
+    def state_dict_with_timing(self):
+        started = time.perf_counter()
+        accountant_state = self.accountant.state_dict() if self.is_dp else None
+        state_read_seconds = time.perf_counter() - started
+        epsilon_started = time.perf_counter()
+        epsilon = self.epsilon()
+        epsilon_seconds = time.perf_counter() - epsilon_started
+        state = {
             "noise_multiplier": self.noise_multiplier,
             "sample_rate": self.sample_rate,
             "max_grad_norm": self.max_grad_norm,
@@ -61,12 +73,17 @@ class ClientRDPAccountant:
             "steps": self.steps,
             "accountant_name": "opacus.RDPAccountant",
             "accountant_version": opacus.__version__,
-            "accountant_state": self.accountant.state_dict() if self.is_dp else None,
-            "theoretical_epsilon": self.epsilon(),
+            "accountant_state": accountant_state,
+            "theoretical_epsilon": epsilon,
             "epsilon_claim_allowed": False,
             "status": ("theoretical_rdp_research_only" if self.is_dp
                        else "non_dp_sigma_zero_epsilon_undefined"),
         }
+        return state, {"accountant_state_read_seconds": state_read_seconds,
+                       "epsilon_calculation_seconds": epsilon_seconds}
+
+    def state_dict(self):
+        return self.state_dict_with_timing()[0]
 
     def _load(self, state):
         for key, current in (("noise_multiplier", self.noise_multiplier),
