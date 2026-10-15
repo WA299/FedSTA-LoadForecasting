@@ -24,4 +24,5 @@ results/**/*.tmp
 !/results/g2_smoke/smoke.log
 /results/g2_smoke_final/
 /results/g3_1/checkpoint_benchmark/
+/results/g3_2/
 
