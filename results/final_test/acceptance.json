@@ -1,0 +1,41 @@
+{
+  "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+  "base_commit": "322e2ea3776a669ec699771276cdced087842f44",
+  "manifest_sha256": "e5f2c11f3afc68b0300b3758b714ed79f8a6457b2754fd63a4d4f166c88077de",
+  "automated_tests": {
+    "passed": 184,
+    "new_tests": 19,
+    "warnings": 10,
+    "seconds": 91.0,
+    "command": "E:/Dachuang_FedSTA/.venv/Scripts/python.exe -m pytest -q",
+    "warning": "Existing torch.func GRU batching performance fallback"
+  },
+  "runtime": {
+    "python": "3.13.7",
+    "pytorch": "2.10.0+cu126",
+    "cuda_runtime": "12.6",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+  },
+  "formal_test": {
+    "checkpoints": 17,
+    "model_client_combinations": 41,
+    "windows_per_combination": 1314,
+    "total_window_evaluations": 53874,
+    "test_target_start": "2021-11-07T06",
+    "test_target_end": "2021-12-31T23",
+    "device": "cuda",
+    "smoke": false,
+    "completed_once_with_atomic_ledger": true,
+    "checkpoint_files_hash_checked_unchanged": 34,
+    "csv_json_rows_consistent": 41,
+    "scaler_refit": false,
+    "training_performed_for_final_results": false,
+    "prediction_arrays_saved": false,
+    "privacy_claim_allowed": false
+  },
+  "frozen_implementation_sha256": {
+    "src/models/forecasting.py": "40fd7f2f95a8c125feddc992f33e47dbfffb5674c66f61f30334ca44a9b6e507",
+    "src/data/loader.py": "9ae2f8f87d60f83f5d20c213e37166d7ac7e6f405e80a83bb8faecaa80ba193f",
+    "src/training/metrics.py": "7351658cd76da40e7c6c5ae522cf46bdbf67c63ca7668baae4ae019728f0f766"
+  }
+}

@@ -1,0 +1,3937 @@
+{
+  "schema_version": 1,
+  "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+  "created_utc": "2026-10-25T11:43:40.487196+00:00",
+  "status": "frozen_before_test",
+  "selection": "seed42; latest completed eligible formal repeat by Latest mtime_ns then path; no test-based selection",
+  "fedprox_selection": "mu=0.001 fixed by completed G2.1 gated validation sensitivity selection",
+  "excluded_roots": [
+    "results/g3_3_batch64",
+    "results/g3_4_lr_pilot",
+    "results/g3_pilot"
+  ],
+  "plan_reads_source_data": false,
+  "entries": [
+    {
+      "entry_id": "centralized__lv_39",
+      "method": "centralized",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/best_global.pt",
+        "sha256": "1380f6aa120c76c9b3f47b3b66ad355ebf0003c5accbc08b940aba43f658c49b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/latest_global.pt",
+        "sha256": "c2525965fee35c5f8b60d900e31dec461dd3647aa463a237743f45766693c30c"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.39859419458455225,
+        "rmse_kw": 0.6104648196354331,
+        "wape_percent": 27.54598004761339,
+        "mape_percent": 31.57528875752174,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "centralized__lv_50",
+      "method": "centralized",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/best_global.pt",
+        "sha256": "1380f6aa120c76c9b3f47b3b66ad355ebf0003c5accbc08b940aba43f658c49b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/latest_global.pt",
+        "sha256": "c2525965fee35c5f8b60d900e31dec461dd3647aa463a237743f45766693c30c"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.33356694274329446,
+        "rmse_kw": 0.632000673156686,
+        "wape_percent": 18.16709602575331,
+        "mape_percent": 31.565417063068868,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "centralized__lv_56",
+      "method": "centralized",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/best_global.pt",
+        "sha256": "1380f6aa120c76c9b3f47b3b66ad355ebf0003c5accbc08b940aba43f658c49b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/latest_global.pt",
+        "sha256": "c2525965fee35c5f8b60d900e31dec461dd3647aa463a237743f45766693c30c"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.44553794902551547,
+        "rmse_kw": 0.6485347326475386,
+        "wape_percent": 24.606956538544246,
+        "mape_percent": 29.86347061528762,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "centralized__lv_80",
+      "method": "centralized",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/best_global.pt",
+        "sha256": "1380f6aa120c76c9b3f47b3b66ad355ebf0003c5accbc08b940aba43f658c49b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/latest_global.pt",
+        "sha256": "c2525965fee35c5f8b60d900e31dec461dd3647aa463a237743f45766693c30c"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.22158169782648035,
+        "rmse_kw": 0.6349462775639525,
+        "wape_percent": 29.343699914443548,
+        "mape_percent": 42.27436038813967,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "centralized__industrial_mvlv",
+      "method": "centralized",
+      "model_name": "stfednet_gated",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/best_global.pt",
+        "sha256": "1380f6aa120c76c9b3f47b3b66ad355ebf0003c5accbc08b940aba43f658c49b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/centralized/stfednet_gated/seed42_20261014_022544_058100/latest_global.pt",
+        "sha256": "c2525965fee35c5f8b60d900e31dec461dd3647aa463a237743f45766693c30c"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 4.870646489647345,
+        "rmse_kw": 20.467155282202587,
+        "wape_percent": 9.895358954972172,
+        "mape_percent": 25.15286368513741,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0__lv_39",
+      "method": "dp_sigma0",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/best_dp_global.pt",
+        "sha256": "b47e8096d6178739772cdf1d7c7e94fff258572cc1c6512dae8fd16aa349659d"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/latest_dp_global.pt",
+        "sha256": "b1e252dc9af6623552dd4bb677ffb80c3b645c105a0182df928ab3883d3018b6"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.41096618536889723,
+        "rmse_kw": 0.6099858970427694,
+        "wape_percent": 28.40098148999524,
+        "mape_percent": 34.61918553455573,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "non_dp_control",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0__lv_50",
+      "method": "dp_sigma0",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/best_dp_global.pt",
+        "sha256": "b47e8096d6178739772cdf1d7c7e94fff258572cc1c6512dae8fd16aa349659d"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/latest_dp_global.pt",
+        "sha256": "b1e252dc9af6623552dd4bb677ffb80c3b645c105a0182df928ab3883d3018b6"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.34729309082546966,
+        "rmse_kw": 0.6250665376401077,
+        "wape_percent": 18.914664859228786,
+        "mape_percent": 36.630635175994456,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "non_dp_control",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0__lv_56",
+      "method": "dp_sigma0",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/best_dp_global.pt",
+        "sha256": "b47e8096d6178739772cdf1d7c7e94fff258572cc1c6512dae8fd16aa349659d"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/latest_dp_global.pt",
+        "sha256": "b1e252dc9af6623552dd4bb677ffb80c3b645c105a0182df928ab3883d3018b6"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.4558151026622494,
+        "rmse_kw": 0.6443661119455804,
+        "wape_percent": 25.17456132604254,
+        "mape_percent": 32.52281508087066,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "non_dp_control",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0__lv_80",
+      "method": "dp_sigma0",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/best_dp_global.pt",
+        "sha256": "b47e8096d6178739772cdf1d7c7e94fff258572cc1c6512dae8fd16aa349659d"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/latest_dp_global.pt",
+        "sha256": "b1e252dc9af6623552dd4bb677ffb80c3b645c105a0182df928ab3883d3018b6"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.23769014569841426,
+        "rmse_kw": 0.6372862107404595,
+        "wape_percent": 31.476915180316457,
+        "mape_percent": 49.1520508052551,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "non_dp_control",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0__industrial_mvlv",
+      "method": "dp_sigma0",
+      "model_name": "stfednet_gated",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/best_dp_global.pt",
+        "sha256": "b47e8096d6178739772cdf1d7c7e94fff258572cc1c6512dae8fd16aa349659d"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p0_seed42_20261015_005322_562400/latest_dp_global.pt",
+        "sha256": "b1e252dc9af6623552dd4bb677ffb80c3b645c105a0182df928ab3883d3018b6"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 6.2563510805673355,
+        "rmse_kw": 24.653469192455447,
+        "wape_percent": 12.710600086072818,
+        "mape_percent": 32.869683475568266,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "non_dp_control",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": null
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0.5__lv_39",
+      "method": "dp_sigma0.5",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/best_dp_global.pt",
+        "sha256": "9f26096a4e4069d46b4b8fe39be3e055191855e0e6ac5019e16ab38539e0b3a7"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/latest_dp_global.pt",
+        "sha256": "c17344b1259ab6efe374e2a196cc41c2112aa00f09135a6ad4aa10cac1de90ac"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.5,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.47801817248867606,
+        "rmse_kw": 0.6907036520731001,
+        "wape_percent": 33.034798852235966,
+        "mape_percent": 41.59979126648732,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0.5__lv_50",
+      "method": "dp_sigma0.5",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/best_dp_global.pt",
+        "sha256": "9f26096a4e4069d46b4b8fe39be3e055191855e0e6ac5019e16ab38539e0b3a7"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/latest_dp_global.pt",
+        "sha256": "c17344b1259ab6efe374e2a196cc41c2112aa00f09135a6ad4aa10cac1de90ac"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.5,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.4677359212647305,
+        "rmse_kw": 0.8341357077723806,
+        "wape_percent": 25.47435704037962,
+        "mape_percent": 45.63664671950928,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0.5__lv_56",
+      "method": "dp_sigma0.5",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/best_dp_global.pt",
+        "sha256": "9f26096a4e4069d46b4b8fe39be3e055191855e0e6ac5019e16ab38539e0b3a7"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/latest_dp_global.pt",
+        "sha256": "c17344b1259ab6efe374e2a196cc41c2112aa00f09135a6ad4aa10cac1de90ac"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.5,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.5571633180384569,
+        "rmse_kw": 0.7861314053791659,
+        "wape_percent": 30.771999516158502,
+        "mape_percent": 41.23270264446311,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0.5__lv_80",
+      "method": "dp_sigma0.5",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/best_dp_global.pt",
+        "sha256": "9f26096a4e4069d46b4b8fe39be3e055191855e0e6ac5019e16ab38539e0b3a7"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/latest_dp_global.pt",
+        "sha256": "c17344b1259ab6efe374e2a196cc41c2112aa00f09135a6ad4aa10cac1de90ac"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.5,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.3035208523144162,
+        "rmse_kw": 0.749793040754372,
+        "wape_percent": 40.19476741741075,
+        "mape_percent": 61.10165893776583,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma0.5__industrial_mvlv",
+      "method": "dp_sigma0.5",
+      "model_name": "stfednet_gated",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/best_dp_global.pt",
+        "sha256": "9f26096a4e4069d46b4b8fe39be3e055191855e0e6ac5019e16ab38539e0b3a7"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma0p5_seed42_20261015_154732_627600/latest_dp_global.pt",
+        "sha256": "c17344b1259ab6efe374e2a196cc41c2112aa00f09135a6ad4aa10cac1de90ac"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 0.5,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 16.5405513522164,
+        "rmse_kw": 55.71697606434361,
+        "wape_percent": 33.60430556625808,
+        "mape_percent": 83.5910463164966,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_50": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_56": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "lv_80": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          },
+          "industrial_mvlv": {
+            "steps": 3438,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 0.5,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 14.985728747058888
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma1__lv_39",
+      "method": "dp_sigma1",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/best_dp_global.pt",
+        "sha256": "e2133418e1ca556360006be8874b477d6ab795687b4c21480cd55922d31ee820"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/latest_dp_global.pt",
+        "sha256": "a101f3807ef278a00ed44d8f453b6b33ab34f8a1be57ee050b2a794b564628a9"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 1.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 19,
+      "validation_metrics": {
+        "mae_kw": 0.47905128450254614,
+        "rmse_kw": 0.691454230880229,
+        "wape_percent": 33.10619498220388,
+        "mape_percent": 41.73458157741046,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_50": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_56": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_80": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "industrial_mvlv": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma1__lv_50",
+      "method": "dp_sigma1",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/best_dp_global.pt",
+        "sha256": "e2133418e1ca556360006be8874b477d6ab795687b4c21480cd55922d31ee820"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/latest_dp_global.pt",
+        "sha256": "a101f3807ef278a00ed44d8f453b6b33ab34f8a1be57ee050b2a794b564628a9"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 1.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 19,
+      "validation_metrics": {
+        "mae_kw": 0.46826467805910543,
+        "rmse_kw": 0.8365430834245656,
+        "wape_percent": 25.503154784480632,
+        "mape_percent": 45.63189804253691,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_50": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_56": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_80": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "industrial_mvlv": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma1__lv_56",
+      "method": "dp_sigma1",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/best_dp_global.pt",
+        "sha256": "e2133418e1ca556360006be8874b477d6ab795687b4c21480cd55922d31ee820"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/latest_dp_global.pt",
+        "sha256": "a101f3807ef278a00ed44d8f453b6b33ab34f8a1be57ee050b2a794b564628a9"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 1.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 19,
+      "validation_metrics": {
+        "mae_kw": 0.5583616262089172,
+        "rmse_kw": 0.7876416086723336,
+        "wape_percent": 30.83818179565858,
+        "mape_percent": 41.29352257611964,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_50": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_56": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_80": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "industrial_mvlv": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma1__lv_80",
+      "method": "dp_sigma1",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/best_dp_global.pt",
+        "sha256": "e2133418e1ca556360006be8874b477d6ab795687b4c21480cd55922d31ee820"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/latest_dp_global.pt",
+        "sha256": "a101f3807ef278a00ed44d8f453b6b33ab34f8a1be57ee050b2a794b564628a9"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 1.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 19,
+      "validation_metrics": {
+        "mae_kw": 0.30291086310040843,
+        "rmse_kw": 0.7503868047328969,
+        "wape_percent": 40.113987548755226,
+        "mape_percent": 60.76651948547002,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_50": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_56": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_80": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "industrial_mvlv": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "dp_sigma1__industrial_mvlv",
+      "method": "dp_sigma1",
+      "model_name": "stfednet_gated",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best_dp_global",
+      "checkpoint": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/best_dp_global.pt",
+        "sha256": "e2133418e1ca556360006be8874b477d6ab795687b4c21480cd55922d31ee820"
+      },
+      "completion_evidence": {
+        "path": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261015_013727_775600/latest_dp_global.pt",
+        "sha256": "a101f3807ef278a00ed44d8f453b6b33ab34f8a1be57ee050b2a794b564628a9"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g3_1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ],
+        "expected_batch_size": 32,
+        "expected_train_records": 6084,
+        "noise_multiplier": 1.0,
+        "max_grad_norm": 1.0,
+        "delta": 1e-05,
+        "gradient_method": "auto",
+        "privacy_mode": "research",
+        "checkpoint_every_steps": 25,
+        "max_dp_steps_per_epoch": null
+      },
+      "best_epoch_or_round": 19,
+      "validation_metrics": {
+        "mae_kw": 16.586222625414436,
+        "rmse_kw": 55.919528334455194,
+        "wape_percent": 33.69709276466916,
+        "mape_percent": 84.48626073963362,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": {
+        "mode": "research",
+        "privacy_claim_allowed": false,
+        "status": "conditional_theoretical_window_rdp",
+        "best_checkpoint_accounting": {
+          "lv_39": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_50": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_56": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "lv_80": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          },
+          "industrial_mvlv": {
+            "steps": 3629,
+            "sample_rate": 0.005259697567389875,
+            "delta": 1e-05,
+            "max_grad_norm": 1.0,
+            "noise_multiplier": 1.0,
+            "accountant_name": "opacus.RDPAccountant",
+            "accountant_version": "1.6.0",
+            "theoretical_epsilon": 1.9330182892536463
+          }
+        },
+        "boundary": "Fixed preprocessing/topology/mask; ordinary PRNG; non-DP validation selection and test publication. No end-to-end/user-level guarantee."
+      },
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedavg__lv_39",
+      "method": "fedavg",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/best_global.pt",
+        "sha256": "1e04766f801dae343153f76c7b15f344f45cab45b2466d72e3b83a888f0708bd"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/latest_global.pt",
+        "sha256": "f027a295824c8e7d9558498e4114e44f6675cba44703e65685e8afdee36e40be"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.4165188786453217,
+        "rmse_kw": 0.6216175970258836,
+        "wape_percent": 28.784716075899905,
+        "mape_percent": 34.5552864414674,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedavg__lv_50",
+      "method": "fedavg",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/best_global.pt",
+        "sha256": "1e04766f801dae343153f76c7b15f344f45cab45b2466d72e3b83a888f0708bd"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/latest_global.pt",
+        "sha256": "f027a295824c8e7d9558498e4114e44f6675cba44703e65685e8afdee36e40be"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.3528661600229636,
+        "rmse_kw": 0.6461118466636745,
+        "wape_percent": 19.218191588935206,
+        "mape_percent": 36.13278219193642,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedavg__lv_56",
+      "method": "fedavg",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/best_global.pt",
+        "sha256": "1e04766f801dae343153f76c7b15f344f45cab45b2466d72e3b83a888f0708bd"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/latest_global.pt",
+        "sha256": "f027a295824c8e7d9558498e4114e44f6675cba44703e65685e8afdee36e40be"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.4588217464896411,
+        "rmse_kw": 0.6554349803736308,
+        "wape_percent": 25.34061756019572,
+        "mape_percent": 31.724999353132056,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedavg__lv_80",
+      "method": "fedavg",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/best_global.pt",
+        "sha256": "1e04766f801dae343153f76c7b15f344f45cab45b2466d72e3b83a888f0708bd"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/latest_global.pt",
+        "sha256": "f027a295824c8e7d9558498e4114e44f6675cba44703e65685e8afdee36e40be"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.24687575764101663,
+        "rmse_kw": 0.6715623067516342,
+        "wape_percent": 32.693350666722594,
+        "mape_percent": 47.68546709543677,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedavg__industrial_mvlv",
+      "method": "fedavg",
+      "model_name": "stfednet_gated",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/best_global.pt",
+        "sha256": "1e04766f801dae343153f76c7b15f344f45cab45b2466d72e3b83a888f0708bd"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedavg/stfednet_gated/seed42_20261014_015312_840900/latest_global.pt",
+        "sha256": "f027a295824c8e7d9558498e4114e44f6675cba44703e65685e8afdee36e40be"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.01,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 7.42864550680222,
+        "rmse_kw": 27.901682131539868,
+        "wape_percent": 15.092270398866805,
+        "mape_percent": 40.889678739972474,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedprox__lv_39",
+      "method": "fedprox",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/best_global.pt",
+        "sha256": "98d8ac8744d1d8a99315c6e96ea3a3dc564f8327adabb428db950edef124299b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/latest_global.pt",
+        "sha256": "e99fdd93c6e2f0363e4748d5134e72b9176ddc68d04f5b079a286f280a24243b"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.001,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 20,
+      "validation_metrics": {
+        "mae_kw": 0.4207066501851029,
+        "rmse_kw": 0.6216711350824194,
+        "wape_percent": 29.07412388174868,
+        "mape_percent": 35.48532511439207,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": 0.001,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedprox__lv_50",
+      "method": "fedprox",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/best_global.pt",
+        "sha256": "98d8ac8744d1d8a99315c6e96ea3a3dc564f8327adabb428db950edef124299b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/latest_global.pt",
+        "sha256": "e99fdd93c6e2f0363e4748d5134e72b9176ddc68d04f5b079a286f280a24243b"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.001,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 20,
+      "validation_metrics": {
+        "mae_kw": 0.36136079699339974,
+        "rmse_kw": 0.6493422120449477,
+        "wape_percent": 19.680836011301096,
+        "mape_percent": 37.73040149958265,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": 0.001,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedprox__lv_56",
+      "method": "fedprox",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/best_global.pt",
+        "sha256": "98d8ac8744d1d8a99315c6e96ea3a3dc564f8327adabb428db950edef124299b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/latest_global.pt",
+        "sha256": "e99fdd93c6e2f0363e4748d5134e72b9176ddc68d04f5b079a286f280a24243b"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.001,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 20,
+      "validation_metrics": {
+        "mae_kw": 0.4660636970957104,
+        "rmse_kw": 0.6589287389313181,
+        "wape_percent": 25.740588795435272,
+        "mape_percent": 33.34253964947211,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": 0.001,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedprox__lv_80",
+      "method": "fedprox",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/best_global.pt",
+        "sha256": "98d8ac8744d1d8a99315c6e96ea3a3dc564f8327adabb428db950edef124299b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/latest_global.pt",
+        "sha256": "e99fdd93c6e2f0363e4748d5134e72b9176ddc68d04f5b079a286f280a24243b"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.001,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 20,
+      "validation_metrics": {
+        "mae_kw": 0.25381502510621046,
+        "rmse_kw": 0.6668806329793298,
+        "wape_percent": 33.61230644746657,
+        "mape_percent": 49.03496008445147,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": 0.001,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "fedprox__industrial_mvlv",
+      "method": "fedprox",
+      "model_name": "stfednet_gated",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best_global",
+      "checkpoint": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/best_global.pt",
+        "sha256": "98d8ac8744d1d8a99315c6e96ea3a3dc564f8327adabb428db950edef124299b"
+      },
+      "completion_evidence": {
+        "path": "results/g2/fedprox/stfednet_gated/seed42_20261014_100217_245600/latest_global.pt",
+        "sha256": "e99fdd93c6e2f0363e4748d5134e72b9176ddc68d04f5b079a286f280a24243b"
+      },
+      "completed_epochs_or_rounds": 20,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "gat_heads": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "rounds": 20,
+        "local_epochs": 1,
+        "client_participation": 5,
+        "mu": 0.001,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null,
+        "clients": [
+          "lv_39",
+          "lv_50",
+          "lv_56",
+          "lv_80",
+          "industrial_mvlv"
+        ]
+      },
+      "best_epoch_or_round": 20,
+      "validation_metrics": {
+        "mae_kw": 7.897889655506411,
+        "rmse_kw": 28.52336016936348,
+        "wape_percent": 16.045601604245356,
+        "mape_percent": 42.40726429488081,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": 0.001,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_gru_attention__industrial_mvlv",
+      "method": "local_gru_attention",
+      "model_name": "gru_attention",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1/gru_attention/industrial_mvlv/seed42_20261013_011339_276700/best.pt",
+        "sha256": "58e7ad574b34ddd76e7cebf791cead20e2876f102391e5027f967becf7a67aaa"
+      },
+      "completion_evidence": {
+        "path": "results/g1/gru_attention/industrial_mvlv/seed42_20261013_011339_276700/latest.pt",
+        "sha256": "c49a3c6a605bbeabf9e9bd754788796494c9b9ae40c7be61e3af387535903fc3"
+      },
+      "completed_epochs_or_rounds": 30,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 28,
+      "validation_metrics": {
+        "mae_kw": 4.367118474600829,
+        "rmse_kw": 18.54671881589993,
+        "wape_percent": 8.872375565937372,
+        "mape_percent": 24.736689190563013,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1/gru_attention/industrial_mvlv/seed42_20261013_011339_276700/best.pt",
+        "sha256": "58e7ad574b34ddd76e7cebf791cead20e2876f102391e5027f967becf7a67aaa",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_gru_attention__lv_39",
+      "method": "local_gru_attention",
+      "model_name": "gru_attention",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1/gru_attention/lv_39/seed42_20261013_001714_496800/best.pt",
+        "sha256": "0ef9c2f6a97ab01f87889ce695535700220b7d357660a1abbf141f373b0bef94"
+      },
+      "completion_evidence": {
+        "path": "results/g1/gru_attention/lv_39/seed42_20261013_001714_496800/latest.pt",
+        "sha256": "e62db1044ccb575fba504ccc74f1dc5c62d1fe75a89cff851ff16095183b8469"
+      },
+      "completed_epochs_or_rounds": 30,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 29,
+      "validation_metrics": {
+        "mae_kw": 0.4061053201408782,
+        "rmse_kw": 0.602843561337506,
+        "wape_percent": 28.06505763961225,
+        "mape_percent": 33.89042451560154,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1/gru_attention/lv_39/seed42_20261013_001714_496800/best.pt",
+        "sha256": "0ef9c2f6a97ab01f87889ce695535700220b7d357660a1abbf141f373b0bef94",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_gru_attention__lv_50",
+      "method": "local_gru_attention",
+      "model_name": "gru_attention",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1/gru_attention/lv_50/seed42_20261013_010050_317300/best.pt",
+        "sha256": "c7e3c269835cb70b9e4d03162ace764a0e2521812063e3f103c3a745e240db76"
+      },
+      "completion_evidence": {
+        "path": "results/g1/gru_attention/lv_50/seed42_20261013_010050_317300/latest.pt",
+        "sha256": "146999f2190e3fdaf6ef14d0bd3712103cf5b5d415a4fdb3e90ad9ea504b4fef"
+      },
+      "completed_epochs_or_rounds": 27,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 19,
+      "validation_metrics": {
+        "mae_kw": 0.34532913758218364,
+        "rmse_kw": 0.6369095054330615,
+        "wape_percent": 18.807701840449305,
+        "mape_percent": 34.79785003520491,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1/gru_attention/lv_50/seed42_20261013_010050_317300/best.pt",
+        "sha256": "c7e3c269835cb70b9e4d03162ace764a0e2521812063e3f103c3a745e240db76",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_gru_attention__lv_56",
+      "method": "local_gru_attention",
+      "model_name": "gru_attention",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1/gru_attention/lv_56/seed42_20261013_010431_454800/best.pt",
+        "sha256": "2583c40f64addf37e0f038a17d6c2fdbe9f645c81e267029730cd691481b4bf9"
+      },
+      "completion_evidence": {
+        "path": "results/g1/gru_attention/lv_56/seed42_20261013_010431_454800/latest.pt",
+        "sha256": "773fb1cd81eb6974f5a6594df0b01ba05f2a633606a31847c5e06a13dccdc47b"
+      },
+      "completed_epochs_or_rounds": 28,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 20,
+      "validation_metrics": {
+        "mae_kw": 0.45801463284106675,
+        "rmse_kw": 0.64908110935035,
+        "wape_percent": 25.29604086248552,
+        "mape_percent": 32.51311089216608,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1/gru_attention/lv_56/seed42_20261013_010431_454800/best.pt",
+        "sha256": "2583c40f64addf37e0f038a17d6c2fdbe9f645c81e267029730cd691481b4bf9",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_gru_attention__lv_80",
+      "method": "local_gru_attention",
+      "model_name": "gru_attention",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1/gru_attention/lv_80/seed42_20261013_010808_651000/best.pt",
+        "sha256": "4bbc6ca75b393f453218368b107be0e897b808420e09a26b651362a80098ce7c"
+      },
+      "completion_evidence": {
+        "path": "results/g1/gru_attention/lv_80/seed42_20261013_010808_651000/latest.pt",
+        "sha256": "ebd697d3b99b30a44e650b7eb9c6f4e8896d65065feff2a993f38a822bcd701f"
+      },
+      "completed_epochs_or_rounds": 30,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 25,
+      "validation_metrics": {
+        "mae_kw": 0.21450981360823757,
+        "rmse_kw": 0.6205403368410839,
+        "wape_percent": 28.40718191514421,
+        "mape_percent": 44.80858863247892,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1/gru_attention/lv_80/seed42_20261013_010808_651000/best.pt",
+        "sha256": "4bbc6ca75b393f453218368b107be0e897b808420e09a26b651362a80098ce7c",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_stfednet_gated__industrial_mvlv",
+      "method": "local_stfednet_gated",
+      "model_name": "stfednet_gated",
+      "client_id": "industrial_mvlv",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af"
+      },
+      "completion_evidence": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/latest.pt",
+        "sha256": "f2161a33e1ae417cd05d6d8deb2472180596343f19da96994c5cd7769dd105bd"
+      },
+      "completed_epochs_or_rounds": 30,
+      "data_signature": "25afd86518656525aac026861d3ae0fdafc1c52aa4302d6279b7c1aa78f6df1f",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1_2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 28,
+      "validation_metrics": {
+        "mae_kw": 4.874527685775025,
+        "rmse_kw": 20.437483623056657,
+        "wape_percent": 9.903244115379456,
+        "mape_percent": 27.20016410850345,
+        "mape_valid_fraction": 0.8884491797733807,
+        "mape_valid_count": 52534,
+        "effective_count": 59130,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/industrial_mvlv/seed42_20261013_234052_983300/best.pt",
+        "sha256": "2b18151f4b957b49cbde4b4b6b7fe70e943d83f557e1cbd95a6eb6d42aa584af",
+        "scaler_sha256": "de3bc2dba8514a7a9a91bd1d899a752bccfca8ff4b3d2650a6510d98b73a2d0e",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_stfednet_gated__lv_39",
+      "method": "local_stfednet_gated",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5"
+      },
+      "completion_evidence": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/latest.pt",
+        "sha256": "9f7535c065047563704e3311b9d862ec081e9e918a01ca562eedc1b4c6695cfd"
+      },
+      "completed_epochs_or_rounds": 26,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1_2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 18,
+      "validation_metrics": {
+        "mae_kw": 0.4079525783555965,
+        "rmse_kw": 0.6060181225646422,
+        "wape_percent": 28.192717647250987,
+        "mape_percent": 33.77721254579288,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_39/seed42_20261013_233247_156300/best.pt",
+        "sha256": "f1aead3da8cea70d463a812db596876bf8550a5445c9b977b5db102d6dcc70c5",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_stfednet_gated__lv_50",
+      "method": "local_stfednet_gated",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_50",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67"
+      },
+      "completion_evidence": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/latest.pt",
+        "sha256": "12e03913e33d2527a2e629fb15e71c33404b77ab9b70eb11d0ea1b0a2fe6af54"
+      },
+      "completed_epochs_or_rounds": 27,
+      "data_signature": "fc9f6b86e51a8e57a2bfda907f7e641049256d95c59346c8667aca477dce88d2",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1_2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 19,
+      "validation_metrics": {
+        "mae_kw": 0.34418719614878696,
+        "rmse_kw": 0.636865721249526,
+        "wape_percent": 18.745508148515416,
+        "mape_percent": 35.43967855751247,
+        "mape_valid_fraction": 0.9021526418786693,
+        "mape_valid_count": 24894,
+        "effective_count": 27594,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_50/seed42_20261013_233359_492500/best.pt",
+        "sha256": "5ddb40dc9b2600a2574139295550cb39535ecac35ec3666b57dbb1e0e9444a67",
+        "scaler_sha256": "1fe30a0092ec0fffccbb624a0fc7ad7700a699b88e47e8e172f858334a99cc38",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_stfednet_gated__lv_56",
+      "method": "local_stfednet_gated",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_56",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348"
+      },
+      "completion_evidence": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/latest.pt",
+        "sha256": "9acc21673b580e8fe4b32bfa33f670e5e5b3cf275b17804b04f4f9026e690d7d"
+      },
+      "completed_epochs_or_rounds": 30,
+      "data_signature": "2c5d4270f19448669269d1ac152af9e9d8f3e92e4a79eedb4701123cd29f76b7",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1_2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 22,
+      "validation_metrics": {
+        "mae_kw": 0.45629717293939637,
+        "rmse_kw": 0.6474682213483856,
+        "wape_percent": 25.201185954503984,
+        "mape_percent": 32.275825330539796,
+        "mape_valid_fraction": 0.995416493704165,
+        "mape_valid_count": 57551,
+        "effective_count": 57816,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_56/seed42_20261013_233533_456000/best.pt",
+        "sha256": "49079f143aaac3055af70a3029ac8ff313a7a684d31ac733b090706583f02348",
+        "scaler_sha256": "83b0db89d8ac995d25eabbabdf5456eab3336f0edb67f6585e576c96961a692d",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "local_stfednet_gated__lv_80",
+      "method": "local_stfednet_gated",
+      "model_name": "stfednet_gated",
+      "client_id": "lv_80",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757"
+      },
+      "completion_evidence": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/latest.pt",
+        "sha256": "3a8fe54148a09b37fd9110e112d2c6129e735bd83dbe465a327d7c454f803fe1"
+      },
+      "completed_epochs_or_rounds": 30,
+      "data_signature": "d444df2d621e336b94f57738eb92864571b8f27af769ed26846a447014d6516c",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1_2",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "cuda",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 26,
+      "validation_metrics": {
+        "mae_kw": 0.2137206506196566,
+        "rmse_kw": 0.6257010632359268,
+        "wape_percent": 28.302674358122783,
+        "mape_percent": 44.65363591339429,
+        "mape_valid_fraction": 0.6599838280060882,
+        "mape_valid_count": 27751,
+        "effective_count": 42048,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1_2/stfednet_gated/lv_80/seed42_20261013_233733_839300/best.pt",
+        "sha256": "956a6d1fbe2f7d1b2c1aab75ab0855766f5769fc1a18fe10ba3280d9b7282757",
+        "scaler_sha256": "7e0a81c170a1e8403b896caa3ae43592fd59b10087f430bef4b78ecf1e863658",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    },
+    {
+      "entry_id": "persistence__lv_39",
+      "method": "persistence",
+      "model_name": "persistence",
+      "client_id": "lv_39",
+      "seed": 42,
+      "kind": "best",
+      "checkpoint": {
+        "path": "results/g1/persistence/lv_39/seed42_20261013_001837_338800/best.pt",
+        "sha256": "bb87dbee91ec60e186e030478c1f27b279cda3f821804aa1c7675bf7490f30b7"
+      },
+      "completion_evidence": {
+        "path": "results/g1/persistence/lv_39/seed42_20261013_001837_338800/latest.pt",
+        "sha256": "6a999380a944e2e1eac9b1a4ff93c4bb8886e2f75b26a63467ae8bc747d3e54f"
+      },
+      "completed_epochs_or_rounds": 1,
+      "data_signature": "a084a3d913fad2774c4531f22cf2ffc11f7c1cde073cf9494d6383d09ba2781a",
+      "config": {
+        "project_name": "基于时空注意力机制与联邦学习的配电网负荷预测",
+        "data_root": "Datasets",
+        "output_root": "results/g1",
+        "input_hours": 48,
+        "horizon_hours": 1,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "epochs": 30,
+        "patience": 8,
+        "min_delta": 0.0,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "cpu_threads": 4,
+        "mape_threshold_kw": 0.1,
+        "huber_delta": 1.0,
+        "gradient_clip": 1.0,
+        "max_train_batches": null,
+        "max_val_batches": null
+      },
+      "best_epoch_or_round": 1,
+      "validation_metrics": {
+        "mae_kw": 0.490575369756898,
+        "rmse_kw": 0.7436785431883844,
+        "wape_percent": 33.90259951291773,
+        "mape_percent": 40.6538288889216,
+        "mape_valid_fraction": 0.9967927810393564,
+        "mape_valid_count": 36674,
+        "effective_count": 36792,
+        "mape_threshold_kw": 0.1
+      },
+      "mu": null,
+      "privacy": null,
+      "scaler_source": {
+        "path": "results/g1/persistence/lv_39/seed42_20261013_001837_338800/best.pt",
+        "sha256": "bb87dbee91ec60e186e030478c1f27b279cda3f821804aa1c7675bf7490f30b7",
+        "scaler_sha256": "5199a338dc990dd0183648b3029f1ad011dcf789f0b51a6f4a17eb3ab78da29c",
+        "fit_start": "2021-01-01T00",
+        "fit_end": "2021-09-13T11"
+      }
+    }
+  ],
+  "missing": [
+    {
+      "method": "persistence",
+      "client_id": "lv_50",
+      "reason": "no eligible complete untested checkpoint"
+    },
+    {
+      "method": "persistence",
+      "client_id": "lv_56",
+      "reason": "no eligible complete untested checkpoint"
+    },
+    {
+      "method": "persistence",
+      "client_id": "lv_80",
+      "reason": "no eligible complete untested checkpoint"
+    },
+    {
+      "method": "persistence",
+      "client_id": "industrial_mvlv",
+      "reason": "no eligible complete untested checkpoint"
+    }
+  ],
+  "skipped": [
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_020055_882900/best_global.pt",
+      "reason": "excluded mu: G2.1 validation selected gated mu=0.001"
+    },
+    {
+      "checkpoint": "results/g2/fedprox/stfednet_gated/seed42_20261014_101031_196400/best_global.pt",
+      "reason": "excluded mu: G2.1 validation selected gated mu=0.001"
+    },
+    {
+      "checkpoint": "results/g3_1/dp_fedavg/stfednet_gated/sigma1p0_seed42_20261014_221908_291900/best_dp_global.pt",
+      "reason": "wrong seed or smoke"
+    }
+  ],
+  "freeze_sha256": "e5f2c11f3afc68b0300b3758b714ed79f8a6457b2754fd63a4d4f166c88077de"
+}

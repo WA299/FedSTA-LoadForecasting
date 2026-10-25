@@ -1,0 +1,165 @@
+{
+  "split": "validation",
+  "test_evaluated": false,
+  "sources": {
+    "architecture": {
+      "path": "results/g1_2/validation_comparison.json",
+      "sha256": "d02764b11ad0e7d8d493d669e9f9eb352f9879389d02a3bb35c8f07804a9c64a"
+    },
+    "fedprox": {
+      "path": "results/g2_1/fedprox_mu_comparison.json",
+      "sha256": "300825115c22565ecd7d9a097314d11ebb133d386fa5ae91b7800871221bdd1c"
+    },
+    "fedper": {
+      "path": "results/g2_2/fedper_comparison.json",
+      "sha256": "906e23c6ecbc0dac7bcc4c3355fd1814fc1f022dd245de76cb05b99ff65a9e9a"
+    },
+    "batch64": {
+      "path": "results/g3_3_batch64/G3_3_SUMMARY.json",
+      "sha256": "7f63b4559e84ec78ba8fb9a767e61b2505a421a27c85bc54092e83fbf7a9cb7e"
+    }
+  },
+  "architecture": {
+    "gru_attention": 21.88967156472573,
+    "stfednet": 22.404399393360343,
+    "stfednet_residual": 22.225435521093395,
+    "stfednet_gated": 22.069066044754525
+  },
+  "fedprox": [
+    {
+      "algorithm": "fedavg",
+      "model_name": "gru_attention",
+      "mu": null,
+      "best_round": 20,
+      "client_equal_wape_percent": 23.575646295050568
+    },
+    {
+      "algorithm": "fedavg",
+      "model_name": "stfednet_gated",
+      "mu": null,
+      "best_round": 18,
+      "client_equal_wape_percent": 24.225829258124044
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "gru_attention",
+      "mu": 0.0001,
+      "best_round": 20,
+      "client_equal_wape_percent": 23.26810233586428
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "gru_attention",
+      "mu": 0.001,
+      "best_round": 20,
+      "client_equal_wape_percent": 23.527267610254206
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "gru_attention",
+      "mu": 0.01,
+      "best_round": 19,
+      "client_equal_wape_percent": 28.99168986860993
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "stfednet_gated",
+      "mu": 0.0001,
+      "best_round": 20,
+      "client_equal_wape_percent": 25.019076060059255
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "stfednet_gated",
+      "mu": 0.001,
+      "best_round": 20,
+      "client_equal_wape_percent": 24.83069134803939
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "stfednet_gated",
+      "mu": 0.01,
+      "best_round": 19,
+      "client_equal_wape_percent": 29.046004206850903
+    }
+  ],
+  "fedper": [
+    {
+      "algorithm": "fedavg",
+      "model_name": "stfednet_gated",
+      "mu": null,
+      "best_round": 18,
+      "client_equal_wape_percent": 24.225829258124044
+    },
+    {
+      "algorithm": "centralized",
+      "model_name": "stfednet_gated",
+      "mu": null,
+      "best_round": 18,
+      "client_equal_wape_percent": 21.91181829626533
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "stfednet_gated",
+      "mu": 0.001,
+      "best_round": 20,
+      "client_equal_wape_percent": 24.83069134803939
+    },
+    {
+      "algorithm": "fedper",
+      "model_name": "stfednet_gated",
+      "mu": null,
+      "best_round": 20,
+      "client_equal_wape_percent": 24.28576625544273
+    },
+    {
+      "algorithm": "fedavg",
+      "model_name": "gru_attention",
+      "mu": null,
+      "best_round": 20,
+      "client_equal_wape_percent": 23.575646295050568
+    },
+    {
+      "algorithm": "centralized",
+      "model_name": "gru_attention",
+      "mu": null,
+      "best_round": 16,
+      "client_equal_wape_percent": 21.87053254382731
+    },
+    {
+      "algorithm": "fedprox",
+      "model_name": "gru_attention",
+      "mu": 0.0001,
+      "best_round": 20,
+      "client_equal_wape_percent": 23.26810233586428
+    },
+    {
+      "algorithm": "fedper",
+      "model_name": "gru_attention",
+      "mu": null,
+      "best_round": 20,
+      "client_equal_wape_percent": 23.54330019159743
+    },
+    {
+      "algorithm": "local_only",
+      "model_name": "stfednet_gated",
+      "mu": null,
+      "best_round": null,
+      "client_equal_wape_percent": 22.069066044754525
+    },
+    {
+      "algorithm": "local_only",
+      "model_name": "gru_attention",
+      "mu": null,
+      "best_round": null,
+      "client_equal_wape_percent": 21.88967156472573
+    }
+  ],
+  "batch64": {
+    "expected_batch_size": 64,
+    "noise_multiplier": 1.0,
+    "max_grad_norm": 1.0,
+    "completed_rounds": 20,
+    "client_equal_validation_wape_percent": 32.707685746105945
+  }
+}

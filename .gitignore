@@ -25,4 +25,6 @@ results/**/*.tmp
 /results/g2_smoke_final/
 /results/g3_1/checkpoint_benchmark/
 /results/g3_2/
+/results/final_test/execution_state.json
+/results/final_test/execution.lock
 
