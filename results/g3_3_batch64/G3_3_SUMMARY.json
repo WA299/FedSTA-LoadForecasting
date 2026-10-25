@@ -1,0 +1,18 @@
+﻿{
+    "phase":  "G3.3",
+    "experiment":  "expected_batch_size_64",
+    "model":  "stfednet_gated",
+    "noise_multiplier":  1.0,
+    "max_grad_norm":  1.0,
+    "expected_batch_size":  64,
+    "seed":  42,
+    "completed_rounds":  20,
+    "best_round":  16,
+    "client_equal_validation_wape_percent":  32.707685746105945,
+    "overall_validation_wape_percent":  33.59649181411078,
+    "client_update_steps":  1920,
+    "theoretical_epsilon_final":  2.967521070408137,
+    "smoke":  false,
+    "test_evaluated":  false,
+    "privacy_claim_allowed":  false
+}
